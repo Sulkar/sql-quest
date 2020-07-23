@@ -15,9 +15,12 @@
 
   <h1>Online SQL Abenteuer</h1>
 
+	<select id="selectTable" >
+		<option value="init">Wähle eine Tabelle</option>
+	</select>
+
   <main>
-    <label for='commands'>Es gibt eine Tabelle mit den Namen aller Mitarbeiter...</label>
-    <br><br>
+    <p id="tableInfo">Aktuelle Tabelle: </p>
 
     <textarea id="commands">DROP TABLE IF EXISTS mitarbeiter;
 CREATE TABLE mitarbeiter( id          integer,  vorname    text,
@@ -34,13 +37,13 @@ SELECT * FROM mitarbeiter;</textarea>
 
     <button id="execute" class="button">SQL ausführen</button>
     <button id='savedb' class="button">Datenbank speichern</button>
-    <label class="button">Datenbank laden: <input type='file' id='dbfile'></label>
+    Datenbank laden: <input type='file' id='dbfile'>
 
     <div id="error" class="error"></div>
 
     <pre id="output">...</pre>
   </main>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js"></script>
 
   <footer>
