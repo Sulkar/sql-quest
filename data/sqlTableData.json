@@ -1,0 +1,16 @@
+{"tables": [
+  {
+    "id": 0,
+    "name": "Mitarbeiter",
+    "table": "CREATE TABLE mitarbeiter(id integer, vorname text,nachname text, 'alter' integer);",
+    "rows": [
+    {
+      "row": "INSERT INTO mitarbeiter VALUES (1,'Richi','Müller',38);"
+    },
+    {
+      "row": "INSERT INTO mitarbeiter VALUES (2,'Benni','Huber',38);"
+    }
+    ]
+  }
+  ]
+}
