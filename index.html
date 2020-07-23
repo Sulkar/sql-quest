@@ -1,10 +1,52 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
-<HTML>
-   <HEAD>
-      <TITLE>My first HTML document</TITLE>
-   </HEAD>
-   <BODY>
-      <P>Hello world! super
-   </BODY>
-</HTML>
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf8">
+  <title>Online SQL Abenteuer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.css">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.js"></script>
+
+</head>
+
+<body>
+  
+
+  <h1>Online SQL Abenteuer</h1>
+
+  <main>
+    <label for='commands'>Es gibt eine Tabelle mit den Namen aller Mitarbeiter...</label>
+    <br><br>
+
+    <textarea id="commands">DROP TABLE IF EXISTS mitarbeiter;
+CREATE TABLE mitarbeiter( id          integer,  vorname    text,
+                          nachname text, "alter" integer);
+
+  INSERT INTO mitarbeiter VALUES (1,'Richi','Müller',38);
+  INSERT INTO mitarbeiter VALUES (2,'Benni','Huber',38);
+  INSERT INTO mitarbeiter VALUES (3,'Simon','Müller',9);
+  INSERT INTO mitarbeiter VALUES (4,'Anton','Huber',6);
+ 
+
+SELECT * FROM mitarbeiter;</textarea>
+
+    <button id="execute" class="button">SQL ausführen</button>
+    <button id='savedb' class="button">Datenbank speichern</button>
+    <label class="button">Datenbank laden: <input type='file' id='dbfile'></label>
+
+    <div id="error" class="error"></div>
+
+    <pre id="output">...</pre>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js"></script>
+
+  <footer>
+ 
+  </footer>
+
+  <script type="text/javascript" src="js/index.js"></script>
+</body>
+
+</html>
