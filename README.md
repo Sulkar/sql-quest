@@ -1,3 +1,5 @@
+Alle Änderungen kann man im [CHANGELOG.md](CHANGELOG.md) nachlesen.
+
 # sql-quest
 - [sql-quest github page](https://sulkar.github.io/sql-quest/)
 
