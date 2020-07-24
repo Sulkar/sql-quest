@@ -1,16 +1,61 @@
-{"tables": [
-  {
-    "id": 0,
-    "name": "Mitarbeiter",
-    "table": "CREATE TABLE mitarbeiter(id integer, vorname text,nachname text, 'alter' integer);",
-    "rows": [
+{
+  "databases": [
     {
-      "row": "INSERT INTO mitarbeiter VALUES (1,'Richi','Müller',38);"
+      "id": 0,
+      "name": "MitarbeiterDB",
+      "tables": [
+        {
+          "id": 0,
+          "name": "Mitarbeiter",
+          "table": "CREATE TABLE mitarbeiter(id integer, vorname text,nachname text, 'alter' integer);",
+          "rows": [
+            {
+              "row": "INSERT INTO mitarbeiter VALUES (1,'Richi','Müller',38);"
+            },
+            {
+              "row": "INSERT INTO mitarbeiter VALUES (2,'Benni','Huber',38);"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "name": "Gehalt",
+          "table": "CREATE TABLE gehalt(id integer, mitarbeiter_id integer, gehalt decimal);",
+          "rows": [
+            {
+              "row": "INSERT INTO gehalt VALUES (1,1,2500.50);"
+            },
+            {
+              "row": "INSERT INTO gehalt VALUES (2,2,2700.80);"
+            }
+          ]
+        }
+      ]
     },
     {
-      "row": "INSERT INTO mitarbeiter VALUES (2,'Benni','Huber',38);"
+      "id": 1,
+      "name": "VideospieleDB",
+      "tables": [
+        {
+          "id": 0,
+          "name": "Videospiele",
+          "table": "CREATE TABLE videospiele(id integer, spiel text, genre text, spielzeit integer, favorit integer);",
+          "rows": [
+            {
+              "row": "INSERT INTO videospiele VALUES (1,'Minecraft','Crafting',43,1);"
+            },
+            {
+              "row": "INSERT INTO videospiele VALUES (2,'Pokemon','RPG',38,0);"
+            },
+            {
+              "row": "INSERT INTO videospiele VALUES (3,'Super Mario','Jump n Run',12,0);"
+            },
+            {
+              "row": "INSERT INTO videospiele VALUES (4,'League of Legends','MOBA',9,0);"
+            }
+          ]
+        }
+      ]
     }
-    ]
-  }
   ]
 }
