@@ -16,24 +16,13 @@
   <h1>Online SQL Abenteuer</h1>
 
 	<select id="selectTable" >
-		<option value="init">Wähle eine Tabelle</option>
+		<option value="init">Wähle eine Datenbank</option>
 	</select>
 
   <main>
-    <p id="tableInfo">Aktuelle Tabelle: </p>
+    <p id="tableInfo">Aktuelle Datenbank: - </p>
 
-    <textarea id="commands">DROP TABLE IF EXISTS mitarbeiter;
-CREATE TABLE mitarbeiter( id          integer,  vorname    text,
-                          nachname text, "alter" integer);
-
-  INSERT INTO mitarbeiter VALUES (1,'Richi','Müller',38);
-  INSERT INTO mitarbeiter VALUES (2,'Benni','Huber',38);
-  INSERT INTO mitarbeiter VALUES (3,'Simon','Müller',9);
-  INSERT INTO mitarbeiter VALUES (4,'Anton','Huber',6);
-  INSERT INTO mitarbeiter VALUES (5,'Sarah','Müller',7);
- 
-
-SELECT * FROM mitarbeiter;</textarea>
+    <textarea id="commands">Bitte eine Datenbank auswählen!</textarea>
 
     <button id="execute" class="button">SQL ausführen</button>
     <button id='savedb' class="button">Datenbank speichern</button>
