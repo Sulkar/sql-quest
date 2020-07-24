@@ -6,8 +6,9 @@ $( document ).ready(function() {
 	var commandsElm = document.getElementById('commands');
 	var dbFileElm = document.getElementById('dbfile');
 	var savedbElm = document.getElementById('savedb');
-	var jsonTables;
-	var currentTable = "";
+
+	var jsonDatabases; 
+	var currentTables = [];
 
 	// Start the worker in which sql.js will run
 	var worker = new Worker("dist/worker.sql-wasm.js");
@@ -15,7 +16,7 @@ $( document ).ready(function() {
 	// Open a database
 	worker.postMessage({ action: 'open' });
 
-	// load JSON TableData
+	// lädt JSON TableData
 	var requestURL = 'data/sqlTableData.json';
 	var request = new XMLHttpRequest();
 	request.open('GET', requestURL);
@@ -23,35 +24,54 @@ $( document ).ready(function() {
 	request.send();
 
 	request.onload = function() {
-		var myJson = request.response;
-		jsonTables = myJson['tables'];
-		outputElm.innerHTML = jsonTables.length;
-		// DropDown Element mit den Namen der Tabellen in der JSON Datei erweitern:
-		for(var i = 0; i < jsonTables.length; i++) {
-			$("#selectTable").append(new Option(jsonTables[i]['name'], jsonTables[i]['id']));
+		var tempJson = request.response;
+		jsonDatabases = tempJson['databases'];
+		// DropDown Element mit den Namen der Datenbanken in der JSON Datei erweitern:
+		for(var i = 0; i < jsonDatabases.length; i++) {
+			$("#selectTable").append(new Option(jsonDatabases[i]['name'], jsonDatabases[i]['id']));
 		}
 	}
 
-	// lädt anhand der ID eine Tabelle
-	function execLoadJsonTable(id) {
+	// lädt anhand der ID eine Datenbank
+	function execLoadJsonDB(id) {
 		if(id != "init"){
+			// lösche alle bereits vorhandenen Tabellen
+			currentTables.forEach(function(table, index){
+				execute('DROP TABLE ' + table + ';')
+			});
+			currentTables = [];
+			
 			id = parseInt(id);
 			noerror();
 			// baut Query zusammen
-			var tempSQLQuery = jsonTables[id]['table'];
-			for(var i = 0; i < jsonTables[id]['rows'].length; i++) {
-				tempSQLQuery += jsonTables[id]['rows'][i].row;
+			var tempSQLQuery = "";
+			for(var i = 0; i < jsonDatabases[id]['tables'].length; i++){
+				// Name der Tabelle wird gespeichert
+				currentTables.push(jsonDatabases[id]['tables'][i]['name']);
+				// SQL zum Erstellen der Tabelle
+				tempSQLQuery += jsonDatabases[id]['tables'][i].table;
+				// SQL zum Hinzufügen der Rows
+				for(var j = 0; j < jsonDatabases[id]['tables'][i]['rows'].length; j++) {
+					tempSQLQuery += jsonDatabases[id]['tables'][i]['rows'][j].row;
+				}
 			}
-			$("#tableInfo").html("Aktuelle Tabelle: " + jsonTables[id]['name']);
+			// erstellt einen Informations
+			var tempInfos = "Aktuelle Datenbank: " + jsonDatabases[id]['name'];
+			currentTables.forEach(function(table, index){
+				tempInfos += "<br>" + (index+1) + ". Tabelle: " + table;
+			});
+			$("#tableInfo").html(tempInfos);
 			// führt den zusammengebauten Query aus
-			execute(tempSQLQuery);
+			execute(tempSQLQuery + "SELECT name, sql FROM sqlite_master WHERE type='table';");
 		}
 	}
 
 	// DropDown event Listener
 	$('#selectTable').on('change', function() {
-		editor.setValue("SELECT * FROM ");
-		execLoadJsonTable(this.value)
+		if(this.value != "init"){
+			editor.setValue("SELECT * FROM ");
+			execLoadJsonDB(this.value)
+		}
 	});
 
 	// Connect to the HTML element we 'print' to
@@ -123,7 +143,7 @@ $( document ).ready(function() {
 		console.log((msg || 'toc') + ": " + dt + "ms");
 	}
 
-	// Add syntax highlihjting to the textarea
+	// Add syntax highlighting to the textarea
 	var editor = CodeMirror.fromTextArea(commandsElm, {
 		mode: 'text/x-mysql',
 		viewportMargin: Infinity,
