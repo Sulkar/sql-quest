@@ -3,6 +3,8 @@ Alle Änderungen kann man im [CHANGELOG.md](CHANGELOG.md) nachlesen.
 # sql-quest
 - [sql-quest github page](https://sulkar.github.io/sql-quest/)
 
+![bild-v2](/images/v2.png)
+
 ![bild-v1](/images/v1.png)
 
 ## update sql-quest github pages
