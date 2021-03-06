@@ -1,45 +1,82 @@
 <!doctype html>
 <html>
 
-<head>
-  <meta charset="utf8">
-  <title>Online SQL Abenteuer</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.css">
-  <link rel="stylesheet" href="css/index.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.js"></script>
+	<head>
+		<meta charset="utf8">
+		<title>Online SQL Abenteuer</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-</head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.css">
+		<link rel="stylesheet" href="css/index.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.js"></script>
 
-<body>
-  
+	</head>
 
-  <h1>Online SQL Abenteuer</h1>
+	<body>
 
-	<select id="selectTable" >
-		<option value="init">Wähle eine Datenbank</option>
-	</select>
 
-  <main>
-    <p id="tableInfo">Aktuelle Datenbank: - </p>
+		<h1>Online SQL Abenteuer</h1>
 
-    <textarea id="commands">Bitte eine Datenbank auswählen!</textarea>
+		<select id="selectTable" >
+			<option value="init">Wähle eine Datenbank</option>
+		</select>
 
-    <button id="execute" class="button">SQL ausführen</button>
-    <button id='savedb' class="button">Datenbank speichern</button>
-    Datenbank laden: <input type='file' id='dbfile'>
+		<main>
+			<p id="tableInfo">Aktuelle Datenbank: - </p>
 
-    <div id="error" class="error"></div>
+			<textarea id="commands">Bitte eine Datenbank auswählen!</textarea>
 
-    <pre id="output">...</pre>
-  </main>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js"></script>
+			<button id="execute" class="button">SQL ausführen</button>
+			<button id='savedb' class="button">Datenbank speichern</button>
+			Datenbank laden: <input type='file' id='dbfile'>
 
-  <footer>
- 
-  </footer>
+			<div id="error" class="error"></div>
 
-  <script type="text/javascript" src="js/index.js"></script>
-</body>
+			<pre id="output">...</pre>
+		</main>
+		<div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+				<label class="input-group-text" for="inputGroupSelect01">Options</label>
+			  </div>
+			  <select class="custom-select" id="inputGroupSelect01">
+				<option selected>Choose...</option>
+				<option value="1">One</option>
+				<option value="2">Two</option>
+				<option value="3">Three</option>
+			  </select>
+			 </div>
+			  <div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<button class="btn btn-success" type="button">SELECT</button>
+				</div>
+				<select class="custom-select bg-success" id="inputGroupSelect03" style="color:white; border:0px; outline:0px;">
+					<option selected value="1">*</option>
+					<option value="2">id</option>
+					<option value="3">name</option>
+					<option value="4">...</option>
+				</select>
+				
+				<div class="input-group-prepend" style="margin-left: 5px;">
+					<button class="btn btn-warning" type="button" style="color:white;">FROM</button>
+				</div>
+				<select class="custom-select bg-warning" id="inputGroupSelect03" style="color:white; border:0px; outline:0px;">
+					<option selected value="1">...</option>
+					<option value="2">Mitarbeiter</option>
+					<option value="3">Gehälter</option>
+				</select>
+			</div>
+		
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js"></script>
+
+		<footer>
+
+		</footer>
+
+		<script type="text/javascript" src="js/index.js"></script>
+	</body>
 
 </html>

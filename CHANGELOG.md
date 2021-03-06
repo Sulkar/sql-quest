@@ -1,8 +1,12 @@
 
 # Change Log
 Alle interessanten Änderungen des Projekts werden hier aufgeführt.
- 
- 
+
+## [Unreleased] - 06.03.2021
+### Added
+- Bootstrap hinzugefügt
+- Button Group mit Selects erstellt vgl. [Bootstrap Input Groups](https://getbootstrap.com/docs/4.0/components/input-group/)
+
 ## [Unreleased] - 23.07.2020
 ### Added
 - SQL Queries werden in einer JSON Datei 'sqlTableData.json' gespeichert
