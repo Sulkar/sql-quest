@@ -37,11 +37,16 @@
 			<pre id="output">...</pre>
 		</main>
 		<div>	 
-			
-			<div id="gridSort" class="row">
+
+			<!-- Target Area for Library Buttons -->
+			<div id="gridSortTargetArea" class="row" style="background-color: #F0F0F0; min-height: 100px; padding: 20px; margin-bottom: 10px;" >
+			</div>
+			<!-- Library Buttons -->
+			<div id="gridSortLibrary" class="row">
 			
 				
-					<div class="input-group mb-3 grid-square" style="width: 180px;">			
+					<div class="input-group mb-3 grid-square" style="width: 180px; height:20px;">			
+
 						<div class="input-group-prepend">
 							<label class="input-group-text bg-success" for="inputGroupSelect03" style="color:white;">SELECT</label>
 						</div>
@@ -54,7 +59,8 @@
 					</div>
 				
 				
-					<div class="input-group mb-3 grid-square" style="width: 200px;">
+					<div class="input-group mb-3 grid-square" style="width: 200px; height:20px;">
+
 						<div class="input-group-prepend">
 							<label class="input-group-text bg-warning" for="inputGroupSelect04" style="color:white;">FROM</label>
 						</div>
@@ -65,7 +71,8 @@
 						</select>
 					</div>
 					
-					<div class="input-group mb-3 grid-square" style="width: 220px;">
+					<div class="input-group mb-3 grid-square" style="width: 220px; height:20px;">
+
 						<div class="input-group-prepend">
 							<label class="input-group-text bg-primary" for="inputGroupSelect05" style="color:white;">WHERE</label>
 						</div>
@@ -81,7 +88,8 @@
 						</select>						
 					</div>
 					
-					<div class="input-group mb-3 grid-square" style="width: 200px;">
+					<div class="input-group mb-3 grid-square" style="width: 200px; height:20px;">
+
 						<div class="input-group-prepend" >
 							<span class="input-group-text bg-info" id="" style="color:white;">Wert:</span>
 						  </div>
@@ -103,8 +111,28 @@
 
 		<script type="text/javascript" src="js/index.js"></script>
 		<script>
-			// Simple list
-			Sortable.create(gridSort, {  });
+			// Target Area
+			Sortable.create(gridSortTargetArea, {  
+				group: 'shared',
+				animation: 150
+			});
+			// Library Buttons Area
+			Sortable.create(gridSortLibrary, {  
+				group: {
+					name: 'shared',
+					pull: 'clone',
+					//put: false // Do not allow items to be put into this list
+				},
+				animation: 150,
+				sort: false, // To disable sorting: set sort to false
+				onAdd: function (evt) {
+					alert("Dd");
+				}
+			
+			});
+			
+			
+
 		</script>
 	</body>
 
