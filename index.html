@@ -1,45 +1,111 @@
 <!doctype html>
 <html>
 
-<head>
-  <meta charset="utf8">
-  <title>Online SQL Abenteuer</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.css">
-  <link rel="stylesheet" href="css/index.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.js"></script>
+	<head>
+		<meta charset="utf8">
+		<title>Online SQL Abenteuer</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-</head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.css">
+		<link rel="stylesheet" href="css/index.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.js"></script>
+		<script src="http://SortableJS.github.io/Sortable/Sortable.js"></script>
 
-<body>
-  
 
-  <h1>Online SQL Abenteuer</h1>
+	</head>
 
-	<select id="selectTable" >
-		<option value="init">Wähle eine Datenbank</option>
-	</select>
+	<body>
 
-  <main>
-    <p id="tableInfo">Aktuelle Datenbank: - </p>
 
-    <textarea id="commands">Bitte eine Datenbank auswählen!</textarea>
+		<h1>Online SQL Abenteuer</h1>
 
-    <button id="execute" class="button">SQL ausführen</button>
-    <button id='savedb' class="button">Datenbank speichern</button>
-    Datenbank laden: <input type='file' id='dbfile'>
+		<select id="selectTable" >
+			<option value="init">Wähle eine Datenbank</option>
+		</select>
 
-    <div id="error" class="error"></div>
+		<main>
+			<p id="tableInfo">Aktuelle Datenbank: - </p>
 
-    <pre id="output">...</pre>
-  </main>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js"></script>
+			<textarea id="commands">Bitte eine Datenbank auswählen!</textarea>
 
-  <footer>
- 
-  </footer>
+			<button id="execute" class="button">SQL ausführen</button>
+			<button id='savedb' class="button">Datenbank speichern</button>
+			Datenbank laden: <input type='file' id='dbfile'>
 
-  <script type="text/javascript" src="js/index.js"></script>
-</body>
+			<div id="error" class="error"></div>
+
+			<pre id="output">...</pre>
+		</main>
+		<div>	 
+			
+			<div id="gridSort" class="row">
+			
+				
+					<div class="input-group mb-3 grid-square" style="width: 180px;">			
+						<div class="input-group-prepend">
+							<label class="input-group-text bg-success" for="inputGroupSelect03" style="color:white;">SELECT</label>
+						</div>
+						<select class="custom-select bg-success" id="inputGroupSelect03" style="color:white; border:0px; outline:0px;">
+							<option selected value="1">*</option>
+							<option value="2">id</option>
+							<option value="3">name</option>
+							<option value="4">...</option>
+						</select>
+					</div>
+				
+				
+					<div class="input-group mb-3 grid-square" style="width: 200px;">
+						<div class="input-group-prepend">
+							<label class="input-group-text bg-warning" for="inputGroupSelect04" style="color:white;">FROM</label>
+						</div>
+						<select class="custom-select bg-warning" id="inputGroupSelect04" style="color:white; border:0px; outline:0px;">
+							<option selected value="1">...</option>
+							<option value="2">Mitarbeiter</option>
+							<option value="3">Gehälter</option>
+						</select>
+					</div>
+					
+					<div class="input-group mb-3 grid-square" style="width: 220px;">
+						<div class="input-group-prepend">
+							<label class="input-group-text bg-primary" for="inputGroupSelect05" style="color:white;">WHERE</label>
+						</div>
+						<select class="custom-select bg-primary" id="inputGroupSelect05" style="color:white; border:0px; outline:0px;">
+							<option selected value="2">id</option>
+							<option value="3">name</option>
+							<option value="4">...</option>
+						</select>
+						
+						<select class="custom-select bg-primary" id="inputGroupSelect06" style="color:white; border:0px; outline:0px;">
+							<option selected value="2">=</option>
+							<option value="3">like</option>
+						</select>						
+					</div>
+					
+					<div class="input-group mb-3 grid-square" style="width: 200px;">
+						<div class="input-group-prepend" >
+							<span class="input-group-text bg-info" id="" style="color:white;">Wert:</span>
+						  </div>
+						<input type="text" class="form-control bg-info" placeholder="Name..." style="color:white;">
+					</div>
+					
+				
+			
+			</div>
+		
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js"></script>
+
+		<footer>
+
+		</footer>
+
+		<script type="text/javascript" src="js/index.js"></script>
+		<script>
+			// Simple list
+			Sortable.create(gridSort, {  });
+		</script>
+	</body>
 
 </html>
