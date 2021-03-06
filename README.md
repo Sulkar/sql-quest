@@ -9,5 +9,10 @@ Unter der URL [https://sulkar.github.io/sql-quest/](https://sulkar.github.io/sql
 ## Infos für die lokale Entwicklung
 Lokal das Pythonscript "StartServer.py" starten und dann im Browser "http://localhost:8081/" aufrufen.
 
+## Ideen
+- SQl Quest soll eine einfache Einführung in SQL für Schülerinnen und Schüler der Mittelschule bieten. Sozusagen ein SQL im Scratchstyle.
+- Die Uni Kaiserslautern hat so etwas ähnliches entwickelt: [SQL Island](https://sql-island.informatik.uni-kl.de/), hier müssen die Nutzer jedoch SQL Code direkt eintippen. Wir wollen das mit Drag n Drop oder on Button Click realisieren.
+
 ## Links
 - sql-quest nutzt [sql.js](https://github.com/sql-js/sql.js) für die Datenbankabfragen
+- 
