@@ -36,7 +36,9 @@
 
 			<pre id="output">...</pre>
 		</main>
-		<div>	 
+		<hr>
+		<div>
+			<p>Befehle können in den grauen Codebereich gezogen werden:</p>
 			<!-- Target Area for Library Buttons -->
 			<div id="gridSortTargetArea" class="row" style="background-color: #F0F0F0; min-height: 100px; padding: 20px; margin-bottom: 10px;" >
 			</div>
@@ -44,7 +46,7 @@
 			<div id="gridSortLibrary" class="row">
 			
 				
-					<div class="input-group mb-3 grid-square" style="width: 180px; height:20px;">			
+					<div class="input-group mb-4 grid-square" style="width: 180px; height:20px;">			
 						<div class="input-group-prepend">
 							<label class="input-group-text bg-success" for="inputGroupSelect03" style="color:white;">SELECT</label>
 						</div>
@@ -52,7 +54,6 @@
 							<option selected value="1">*</option>
 							<option value="2">id</option>
 							<option value="3">name</option>
-							<option value="4">...</option>
 						</select>
 					</div>
 				
@@ -73,9 +74,9 @@
 							<label class="input-group-text bg-primary" for="inputGroupSelect05" style="color:white;">WHERE</label>
 						</div>
 						<select class="custom-select bg-primary" id="inputGroupSelect05" style="color:white; border:0px; outline:0px;">
-							<option selected value="2">id</option>
-							<option value="3">name</option>
-							<option value="4">...</option>
+							<option selected value="2">...</option>
+							<option value="3">id</option>
+							<option value="4">name</option>
 						</select>
 						
 						<select class="custom-select bg-primary" id="inputGroupSelect06" style="color:white; border:0px; outline:0px;">
@@ -116,12 +117,13 @@
 				group: {
 					name: 'shared',
 					pull: 'clone',
-					//put: false // Do not allow items to be put into this list
+					//put: false
 				},
 				animation: 150,
 				sort: false, // To disable sorting: set sort to false
-				onAdd: function (evt) {
-					alert("Dd");
+				onAdd: function (evt) { // löscht Items, welche in die Library zurückgedropt werden
+					var el = evt.item;
+					el.parentNode.removeChild(el);					
 				}
 			
 			});
