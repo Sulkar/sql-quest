@@ -63,6 +63,9 @@ $( document ).ready(function() {
 			$("#tableInfo").html(tempInfos);
 			// führt den zusammengebauten Query aus
 			execute(tempSQLQuery + "SELECT name, sql FROM sqlite_master WHERE type='table';");
+			
+			// TEST fill Code Selection
+			fillSelectWithTables(currentTables);
 		}
 	}
 
@@ -202,4 +205,13 @@ $( document ).ready(function() {
 	}
 	savedbElm.addEventListener("click", savedb, true);
 
+	// fill Button Selection with current tables
+	function fillSelectWithTables(currentTables){
+		$('#selectFROM option').remove();
+		$("#selectFROM").append(new Option("..."));
+		for(var i = 0; i < currentTables.length; i++) {
+			console.log(currentTables[i]);
+			$("#selectFROM").append(new Option(currentTables[i]));
+		}
+	}
 });
