@@ -39,6 +39,10 @@
 		<hr>
 		<div>
 			<p>Befehle können in den grauen Codebereich gezogen werden:</p>
+			<ul>
+				<li>Datenbank aus dem Dropdown oben auswählen, dann wird das Dropdown FROM mit Tabellen gefüllt!</li>
+			</ul>
+
 
 
 			<!-- Target Area for Library Buttons -->
@@ -52,9 +56,9 @@
 
 
 						<div class="input-group-prepend">
-							<label class="input-group-text bg-success" for="inputGroupSelect03" style="color:white;">SELECT</label>
+							<label class="input-group-text bg-success" for="selectSELECT" style="color:white;">SELECT</label>
 						</div>
-						<select class="custom-select bg-success" id="inputGroupSelect03" style="color:white; border:0px; outline:0px;">
+						<select class="custom-select bg-success" id="selectSELECT" style="color:white; border:0px; outline:0px;">
 							<option selected value="1">*</option>
 							<option value="2">id</option>
 							<option value="3">name</option>
@@ -64,29 +68,25 @@
 				
 					<div class="input-group mb-4 grid-square" style="width: 200px; height:20px;">
 
-
 						<div class="input-group-prepend">
-							<label class="input-group-text bg-warning" for="inputGroupSelect04" style="color:white;">FROM</label>
+							<label class="input-group-text bg-warning" for="selectFROM" style="color:white;">FROM</label>
 						</div>
-						<select class="custom-select bg-warning" id="inputGroupSelect04" style="color:white; border:0px; outline:0px;">
+						<select class="custom-select bg-warning" id="selectFROM" style="color:white; border:0px; outline:0px;">
 							<option selected value="1">...</option>
-							<option value="2">Mitarbeiter</option>
-							<option value="3">Gehälter</option>
 						</select>
 					</div>
 					
 					<div class="input-group mb-4 grid-square" style="width: 220px; height:20px;">
 
-
 						<div class="input-group-prepend">
-							<label class="input-group-text bg-primary" for="inputGroupSelect05" style="color:white;">WHERE</label>
+							<label class="input-group-text bg-primary" for="selectWHERE" style="color:white;">WHERE</label>
 						</div>
-						<select class="custom-select bg-primary" id="inputGroupSelect05" style="color:white; border:0px; outline:0px;">
+						<select class="custom-select bg-primary" id="selectWHERE" style="color:white; border:0px; outline:0px;">
+
 							<option selected value="2">...</option>
 							<option value="3">id</option>
 							<option value="4">name</option>
 						</select>
-						
 						<select class="custom-select bg-primary" id="inputGroupSelect06" style="color:white; border:0px; outline:0px;">
 							<option selected value="2">=</option>
 							<option value="3">like</option>
@@ -95,15 +95,12 @@
 					
 					<div class="input-group mb-4 grid-square" style="width: 200px; height:20px;">
 
-
 						<div class="input-group-prepend" >
 							<span class="input-group-text bg-info" id="" style="color:white;">Wert:</span>
 						  </div>
 						<input type="text" class="form-control bg-info" placeholder="Name..." style="color:white;">
 					</div>
-					
-				
-			
+		
 			</div>
 		
 		</div>
