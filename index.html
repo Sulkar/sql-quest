@@ -9,6 +9,8 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.css">
 		<link rel="stylesheet" href="css/index.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.js"></script>
+		<script src="http://SortableJS.github.io/Sortable/Sortable.js"></script>
+
 
 	</head>
 
@@ -34,37 +36,60 @@
 
 			<pre id="output">...</pre>
 		</main>
-		<div>
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-				<label class="input-group-text" for="inputGroupSelect01">Options</label>
-			  </div>
-			  <select class="custom-select" id="inputGroupSelect01">
-				<option selected>Choose...</option>
-				<option value="1">One</option>
-				<option value="2">Two</option>
-				<option value="3">Three</option>
-			  </select>
-			 </div>
-			  <div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<button class="btn btn-success" type="button">SELECT</button>
-				</div>
-				<select class="custom-select bg-success" id="inputGroupSelect03" style="color:white; border:0px; outline:0px;">
-					<option selected value="1">*</option>
-					<option value="2">id</option>
-					<option value="3">name</option>
-					<option value="4">...</option>
-				</select>
+		<div>	 
+			
+			<div id="gridSort" class="row">
+			
 				
-				<div class="input-group-prepend" style="margin-left: 5px;">
-					<button class="btn btn-warning" type="button" style="color:white;">FROM</button>
-				</div>
-				<select class="custom-select bg-warning" id="inputGroupSelect03" style="color:white; border:0px; outline:0px;">
-					<option selected value="1">...</option>
-					<option value="2">Mitarbeiter</option>
-					<option value="3">Gehälter</option>
-				</select>
+					<div class="input-group mb-3 grid-square" style="width: 180px;">			
+						<div class="input-group-prepend">
+							<label class="input-group-text bg-success" for="inputGroupSelect03" style="color:white;">SELECT</label>
+						</div>
+						<select class="custom-select bg-success" id="inputGroupSelect03" style="color:white; border:0px; outline:0px;">
+							<option selected value="1">*</option>
+							<option value="2">id</option>
+							<option value="3">name</option>
+							<option value="4">...</option>
+						</select>
+					</div>
+				
+				
+					<div class="input-group mb-3 grid-square" style="width: 200px;">
+						<div class="input-group-prepend">
+							<label class="input-group-text bg-warning" for="inputGroupSelect04" style="color:white;">FROM</label>
+						</div>
+						<select class="custom-select bg-warning" id="inputGroupSelect04" style="color:white; border:0px; outline:0px;">
+							<option selected value="1">...</option>
+							<option value="2">Mitarbeiter</option>
+							<option value="3">Gehälter</option>
+						</select>
+					</div>
+					
+					<div class="input-group mb-3 grid-square" style="width: 220px;">
+						<div class="input-group-prepend">
+							<label class="input-group-text bg-primary" for="inputGroupSelect05" style="color:white;">WHERE</label>
+						</div>
+						<select class="custom-select bg-primary" id="inputGroupSelect05" style="color:white; border:0px; outline:0px;">
+							<option selected value="2">id</option>
+							<option value="3">name</option>
+							<option value="4">...</option>
+						</select>
+						
+						<select class="custom-select bg-primary" id="inputGroupSelect06" style="color:white; border:0px; outline:0px;">
+							<option selected value="2">=</option>
+							<option value="3">like</option>
+						</select>						
+					</div>
+					
+					<div class="input-group mb-3 grid-square" style="width: 200px;">
+						<div class="input-group-prepend" >
+							<span class="input-group-text bg-info" id="" style="color:white;">Wert:</span>
+						  </div>
+						<input type="text" class="form-control bg-info" placeholder="Name..." style="color:white;">
+					</div>
+					
+				
+			
 			</div>
 		
 		</div>
@@ -77,6 +102,10 @@
 		</footer>
 
 		<script type="text/javascript" src="js/index.js"></script>
+		<script>
+			// Simple list
+			Sortable.create(gridSort, {  });
+		</script>
 	</body>
 
 </html>
