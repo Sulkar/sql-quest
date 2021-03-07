@@ -1,4 +1,5 @@
 Alle Änderungen kann man im [CHANGELOG.md](CHANGELOG.md) nachlesen.
+- temp Ideas [https://telegra.ph/temp-Ideas-SQL-Quest-03-07](https://telegra.ph/temp-Ideas-SQL-Quest-03-07)
 
 # sql-quest
 - [sql-quest github page](https://sulkar.github.io/sql-quest/)
