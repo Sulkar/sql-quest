@@ -22,3 +22,4 @@ Lokal das Pythonscript "StartServer.py" starten und dann im Browser "http://loca
 - sql-quest nutzt [sql.js](https://github.com/sql-js/sql.js) für die Datenbankabfragen
 - [sortable.js](https://github.com/SortableJS/Sortable)
 - [Basic SQL Statements from Khan Academy](https://telegra.ph/Basic-SQL-Statements-03-06)
+- deploy...
