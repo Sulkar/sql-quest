@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf8">
+
+    <title>Online SQL - Testcode</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <p><a href="./index.html">zurück</a></p>
+    <h2> Online SQL - Testcode</h2>
+
+    <div id="targetArea">
+
+    </div>
+    <div id="buttonArea">
+        <button id="btnSelect">
+            SELECT
+        </button>
+        <button id="btnFrom">
+            FROM
+        </button>
+        <select id="tables">
+            <option value="*">*</option>
+            <option value="id">id</option>
+            <option value="name">name</option>
+        </select>
+        <button id="btnDelete">
+            X
+        </button>
+
+    </div>
+    <p>
+        Debug:
+    </p>
+    <div id="debug">
+        ...
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+
+    <script type="text/javascript" src="js/testcode.js">
+    </script>
+    <script>
+        // Target Area
+        Sortable.create(gridSortTargetArea, {
+            group: 'shared',
+            animation: 150
+        });
+        // Library Buttons Area
+        Sortable.create(gridSortLibrary, {
+            group: {
+                name: 'shared',
+                pull: 'clone',
+                //put: false
+            },
+            animation: 150,
+            sort: false, // To disable sorting: set sort to false
+            onAdd: function (evt) { // löscht Items, welche in die Library zurückgedropt werden
+                var el = evt.item;
+                el.parentNode.removeChild(el);
+
+            }
+
+        });
+
+    </script>
+</body>
+
+</html>

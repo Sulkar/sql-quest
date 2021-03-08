@@ -2,108 +2,110 @@
 
 <html>
 
-  <head>
-    <meta charset="utf8">
+<head>
+  <meta charset="utf8">
 
-    <title>Online SQL Abenteuer</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.css">
-    <link rel="stylesheet" href="css/index.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.js">
-    </script>
-    <script src="https://SortableJS.github.io/Sortable/Sortable.js">
-    </script>
-  </head>
+  <title>Online SQL Abenteuer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.css">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.js">
+  </script>
+  <script src="https://SortableJS.github.io/Sortable/Sortable.js">
+  </script>
+</head>
 
-  <body>
-    <h1>Online SQL Abenteuer</h1><select id="selectTable">
-      <option value="init">
-        Wähle eine Datenbank
-      </option>
-    </select>
+<body>
+  <p><a href="./index.html">zurück</a></p>
+  <h1>Online SQL Abenteuer</h1><select id="selectTable">
+    <option value="init">
+      Wähle eine Datenbank
+    </option>
+  </select>
 
-    <p id="tableInfo">Aktuelle Datenbank: -</p>
-    <textarea id="commands">
+  <p id="tableInfo">Aktuelle Datenbank: -</p>
+  <textarea id="commands">
 Bitte eine Datenbank auswählen!
 </textarea> <button id="execute" class="button">SQL ausführen</button>
-    <button id='savedb' class="button">Datenbank speichern</button> Datenbank
-    laden:
+  <button id='savedb' class="button">Datenbank speichern</button> Datenbank
+  laden:
 
-    <form>
-      <input type='file' id='dbfile'>
-    </form>
+  <form>
+    <input type='file' id='dbfile'>
+  </form>
 
-    <div id="error" class="error"></div>
-    <pre id="output">
+  <div id="error" class="error"></div>
+  <pre id="output">
 ...
 </pre>
-    <hr>
+  <hr>
 
-    <div>
-      <div id="targetArea"></div>
+  <div>
+    <div id="targetArea"></div>
 
-      <div class="buttonArea">
-        <button class="btnSelect">SELECT ___ FROM ___</button>
-   
-	      <select class="selTable">
-          	<option value="benutzer">benutzer</option>
-		  	<option value="ware">warenausgabepunkt</option>
-		  	<option value="punkte">punkte</option>
-          </select>
-   
+    <div class="buttonArea">
+      <button class="btnSelect">SELECT ___ FROM ___</button>
 
-        <select class="selField">
-          <option value="*">*</option>
-          <option value="id">id</option>
-          <option value="name">name</option>
-        </select>
-  
+      <select class="selTable">
+        <option value="benutzer">benutzer</option>
+        <option value="ware">warenausgabepunkt</option>
+        <option value="punkte">punkte</option>
+      </select>
 
-		
-        <button class="btnDelete">X</button>
-      </div>
 
-      <p>Debug:</p>
+      <select class="selField">
+        <option value="*">*</option>
+        <option value="id">id</option>
+        <option value="name">name</option>
+      </select>
 
-      <div id="debug">
-        ...
-      </div>
+
+
+      <button class="btnDelete">X</button>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js">
-    </script>
-    <script type="text/javascript" src="js/index.js">
-    </script>
-    <script type="text/javascript" src="js/sqlbuilder.js">
-    </script>
-    <script>
-      // Target Area
-      Sortable.create(gridSortTargetArea, {
-        group: 'shared',
-        animation: 150
-      });
-      // Library Buttons Area
-      Sortable.create(gridSortLibrary, {
-        group: {
-          name: 'shared',
-          pull: 'clone',
-          //put: false
-        },
-        animation: 150,
-        sort: false, // To disable sorting: set sort to false
-        onAdd: function(evt) { // löscht Items, welche in die Library zurückgedropt werden
-          var el = evt.item;
-          el.parentNode.removeChild(el);
 
-        }
+    <p>Debug:</p>
 
-      });
-
+    <div id="debug">
+      ...
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
-  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js">
+  </script>
+  <script type="text/javascript" src="js/index.js">
+  </script>
+  <script type="text/javascript" src="js/sqlbuilder.js">
+  </script>
+  <script>
+    // Target Area
+    Sortable.create(gridSortTargetArea, {
+      group: 'shared',
+      animation: 150
+    });
+    // Library Buttons Area
+    Sortable.create(gridSortLibrary, {
+      group: {
+        name: 'shared',
+        pull: 'clone',
+        //put: false
+      },
+      animation: 150,
+      sort: false, // To disable sorting: set sort to false
+      onAdd: function (evt) { // löscht Items, welche in die Library zurückgedropt werden
+        var el = evt.item;
+        el.parentNode.removeChild(el);
+
+      }
+
+    });
+
+  </script>
+</body>
 
 </html>
-

@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf8">
+	<title>Online SQL Abenteuer 12</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.css">
+	<link rel="stylesheet" href="css/index.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.js"></script>
+	<script src="https://SortableJS.github.io/Sortable/Sortable.js"></script>
+
+
+</head>
+
+<body>
+
+	<p><a href="./index.html">zurück</a></p>
+	<h1>Online SQL Abenteuer</h1>
+
+	<select id="selectTable">
+		<option value="init">Wähle eine Datenbank</option>
+	</select>
+
+	<main>
+		<p id="tableInfo">Aktuelle Datenbank: - </p>
+
+		<textarea id="commands">Bitte eine Datenbank auswählen!</textarea>
+
+		<button id="execute" class="button">SQL ausführen</button>
+		<button id='savedb' class="button">Datenbank speichern</button>
+		Datenbank laden: <input type='file' id='dbfile'>
+
+		<div id="error" class="error"></div>
+
+		<pre id="output">...</pre>
+	</main>
+	<hr>
+	<div>
+		<p>Befehle können in den grauen Codebereich gezogen werden:</p>
+		<ul>
+			<li>Datenbank aus dem Dropdown oben auswählen, dann wird das Dropdown FROM mit Tabellen gefüllt!</li>
+		</ul>
+
+
+		<!-- Target Area for Library Buttons -->
+		<div id="gridSortTargetArea" class="row"
+			style="background-color: #F0F0F0; min-height: 100px; padding: 20px; margin-bottom: 10px;">
+		</div>
+		<!-- Library Buttons -->
+		<div id="gridSortLibrary" class="row">
+
+
+			<div class="input-group mb-4 grid-square" style="width: 180px; height:20px;">
+
+
+				<div class="input-group-prepend">
+					<label class="input-group-text bg-success" for="selectSELECT" style="color:white;">SELECT</label>
+				</div>
+				<select class="custom-select bg-success" id="selectSELECT"
+					style="color:white; border:0px; outline:0px;">
+					<option selected value="1">*</option>
+					<option value="2">id</option>
+					<option value="3">name</option>
+				</select>
+			</div>
+
+
+			<div class="input-group mb-4 grid-square" style="width: 200px; height:20px;">
+				<div class="input-group-prepend">
+					<label class="input-group-text bg-warning" for="selectFROM" style="color:white;">FROM</label>
+				</div>
+				<select class="custom-select bg-warning" id="selectFROM" style="color:white; border:0px; outline:0px;">
+					<option selected value="1">...</option>
+				</select>
+			</div>
+
+			<div class="input-group mb-4 grid-square" style="width: 220px; height:20px;">
+				<div class="input-group-prepend">
+					<label class="input-group-text bg-primary" for="selectWHERE" style="color:white;">WHERE</label>
+				</div>
+				<select class="custom-select bg-primary" id="selectWHERE" style="color:white; border:0px; outline:0px;">
+					<option selected value="2">...</option>
+					<option value="3">id</option>
+					<option value="4">name</option>
+				</select>
+				<select class="custom-select bg-primary" id="inputGroupSelect06"
+					style="color:white; border:0px; outline:0px;">
+					<option selected value="2">=</option>
+					<option value="3">like</option>
+				</select>
+			</div>
+
+			<div class="input-group mb-4 grid-square" style="width: 200px; height:20px;">
+				<div class="input-group-prepend">
+					<span class="input-group-text bg-info" id="" style="color:white;">Wert:</span>
+				</div>
+				<input type="text" class="form-control bg-info" placeholder="Name..." style="color:white;">
+			</div>
+
+		</div>
+
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js"></script>
+
+	<footer>
+
+	</footer>
+
+	<script type="text/javascript" src="js/index.js"></script>
+	<script>
+		// Target Area
+		Sortable.create(gridSortTargetArea, {
+			group: 'shared',
+			animation: 150
+		});
+		// Library Buttons Area
+		Sortable.create(gridSortLibrary, {
+			group: {
+				name: 'shared',
+				pull: 'clone',
+				//put: false
+			},
+			animation: 150,
+			sort: false, // To disable sorting: set sort to false
+			onAdd: function (evt) { // löscht Items, welche in die Library zurückgedropt werden
+				var el = evt.item;
+				el.parentNode.removeChild(el);
+
+			}
+
+		});
+
+
+
+	</script>
+</body>
+
+</html>

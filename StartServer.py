@@ -5,7 +5,7 @@ import os
 
 os.chdir("./")
 port = 8081
-print("Running on port %d" % port)
+print("Webseite kann unter folgender URL aufgerufen werden: http://localhost:8081/")
 
 http.server.SimpleHTTPRequestHandler.extensions_map[".wasm"] = "application/wasm"
 
