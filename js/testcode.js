@@ -17,7 +17,27 @@ $(document).ready(function () {
         elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child inputField root dbTable' data-next-element='" + (nr - 4) + "'>___</span></span>";
         nextElementNr = nr; nr++;
         elementSELECT_FROM += "</span></span>";
+        elementSELECT_FROM += addLeerzeichen(); nr++;
         $('#targetArea').append(elementSELECT_FROM);
+        setSelection(nextElementNr);
+    });
+
+    // Button: WHERE age > 21 -- WHERE ___ ___ ___ 
+    $('.btnWhere').click(function () {
+        removeSelection();
+        currentSelectedElementID = "";
+        var elementWHERE = "<span id='codeElement_" + nr + "' class='codeWrapper parent'>"; nr++;
+        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child'>WHERE"; nr++;
+        elementWHERE += addLeerzeichen(); nr++;
+        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root' data-next-element='" + (nr + 2) + "'>___</span></span>";
+        nextElementNr = nr; nr++;
+        elementWHERE += addLeerzeichen(); nr++;
+        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
+        elementWHERE += addLeerzeichen(); nr++;
+        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
+        elementWHERE += "</span></span>";
+        elementWHERE += addLeerzeichen(); nr++;
+        $('#targetArea').append(elementWHERE);
         setSelection(nextElementNr);
     });
 
@@ -43,6 +63,9 @@ $(document).ready(function () {
         // Element ist das root inputField? don´t remove Element only change html
         else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("root")) {
             $(tempSelection).html("___");
+            nextElementNr = getNextElementNr();
+            removeSelection();
+            setSelection(nextElementNr);
         }
         // don´t delete, select parent Element
         else {
