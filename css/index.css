@@ -1,157 +1,207 @@
 html {
-	background:#222;
-	margin:auto;
-	width:80%;
+    background: #222;
+    margin: auto;
+    width: 80%;
 }
 
-body{
-	background: linear-gradient(#aaa 0, #ddd 10px, #fff 55px);
-	border: 1px solid black;
-	padding: 10px 20px;
-	box-shadow: 5px 0px 30px #000;
-	border-radius: 8px;
+body {
+    background: linear-gradient(#aaa 0, #ddd 10px, #fff 55px);
+    border: 1px solid black;
+    padding: 10px 20px;
+    box-shadow: 5px 0px 30px #000;
+    border-radius: 8px;
 }
 
 h1 {
-	color: #222;
-	margin: 0 0 30px;
+    color: #222;
+    margin: 0 0 30px;
 }
 
 .button {
-	color: #333;
-	background: linear-gradient(#eee, #ddd);
-	border: 1px solid #222;
-	border-radius: 3px;
-	padding: 7px;
-	margin-right: 5px;
-	transition: .3s;
-	font-family: ubuntu, sans-serif;
-	font-size: 1em;
+    color: #333;
+    background: linear-gradient(#eee, #ddd);
+    border: 1px solid #222;
+    border-radius: 3px;
+    padding: 7px;
+    margin-right: 5px;
+    transition: .3s;
+    font-family: ubuntu, sans-serif;
+    font-size: 1em;
 }
 
 .button:active {
-	background: linear-gradient(#ddd, #eee);
+    background: linear-gradient(#ddd, #eee);
 }
 
-.button:hover, button:focus {
-	box-shadow: 0 0 2px #222;
+.button:hover,
+.button:focus {
+    box-shadow: 0 0 2px #222;
 }
 
 #execute {
-	margin-top: 5px;
-	min-width:100px;
+    margin-top: 5px;
+    min-width: 100px;
 }
 
 .CodeMirror {
-  border: 1px solid #222;
-  height: auto;
+    border: 1px solid #222;
+    height: auto;
 }
+
 .CodeMirror-scroll {
-  overflow-y: hidden;
-  overflow-x: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
 
 .error {
-	color:red;
-	transition:.5s;
-	overflow:hidden;
+    color: red;
+    transition: .5s;
+    overflow: hidden;
 }
 
 #output {
-	overflow: auto;
+    overflow: auto;
 }
 
 table {
-	width:auto;
-	margin:auto;
-	border:1px solid black;
- 	border-collapse:collapse;
- 	margin-bottom:10px;
+    width: auto;
+    margin: auto;
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-bottom: 10px;
 }
 
-th, td {
-	border:1px solid #777;
+th,
+td {
+    border: 1px solid #777;
 }
 
 footer {
-	font-size:.8em;
-	color: #222;
+    font-size: .8em;
+    color: #222;
 }
-
-
-
 
 #targetArea {
-  height: 100px;
-  background-color: LightGray;
-  font-family: monospace;
-}
-#buttonArea{
-  margin-top: 5px;
+    height: 100px;
+    background-color: LightGray;
+    font-family: monospace;
 }
 
-
-
-.buttonArea button{
- display: inline-block;
- padding: 0.35em 1.0em;
- border: 0;
- border-bottom: 0.2em  solid darkblue;
- margin: 0 0.3em 0.3em 0;
- border-radius: 0.12em;
- box-sizing: border-box;
- text-decoration: none;
- font-family: monospace;
- color: darkblue;
- text-align: center;
- transition: all 0.2s;
- background-color: #fff;
- font-size: 1.3em;
-  
+.buttonArea {
+    margin-top: 5px;
+    font-family: monospace;
+    font-size: 1.3em;
 }
-.buttonArea button:hover{
-  
-  background-color: lightblue;
+
+.buttonArea button,
+.buttonArea input {
+    display: inline-block;
+    padding: 0.35em 1.0em;
+    border: 0;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.18em;
+    box-sizing: border-box;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s;
+    background-color: #fff;
 }
-.buttonArea select{
- display: inline-block;
- padding: 0.35em 1.0em;
- border: 0;
- border-bottom: 0.2em  solid darkblue;
- margin: 0 0.3em 0.3em 0;
- border-radius: 0.12em;
- box-sizing: border-box;
- text-decoration: none;
- font-family: monospace;
- color: darkblue;
- text-align: center;
- transition: all 0.2s;
- background-color: #fff;
- font-size: 1.3em;
-   min-width: 5em;
-  -webkit-appearance: button;
-  appearance: button;
-  outline: none;
-  background-image: url("data:image/svg+xml;utf8,<svg fill='darkblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-  background-repeat: no-repeat;
-  background-position-x: 100%;
-  background-position-y: 0.1em;
-  
+
+.buttonArea select {
+    appearance: none;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    border: none;
+    border-radius: 0.18em;
+    padding: 0.35em 1.0em;
+    margin: 0 0.3em 0.3em 0;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 0.1em;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #fff;
+    outline: none;
+    width: min-content;
 }
 
 
+/* Gilt nur für Chrome, nötig um den Pfeil im Dropdown hinzubekommen */
 
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+    .buttonArea select {
+        appearance: none;
+    }
+}
 
-.buttonArea select:hover{
-	  background-color: lightblue;
+.buttonArea select::-ms-expand {
+    display: none;
 }
 
 
+/* Einfärbung für SELECT*/
 
-#debug{
-  border: 1px solid Gray;
+.buttonArea .sqlSelect {
+    display: inline-block;
+    border-bottom: 0.2em solid darkblue;
+    color: darkblue;
 }
+
+.buttonArea select.sqlSelect {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='darkblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+}
+
+.buttonArea select.sqlSelect:hover,
+.buttonArea button.sqlSelect:hover {
+    background-color: lightblue;
+}
+
+.buttonArea input.sqlSelect:focus {
+    outline: none;
+    background-color: lightblue;
+}
+
+.buttonArea button.sqlSelect {
+    border-bottom: 0.2em solid darkblue;
+    color: darkblue;
+}
+
+
+/*Einfärbung für WHERE*/
+
+.buttonArea .sqlWhere {
+    display: inline-block;
+    border-bottom: 0.2em solid darkcyan;
+    color: darkcyan;
+}
+
+.buttonArea select.sqlWhere {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='darkcyan' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+}
+
+.buttonArea select.sqlWhere:hover,
+.buttonArea button.sqlWhere:hover {
+    background-color: lightcyan;
+}
+
+.buttonArea input.sqlWhere:focus {
+    outline: none;
+    background-color: lightcyan;
+}
+
+.buttonArea button.sqlWhere {
+    border-bottom: 0.2em solid darkcyan;
+    color: darkcyan;
+}
+
+#debug {
+    border: 1px solid Gray;
+}
+
 .active {
-  background-color: LightBlue;
+    background-color: LightBlue;
 }
-
