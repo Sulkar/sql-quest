@@ -142,6 +142,12 @@ footer {
     display: none;
 }
 
+.buttonArea select:invalid,
+.buttonArea select.sqlSelect:invalid,
+.buttonArea select.sqlWhere:invalid {
+    color: gray;
+}
+
 
 /* Einfärbung für SELECT*/
 
