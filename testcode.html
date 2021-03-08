@@ -23,17 +23,20 @@
             SELECT ___ FROM ___
         </button>
 
-        <select class="selectElement selTable">
-            <option value="benutzer">benutzer</option>
-            <option value="warenausgabepunkt">warenausgabepunkt</option>
-            <option value="punkte">punkte</option>
-        </select>
+        <select class="selTable sqlSelect">
+            <option value="" disabled selected hidden>Tabelle wählen</option>
+          <option value="benutzer">benutzer</option>
+         <option value="ware">warenausgabepunkt</option>
+          <option value="punkte">punkte</option>
+      </select>
 
-        <select class="selectElement selField">
-            <option value="*">*</option>
-            <option value="id">id</option>
-            <option value="name">name</option>
-        </select>
+
+          <select class="selField sqlSelect">
+        <option value="" disabled selected hidden>Spalte wählen</option>
+        <option value="*">*</option>
+        <option value="id">id</option>
+        <option value="name">name</option>
+      </select>
 
         <button class="btnAdd">
             +

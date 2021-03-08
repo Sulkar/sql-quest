@@ -68,7 +68,7 @@ $(document).ready(function () {
 
 
     // Select: add dbField, dbTable
-    $('.selectElement').on('change', function () {
+    $('.sqlSelect').on('change', function () {
         if (currentSelectedElementID != "") {
             var tempSelection = "#" + currentSelectedElementID;
             if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("extended")) {
@@ -81,6 +81,8 @@ $(document).ready(function () {
             }
 
         }
+        //reset select option
+        $(this)[0].selectedIndex = 0;
     });
 
     //function: remove Selection from all Elements
