@@ -139,4 +139,19 @@ $(document).ready(function () {
     function addLeerzeichen() {
         return "<span id='codeElement_" + nr + "' class='codeElement leerzeichen'> </span>";
     }
+
+    loadJsonData("level1");
+    var activeCodeView;
+    function loadJsonData(level) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                activeCodeView = JSON.parse(this.responseText);
+                console.log(activeCodeView[0]);
+                console.log(activeCodeView[1]);
+            }
+        };
+        xmlhttp.open("GET", "./data/activeCodeViewData.json", true);
+        xmlhttp.send();
+    }
 });

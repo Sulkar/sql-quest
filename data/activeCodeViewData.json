@@ -1,0 +1,19 @@
+[
+    {
+        "selectedSQLElement": "FROM",
+        "level": 1,
+        "visibleCodeElements": [
+            "selTable",
+            "selField",
+            "btnWhere"
+        ]
+    },
+    {
+        "selectedSQLElement": "WHERE",
+        "level": 1,
+        "visibleCodeElements": [
+            "selTable",
+            "selField"
+        ]
+    }
+]
