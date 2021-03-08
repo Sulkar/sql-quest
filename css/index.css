@@ -78,3 +78,71 @@ footer {
 	font-size:.8em;
 	color: #222;
 }
+
+
+
+
+#targetArea {
+  height: 100px;
+  background-color: LightGray;
+  font-family: monospace;
+}
+#buttonArea{
+  margin-top: 5px;
+}
+
+
+.buttonArea button{
+ display: inline-block;
+ padding: 0.35em 1.0em;
+ border: 0;
+ border-bottom: 0.2em  solid darkblue;
+ margin: 0 0.3em 0.3em 0;
+ border-radius: 0.12em;
+ box-sizing: border-box;
+ text-decoration: none;
+ font-family: monospace;
+ font-weight: 300;
+ color: darkblue;
+ text-align: center;
+ transition: all 0.2s;
+ background-color: #fff;
+ font-size: 1.3em;
+  
+}
+.buttonArea button:hover{
+  
+  background-color: lightblue;
+}
+.buttonArea select{
+ display: inline-block;
+ padding: 0.35em 1.0em;
+ border: 0;
+ border-bottom: 0.2em  solid darkblue;
+ margin: 0 0.3em 0.3em 0;
+ border-radius: 0.12em;
+ box-sizing: border-box;
+ text-decoration: none;
+ font-family: monospace;
+ color: darkblue;
+ text-align: center;
+ transition: all 0.2s;
+ background-color: #fff;
+ font-size: 1.3em;
+   min-width: 5em;
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+  
+}
+.buttonArea select:hover{
+	  background-color: lightblue;
+}
+
+#debug{
+  border: 1px solid Gray;
+}
+.active {
+  background-color: LightBlue;
+}
+
