@@ -1,45 +1,53 @@
 $(document).ready(function () {
-    var id = 0;
-    var currentSelectedElement = 0;
-    var leerzeichen = "<span class='codeElement leerzeichen'> </span>";
+    var nr = 0;
+    var currentSelectedElementID = "";
+    var nextElementNr = 0;
 
     // Button: SELECT * FROM *
     $('.btnSelectFrom').click(function () {
-        var elementSELECT_FROM = "<span id='codeElement_" + id + "' class='codeWrapper parent'>";
-        elementSELECT_FROM += "<span id='codeElement_" + (id + 1) + "' class='codeElement child'>SELECT" + leerzeichen;
-        elementSELECT_FROM += "<span id='codeElement_" + (id + 2) + "' class='codeElement child inputField root dbField'>___</span></span>";
-        elementSELECT_FROM += leerzeichen + "<span id='codeElement_" + (id + 3) + "' class='codeElement child'>FROM" + leerzeichen;
-        elementSELECT_FROM += "<span id='codeElement_" + (id + 4) + "' class='codeElement child inputField root dbTable'>___</span></span>";
+        removeSelection();
+        currentSelectedElementID = "";
+        var elementSELECT_FROM = "<span id='codeElement_" + nr + "' class='codeWrapper parent'>"; nr++;
+        elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child'>SELECT"; nr++;
+        elementSELECT_FROM += addLeerzeichen(); nr++;
+        elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child inputField root dbField' data-next-element='" + (nr + 4) + "'>___</span></span>"; nr++;
+        elementSELECT_FROM += addLeerzeichen(); nr++;
+        elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child'>FROM"; nr++;
+        elementSELECT_FROM += addLeerzeichen(); nr++;
+        elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child inputField root dbTable' data-next-element='" + (nr - 4) + "'>___</span></span>";
+        nextElementNr = nr; nr++;
         elementSELECT_FROM += "</span></span>";
-        if (currentSelectedElement == 0) {
-            $('#targetArea').append(elementSELECT_FROM);
-        }
-        id = id + 5;
+        $('#targetArea').append(elementSELECT_FROM);
+        setSelection(nextElementNr);
     });
 
     //Button: Add Element
     $('.btnAdd').click(function () {
-        var tempSelection = "#" + currentSelectedElement;
+        var tempSelection = "#" + currentSelectedElementID;
         if ($(tempSelection).hasClass("inputField")) {
-            $(tempSelection).parent().append("<span id='codeElement_" + id + "' class='codeElement child inputField extended'>,___</span>");
+            $(tempSelection).parent().append("<span id='codeElement_" + nr + "' class='codeElement child inputField extended'>,___</span>");
             removeSelection();
-            $("#codeElement_" + id).addClass("active");
-            currentSelectedElement = "codeElement_" + id;
-            id++;
+            setSelection(nr);
+            nr++;
         }
     });
 
     // Button: Delete Element
     $('.btnDelete').click(function () {
-        var tempSelection = "#" + currentSelectedElement;
-        if (!$(tempSelection).hasClass("child") || $(tempSelection).hasClass("extended")) {
+        var tempSelection = "#" + currentSelectedElementID;
+        // Element parent? oder inputField + extended?
+        if ($(tempSelection).hasClass("parent") || ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("extended"))) {
             $(tempSelection).remove();
-            currentSelectedElement = 0;
-        } else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("root")) {
+            removeSelection();
+        }
+        // Element ist das root inputField? don´t remove Element only change html
+        else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("root")) {
             $(tempSelection).html("___");
-        } else {
-            $(tempSelection).parent().addClass("active");
-            currentSelectedElement = $(tempSelection).parent().attr('id');
+        }
+        // don´t delete, select parent Element
+        else {
+            var elementNr = getElementNr($(tempSelection).parent().attr('id'));
+            setSelection(elementNr);
         }
     });
 
@@ -47,9 +55,9 @@ $(document).ready(function () {
     $('body').on('click', 'span', function (event) {
         event.stopPropagation();
         removeSelection();
-        $(this).addClass("active");
-        currentSelectedElement = $(this).attr('id');
-        $("#debug").html("Selected: " + currentSelectedElement);
+        var elementNr = getElementNr($(this).attr('id'));
+        setSelection(elementNr);
+        $("#debug").html("Selected: " + currentSelectedElementID);
     });
 
     // on Click TargetArea - deselct
@@ -58,20 +66,52 @@ $(document).ready(function () {
         removeSelection();
     });
 
+
     // Select: add dbField, dbTable
     $('.selectElement').on('change', function () {
-        var tempSelection = "#" + currentSelectedElement;
-        if ($(tempSelection).hasClass("extended")) {
-            $(tempSelection).html("," + this.value);
-        } else {
-            $(tempSelection).html(this.value);
+        if (currentSelectedElementID != "") {
+            var tempSelection = "#" + currentSelectedElementID;
+            if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("extended")) {
+                $(tempSelection).html("," + this.value);
+            } else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("root")) {
+                $(tempSelection).html(this.value);
+                nextElementNr = getNextElementNr();
+                removeSelection();
+                setSelection(nextElementNr);
+            }
+
         }
-        removeSelection();
     });
 
-    //function: remove Selectioon from all Elements
+    //function: remove Selection from all Elements
     function removeSelection() {
         $(".codeElement").removeClass("active");
-        currentSelectedElement = 0;
+        currentSelectedElementID = "";
+    }
+
+    //function: set Selection to an Element
+    function setSelection(elementNr) {
+        $("#codeElement_" + elementNr).addClass("active");
+        currentSelectedElementID = "codeElement_" + elementNr;
+    }
+
+    //function: get NextElementNr by data field
+    function getNextElementNr() {
+        if (currentSelectedElementID != "") {
+            var tempSelection = "#" + currentSelectedElementID;
+            if ($(tempSelection).data("next-element") != undefined) {
+                return $(tempSelection).data("next-element");
+            }
+        }
+    }
+
+    //function: get Element Nr from Element ID
+    function getElementNr(elementID) {
+        return elementID.split("_")[1];
+    }
+
+    //function: add Leerzeichen <span>
+    function addLeerzeichen() {
+        return "<span id='codeElement_" + nr + "' class='codeElement leerzeichen'> </span>";
     }
 });
