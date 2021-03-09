@@ -52,8 +52,8 @@ $(document).ready(function () {
         var tempSelection = "#" + currentSelectedElementID;
         removeSelection();
         var elementWhereAND = addLeerzeichen(); nr++;
-        elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement codeWrapper parent sqlIdentifier' data-sql-element='WHERE''>"; nr++;
-        elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement child sqlIdentifier' data-sql-element='WHERE'>AND"; nr++;
+        //elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement codeWrapper parent sqlIdentifier' data-sql-element='WHERE_AND''>"; nr++;
+        elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement parent sqlIdentifier' data-sql-element='WHERE'>AND"; nr++;
         elementWhereAND += addLeerzeichen(); nr++;
         elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span>";
         nextElementNr = nr; nr++;
@@ -61,7 +61,7 @@ $(document).ready(function () {
         elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_2' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
         elementWhereAND += addLeerzeichen(); nr++;
         elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
-        elementWhereAND += "</span></span>";
+        elementWhereAND += "</span>";
         elementWhereAND += addLeerzeichen(); nr++;
         $(tempSelection).parent().append(elementWhereAND);
         setSelection(nextElementNr);
@@ -86,6 +86,7 @@ $(document).ready(function () {
         if ($(tempSelection).hasClass("parent") || ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("extended"))) {
             $(tempSelection).remove();
             removeSelection();
+            checkTargetAreaCodeElements();
         }
         // Element ist das root inputField? don´t remove Element only change html
         else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("root")) {
@@ -151,6 +152,7 @@ $(document).ready(function () {
     //function: remove Selection from all Elements
     function removeSelection() {
         $(".codeElement").removeClass("active");
+        $(".codeInput").val("");
         currentSelectedElementID = "";
     }
 
@@ -237,11 +239,22 @@ $(document).ready(function () {
         });
     }
 
+    //function: checks all Code Elements in the target area, and updates Code View
     function checkTargetAreaCodeElements() {
+        var sqlElements = [];
+
         $('#targetArea').children(".parent").each(function () {
             var tempSqlElement = $(this).data("sql-element");
-            console.log(tempSqlElement);
+            sqlElements.push(tempSqlElement);
         });
+
+        if (!sqlElements.includes("SELECT")) {
+            currentSelectedSQLElement = "START";
+            updateActiveCodeView();
+        } else {
+            currentSelectedSQLElement = "";
+            updateActiveCodeView();
+        }
     }
 
 });
