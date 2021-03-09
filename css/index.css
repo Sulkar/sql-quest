@@ -253,6 +253,24 @@ footer {
     color: deepskyblue;
 }
 
+
+/* Einfärbung für Conditions */
+
+.buttonArea select.selOperators,
+.buttonArea button.btnAND,
+.buttonArea button.btnOR,
+.buttonArea button.btnLeftBracket,
+.buttonArea button.btnRightBracket {
+    color: green;
+}
+
+
+/* Einfärbung für Aggregate Functions */
+
+.buttonArea select.selAggregate {
+    color: indigo;
+}
+
 #debug {
     border: 1px solid Gray;
 }
