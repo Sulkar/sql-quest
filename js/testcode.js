@@ -13,7 +13,7 @@ $(document).ready(function () {
     $('.btnSelect').click(function () {
         removeSelection();
         currentSelectedElementID = "";
-        var elementSELECT_FROM = "<span id='codeElement_" + nr + "' class='codeWrapper parent sqlIdentifier' data-sql-element='SELECT'>"; nr++;
+        var elementSELECT_FROM = "<span id='codeElement_" + nr + "' class='codeElement codeWrapper parent sqlIdentifier' data-sql-element='SELECT'>"; nr++;
         elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child sqlIdentifier' data-sql-element='SELECT'>SELECT"; nr++;
         elementSELECT_FROM += addLeerzeichen(); nr++;
         elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child inputField root dbField sqlIdentifier' data-sql-element='SELECT_SELECT' data-next-element='" + (nr + 4) + "'>___</span></span>"; nr++;
@@ -32,7 +32,7 @@ $(document).ready(function () {
     $('.btnWhere').click(function () {
         removeSelection();
         currentSelectedElementID = "";
-        var elementWHERE = "<span id='codeElement_" + nr + "' class='codeWrapper parent sqlIdentifier' data-sql-element='WHERE''>"; nr++;
+        var elementWHERE = "<span id='codeElement_" + nr + "' class='codeElement codeWrapper parent sqlIdentifier' data-sql-element='WHERE''>"; nr++;
         elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child sqlIdentifier' data-sql-element='WHERE'>WHERE"; nr++;
         elementWHERE += addLeerzeichen(); nr++;
         elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span></span>";
@@ -93,6 +93,7 @@ $(document).ready(function () {
     $('body').on('click', '#targetArea', function (event) {
         event.stopPropagation();
         removeSelection();
+        checkTargetAreaCodeElements();
     });
 
     // Select: add dbField, dbTable
@@ -123,6 +124,7 @@ $(document).ready(function () {
             } else {
                 $(tempSelection).html("___");
             }
+            $(tempSelection).addClass("input");
         }
     });
 
@@ -192,11 +194,33 @@ $(document).ready(function () {
 
         activeCodeView.forEach(element => {
             if (element.selectedSQLElement == currentSelectedSQLElement) {
-                element.visibleCodeElements.forEach(element => {
-                    $(element).show();
-                    $(element).focus(); // Typ kann noch mit neuer JSON Struktur abgefragt werden
+                element.visibleCodeComponents.forEach(element => {
+
+                    $(element.codeComponentClass).show();
+                    if (element.codeComponentType == "input") {
+                        $(element.codeComponentClass).focus();
+                    }
+
+                    if (currentSelectedElementID != "") {
+                        var tempSelection = "#" + currentSelectedElementID;
+                        if ($(tempSelection).hasClass("input")) {
+                            if ($(tempSelection).text() == "___") {
+                                $(element.codeComponentClass).val("");
+                            } else {
+                                $(element.codeComponentClass).val($(tempSelection).text());
+                            }
+                        }
+                    }
+
                 });
             }
+        });
+    }
+
+    function checkTargetAreaCodeElements() {
+        $('#targetArea').children(".parent").each(function () {
+            var tempSqlElement = $(this).data("sql-element");
+            console.log(tempSqlElement);
         });
     }
 
