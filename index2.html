@@ -43,7 +43,7 @@ Bitte eine Datenbank auswählen!
         <div id="targetArea"></div>
 
         <div class="buttonArea">
-            <p>
+            <p class="sqlSelectBefehl">
                 <button class="btnSelect sqlSelect">SELECT ___ FROM ___</button>
 
                 <select class="selTable sqlSelect">
@@ -55,16 +55,25 @@ Bitte eine Datenbank auswählen!
 
 
                 <select class="selField sqlSelect">
-              <option value="" disabled selected hidden>Spalte wählen</option>
-              <option value="*">*</option>
-              <option value="id">id</option>
-              <option value="name">name</option>
-            </select>
+                <option value="" disabled selected hidden>Spalte wählen</option>
+                <option value="*">*</option>
+                <option value="id">id</option>
+                <option value="name">name</option>
+              </select>
+
+                <select class="selAggregate sqlSelect">
+                <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
+                <option value="AVG">AVG ( ___ )</option>
+                <option value="COUNT">COUNT ( ___ )</option>
+                <option value="MIN">MIN ( ___ )</option>
+                <option value="MAX">MAX ( ___ )</option>
+                <option value="SUM">SUM ( ___ )</option>
+              </select>
 
                 <input type="text" placeholder="Wert" class="inputValue sqlSelect"> </input>
                 <button class="btnDelete sqlSelect">X</button>
             </p>
-            <p>
+            <p class="sqlWhereBefehl">
                 <button class="btnWhere sqlWhere">WHERE ___ ___ ___</button>
 
                 <select class="selField sqlWhere">
@@ -89,12 +98,54 @@ Bitte eine Datenbank auswählen!
 
                 <button class="btnAND sqlWhere">AND</button>
                 <button class="btnOR sqlWhere">OR</button>
-
                 <button class="btnLeftBracket sqlWhere">(</button>
                 <button class="btnRightBracket sqlWhere">)</button>
 
 
                 <input type="text" placeholder="Wert" class="inputValue sqlWhere"> </input>
+            </p>
+            <p class="sqlOrderBefehl">
+                <button class="btnOrder sqlOrder">ORDER BY ___</button>
+
+                <button class="btnLimit sqlOrder">LIMIT ___</button>
+                <button class="btnOffset sqlOrder">OFFSET ___</button>
+                <input type="text" placeholder="Wert" class="inputValue sqlOrder"> </input>
+                <button class="btnAsc sqlOrder">ASC</button>
+                <button class="btnDsc sqlOrder">DSC</button>
+            </p>
+            <p class="sqlGroupBefehl">
+
+                <button class="btnGroup sqlGroup">GROUP BY ___</button>
+                <button class="btnHAVING sqlGroup">HAVING ___ ___ ___</button>
+
+                <select class="selOperators sqlGroup">
+                  <option value="" disabled selected hidden>Operator wählen</option>
+                  <option value="=">=</option>
+                  <option value="&gt;">&gt;</option>
+                  <option value="&lt;">&lt;</option>
+                  <option value="&gt;=">&gt;=</option>
+                  <option value="=">&lt;=</option>
+                  <option value="&&lt;&gt;">&lt;&gt;</option>
+                  <option value="BETWEEN">BETWEEN</option>
+                  <option value="LIKE">LIKE</option>
+                  <option value="IN">IN</option>
+                </select>
+
+                <select class="selAggregate sqlGroup">
+                  <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
+                  <option value="AVG">AVG ( ___ )</option>
+                  <option value="COUNT">COUNT ( ___ )</option>
+                  <option value="MIN">MIN ( ___ )</option>
+                  <option value="MAX">MAX ( ___ )</option>
+                  <option value="SUM">SUM ( ___ )</option>
+                </select>
+
+                <button class="btnAND sqlGroup">AND</button>
+                <button class="btnOR sqlGroup">OR</button>
+                <button class="btnLeftBracket sqlGroup">(</button>
+                <button class="btnRightBracket sqlGroup">)</button>
+
+                <input type="text" placeholder="Wert" class="inputValue sqlGroup"> </input>
             </p>
         </div>
 
