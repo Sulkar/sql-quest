@@ -19,13 +19,11 @@
 
     </div>
     <div id="buttonArea">
-        <button class="btnSelectFrom">
+        <button class="btnSelect sqlSelect codeButton">
             SELECT ___ FROM ___
         </button>
 
-        <button class="btnWhere sqlWhere">WHERE ___ ___ ___</button>
-
-        <select class="selTable sqlSelect">
+        <select class="selTable sqlSelect codeSelect">
             <option value="" disabled selected hidden>Tabelle wählen</option>
             <option value="benutzer">benutzer</option>
             <option value="ware">warenausgabepunkt</option>
@@ -33,18 +31,46 @@
         </select>
 
 
-        <select class="selField sqlSelect">
+        <select class="selField sqlSelect codeSelect">
             <option value="" disabled selected hidden>Spalte wählen</option>
             <option value="*">*</option>
             <option value="id">id</option>
             <option value="name">name</option>
         </select>
 
-        <button class="btnAdd">
+        <button class="btnAdd sqlSelect codeButton">
             +
         </button>
 
-        <button class="btnDelete">
+        <button class="btnWhere sqlWhere codeButton">WHERE ___ ___ ___</button>
+
+        <select class="selField sqlWhere codeSelect">
+            <option value="" disabled selected hidden>Tabelle wählen</option>
+            <option value="*">*</option>
+            <option value="id">id</option>
+            <option value="name">name</option>
+        </select>
+
+        <select class="selOperators sqlWhere codeSelect">
+            <option value="" disabled selected hidden>Operator wählen</option>
+            <option value="=">=</option>
+            <option value="&gt;">&gt;</option>
+            <option value="&lt;">&lt;</option>
+            <option value="&gt;=">&gt;=</option>
+            <option value="=">&lt;=</option>
+            <option value="&&lt;&gt;">&lt;&gt;</option>
+            <option value="BETWEEN">BETWEEN</option>
+            <option value="LIKE">LIKE</option>
+            <option value="IN">IN</option>
+        </select>
+
+        <input type="text" placeholder="Wert" class="inputValue sqlWhere codeInput"> </input>
+
+        <button class="btnAdd sqlWhere codeButton">
+            +
+        </button>
+
+        <button class="btnDelete codeButton">
             X
         </button>
 

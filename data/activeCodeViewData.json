@@ -1,19 +1,66 @@
 [
     {
-        "selectedSQLElement": "FROM",
+        "selectedSQLElement": "START",
         "level": 1,
         "visibleCodeElements": [
-            "selTable",
-            "selField",
-            "btnWhere"
+            ".btnSelect"
+        ]
+    },
+    {
+        "selectedSQLElement": "SELECT",
+        "level": 1,
+        "visibleCodeElements": [
+            ".btnAdd",
+            ".btnDelete",
+            ".btnWhere"
+        ]
+    },
+    {
+        "selectedSQLElement": "SELECT_SELECT",
+        "level": 1,
+        "visibleCodeElements": [
+            ".btnAdd.sqlSelect",
+            ".btnDelete",
+            ".btnWhere",
+            ".selField.sqlSelect"
+        ]
+    },
+    {
+        "selectedSQLElement": "SELECT_FROM",
+        "level": 1,
+        "visibleCodeElements": [
+            ".btnAdd.sqlSelect",
+            ".btnDelete",
+            ".btnWhere",
+            ".selTable.sqlSelect"
         ]
     },
     {
         "selectedSQLElement": "WHERE",
         "level": 1,
+        "visibleCodeElements": [           
+            ".btnDelete"
+        ]
+    },
+    {
+        "selectedSQLElement": "WHERE_1",
+        "level": 1,
         "visibleCodeElements": [
-            "selTable",
-            "selField"
+            ".selField.sqlWhere"
+        ]
+    },
+    {
+        "selectedSQLElement": "WHERE_2",
+        "level": 1,
+        "visibleCodeElements": [
+            ".selOperators.sqlWhere"
+        ]
+    },
+    {
+        "selectedSQLElement": "WHERE_3",
+        "level": 1,
+        "visibleCodeElements": [
+            ".inputValue.sqlWhere"
         ]
     }
 ]
