@@ -153,32 +153,32 @@ footer {
     color: gray;
 }
 
+.buttonArea select:hover,
+.buttonArea button:hover {
+    background-color: lightskyblue;
+}
+
+.buttonArea input:focus {
+    outline: none;
+    background-color: lightskyblue;
+}
+
 
 /* Einfärbung für SELECT*/
 
 .buttonArea .sqlSelect {
     display: inline-block;
-    border-bottom: 0.2em solid darkblue;
-    color: darkblue;
+    border-bottom: 0.2em solid midnightblue;
+    color: midnightblue;
 }
 
 .buttonArea select.sqlSelect {
-    background-image: url("data:image/svg+xml;utf8,<svg fill='darkblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-}
-
-.buttonArea select.sqlSelect:hover,
-.buttonArea button.sqlSelect:hover {
-    background-color: lightblue;
-}
-
-.buttonArea input.sqlSelect:focus {
-    outline: none;
-    background-color: lightblue;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='midnightblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
 }
 
 .buttonArea button.sqlSelect {
-    border-bottom: 0.2em solid darkblue;
-    color: darkblue;
+    border-bottom: 0.2em solid midnightblue;
+    color: midnightblue;
 }
 
 
@@ -186,27 +186,17 @@ footer {
 
 .buttonArea .sqlWhere {
     display: inline-block;
-    border-bottom: 0.2em solid darkcyan;
-    color: darkcyan;
+    border-bottom: 0.2em solid mediumblue;
+    color: mediumblue;
 }
 
 .buttonArea select.sqlWhere {
-    background-image: url("data:image/svg+xml;utf8,<svg fill='darkcyan' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-}
-
-.buttonArea select.sqlWhere:hover,
-.buttonArea button.sqlWhere:hover {
-    background-color: lightcyan;
-}
-
-.buttonArea input.sqlWhere:focus {
-    outline: none;
-    background-color: lightcyan;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='mediumblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
 }
 
 .buttonArea button.sqlWhere {
-    border-bottom: 0.2em solid darkcyan;
-    color: darkcyan;
+    border-bottom: 0.2em solid mediumblue;
+    color: mediumblue;
 }
 
 
@@ -214,27 +204,17 @@ footer {
 
 .buttonArea .sqlOrder {
     display: inline-block;
-    border-bottom: 0.2em solid cornflowerblue;
-    color: darkcyan;
+    border-bottom: 0.2em solid royalblue;
+    color: royalblue;
 }
 
 .buttonArea select.sqlOrder {
-    background-image: url("data:image/svg+xml;utf8,<svg fill='cornflowerblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-}
-
-.buttonArea select.sqlOrder:hover,
-.buttonArea button.sqlOrder:hover {
-    background-color: lightskyblue;
-}
-
-.buttonArea input.sqlOrder:focus {
-    outline: none;
-    background-color: lightskyblue;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='royalblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
 }
 
 .buttonArea button.sqlOrder {
-    border-bottom: 0.2em solid cornflowerblue;
-    color: cornflowerblue;
+    border-bottom: 0.2em solid royalblue;
+    color: royalblue;
 }
 
 
@@ -242,27 +222,35 @@ footer {
 
 .buttonArea .sqlGroup {
     display: inline-block;
-    border-bottom: 0.2em solid cadetblue;
-    color: cadetblue;
+    border-bottom: 0.2em solid dodgerblue;
+    color: dodgerblue;
 }
 
 .buttonArea select.sqlGroup {
-    background-image: url("data:image/svg+xml;utf8,<svg fill='cadetblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-}
-
-.buttonArea select.sqlGroup:hover,
-.buttonArea button.sqlGroup:hover {
-    background-color: lightskyblue;
-}
-
-.buttonArea input.sqlGroup:focus {
-    outline: none;
-    background-color: lightskyblue;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='dodgerblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
 }
 
 .buttonArea button.sqlGroup {
-    border-bottom: 0.2em solid cadetblue;
-    color: cadetblue;
+    border-bottom: 0.2em solid dodgerblue;
+    color: dodgerblue;
+}
+
+
+/*Einfärbung für JOIN*/
+
+.buttonArea .sqlJoin {
+    display: inline-block;
+    border-bottom: 0.2em solid deepskyblue;
+    color: deepskyblue;
+}
+
+.buttonArea select.sqlJoin {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='deepskyblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+}
+
+.buttonArea button.sqlJoin {
+    border-bottom: 0.2em solid deepskyblue;
+    color: deepskyblue;
 }
 
 #debug {

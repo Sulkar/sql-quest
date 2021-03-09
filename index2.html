@@ -47,11 +47,11 @@ Bitte eine Datenbank auswählen!
                 <button class="btnSelect sqlSelect">SELECT ___ FROM ___</button>
 
                 <select class="selTable sqlSelect">
-                  <option value="" disabled selected hidden>Tabelle wählen</option>
+                <option value="" disabled selected hidden>Tabelle wählen</option>
                 <option value="benutzer">benutzer</option>
-               <option value="ware">warenausgabepunkt</option>
+                <option value="ware">warenausgabepunkt</option>
                 <option value="punkte">punkte</option>
-            </select>
+              </select>
 
 
                 <select class="selField sqlSelect">
@@ -111,7 +111,7 @@ Bitte eine Datenbank auswählen!
                 <button class="btnOffset sqlOrder">OFFSET ___</button>
                 <input type="text" placeholder="Wert" class="inputValue sqlOrder"> </input>
                 <button class="btnAsc sqlOrder">ASC</button>
-                <button class="btnDsc sqlOrder">DSC</button>
+                <button class="btnDesc sqlOrder">DESC</button>
             </p>
             <p class="sqlGroupBefehl">
 
@@ -146,6 +146,39 @@ Bitte eine Datenbank auswählen!
                 <button class="btnRightBracket sqlGroup">)</button>
 
                 <input type="text" placeholder="Wert" class="inputValue sqlGroup"> </input>
+            </p>
+
+            <p class="sqlJoinBefehl">
+                <button class="btnJoin sqlJoin">JOIN ___ ON ___ ___ ___</button>
+
+                <select class="selTable sqlJoin">
+                <option value="" disabled selected hidden>Tabelle wählen</option>
+                <option value="benutzer">benutzer</option>
+                <option value="ware">warenausgabepunkt</option>
+                <option value="punkte">punkte</option>
+              </select>
+
+                <select class="selField sqlJoin">
+                <option value="" disabled selected hidden>Spalte wählen</option>
+                <option value="*">*</option>
+                <option value="id">id</option>
+                <option value="name">name</option>
+              </select>
+
+
+                <select class="selOperators sqlJoin">
+                <option value="" disabled selected hidden>Operator wählen</option>
+                <option value="=">=</option>
+                <option value="&gt;">&gt;</option>
+                <option value="&lt;">&lt;</option>
+                <option value="&gt;=">&gt;=</option>
+                <option value="=">&lt;=</option>
+                <option value="&&lt;&gt;">&lt;&gt;</option>
+                <option value="BETWEEN">BETWEEN</option>
+                <option value="LIKE">LIKE</option>
+                <option value="IN">IN</option>
+              </select>
+
             </p>
         </div>
 
