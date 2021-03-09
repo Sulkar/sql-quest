@@ -7,7 +7,7 @@ $(document).ready(function () {
     var currentSelectedSQLElement = "START";
     var activeCodeView; // JSON Data holder
 
-    loadJsonData("level1");
+    loadJsonData();
 
     // Button: SELECT * FROM *
     $('.btnSelect').click(function () {
@@ -23,7 +23,7 @@ $(document).ready(function () {
         nextElementNr = nr; nr++;
         elementSELECT_FROM += "</span>";
         elementSELECT_FROM += addLeerzeichen(); nr++;
-        $('#targetArea').append(elementSELECT_FROM);
+        $('#codeArea').append(elementSELECT_FROM);
         setSelection(nextElementNr);
     });
 
@@ -32,6 +32,7 @@ $(document).ready(function () {
         removeSelection();
         currentSelectedElementID = "";
         var elementWHERE = "<span id='codeElement_" + nr + "' class='codeElement parent sqlIdentifier sqlWhere' data-sql-element='WHERE'>WHERE"; nr++;
+        elementWHERE += "<span class='inputFields'>";
         elementWHERE += addLeerzeichen(); nr++;
         elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span>";
         nextElementNr = nr; nr++;
@@ -40,8 +41,9 @@ $(document).ready(function () {
         elementWHERE += addLeerzeichen(); nr++;
         elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
         elementWHERE += "</span>";
+        elementWHERE += "</span>";
         elementWHERE += addLeerzeichen(); nr++;
-        $('#targetArea').append(elementWHERE);
+        $('#codeArea').append(elementWHERE);
         setSelection(nextElementNr);
     });
 
@@ -50,7 +52,7 @@ $(document).ready(function () {
         var tempSelection = "#" + currentSelectedElementID;
         removeSelection();
         var elementWhereAND = addLeerzeichen(); nr++;
-        elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement parent sqlIdentifier sqlWhereAND' data-sql-element='AND'>AND"; nr++;
+        elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement parent sqlIdentifier sqlWhereAND inputFields' data-sql-element='AND'>AND"; nr++;
         elementWhereAND += addLeerzeichen(); nr++;
         elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span>";
         nextElementNr = nr; nr++;
@@ -60,7 +62,7 @@ $(document).ready(function () {
         elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
         elementWhereAND += "</span>";
         elementWhereAND += addLeerzeichen(); nr++;
-        $(tempSelection).closest(".sqlWhere").append(elementWhereAND);
+        $(elementWhereAND).insertAfter($(tempSelection).children().closest(".inputFields").first());
         setSelection(nextElementNr);
     });
 
@@ -69,7 +71,7 @@ $(document).ready(function () {
         var tempSelection = "#" + currentSelectedElementID;
         removeSelection();
         var elementWhereOR = addLeerzeichen(); nr++;
-        elementWhereOR += "<span id='codeElement_" + nr + "' class='codeElement parent sqlIdentifier sqlWhereOR' data-sql-element='OR'>OR"; nr++;
+        elementWhereOR += "<span id='codeElement_" + nr + "' class='codeElement parent sqlIdentifier sqlWhereOR inputFields' data-sql-element='OR'>OR"; nr++;
         elementWhereOR += addLeerzeichen(); nr++;
         elementWhereOR += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span>";
         nextElementNr = nr; nr++;
@@ -79,7 +81,7 @@ $(document).ready(function () {
         elementWhereOR += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
         elementWhereOR += "</span>";
         elementWhereOR += addLeerzeichen(); nr++;
-        $(tempSelection).closest(".sqlWhere").append(elementWhereOR);
+        $(elementWhereOR).insertAfter($(tempSelection).children().closest(".inputFields").first());
         setSelection(nextElementNr);
     });
 
@@ -87,7 +89,6 @@ $(document).ready(function () {
     $('.btnLeftBracket.sqlWhere').click(function () {
         var tempSelection = "#" + currentSelectedElementID;
         if ($(tempSelection).hasClass("inputField")) {
-            var tempSqlElement = $(tempSelection).data("sql-element");
             $("<span id='codeElement_" + nr + "' class='codeElement child inputField sqlIdentifier extended' data-sql-element='LEFTBRACKET'> ( </span>").insertBefore(tempSelection);
             nr++;
         }
@@ -96,7 +97,6 @@ $(document).ready(function () {
     $('.btnRightBracket.sqlWhere').click(function () {
         var tempSelection = "#" + currentSelectedElementID;
         if ($(tempSelection).hasClass("inputField")) {
-            var tempSqlElement = $(tempSelection).data("sql-element");
             $("<span id='codeElement_" + nr + "' class='codeElement child inputField sqlIdentifier extended' data-sql-element='RIGHTBRACKET'> ) </span>").insertAfter(tempSelection);
             nr++;
         }
@@ -121,7 +121,7 @@ $(document).ready(function () {
         if ($(tempSelection).hasClass("parent") || ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("extended"))) {
             $(tempSelection).remove();
             removeSelection();
-            checkTargetAreaCodeElements();
+            checkCodeAreaSQLElements();
         }
         // Element ist das root inputField? don´t remove Element only change html
         else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("root")) {
@@ -145,11 +145,11 @@ $(document).ready(function () {
         setSelection(elementNr);
     });
 
-    // on Click TargetArea - deselct
-    $('body').on('click', '#targetArea', function (event) {
+    // on Click CodeArea - deselct
+    $('body').on('click', '#codeArea', function (event) {
         event.stopPropagation();
         removeSelection();
-        checkTargetAreaCodeElements();
+        checkCodeAreaSQLElements();
     });
 
     // Select: add dbField, dbTable
@@ -229,7 +229,7 @@ $(document).ready(function () {
     }
 
     //load JSON data: activeCodeView    
-    function loadJsonData(level) {
+    function loadJsonData() {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -274,21 +274,33 @@ $(document).ready(function () {
         });
     }
 
-    //function: checks all Code Elements in the target area, and updates Code View
-    function checkTargetAreaCodeElements() {
-        var sqlElements = [];
-
-        $('#targetArea').children(".parent").each(function () {
-            var tempSqlElement = $(this).data("sql-element");
-            sqlElements.push(tempSqlElement);
-        });
-
-        if (!sqlElements.includes("SELECT")) {
+    //function: checks all Code Elements in the CodeArea, and updates Code View
+    function checkCodeAreaSQLElements() {
+        if (!isSQLElementInCodeArea("SELECT")) {
             currentSelectedSQLElement = "START";
             updateActiveCodeView();
         } else {
             currentSelectedSQLElement = "";
             updateActiveCodeView();
+        }
+    }
+
+    //function: get all SQL Elements in CodeArea
+    function getCodeAreaSQLElements() {
+        var codeAreaElements = [];
+        $('#codeArea').children(".parent").each(function () {
+            var tempSqlElement = $(this).data("sql-element");
+            codeAreaElements.push(tempSqlElement);
+        });
+        return codeAreaElements;
+    }
+
+    //function: checks if a SQL Element is in CodeArea
+    function isSQLElementInCodeArea(sqlElement) {
+        if (getCodeAreaSQLElements().includes(sqlElement)) {
+            return true;
+        } else {
+            return false;
         }
     }
 

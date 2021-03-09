@@ -81,7 +81,7 @@ footer {
     color: #222;
 }
 
-#targetArea {
+#codeArea {
     height: 100px;
     background-color: LightGray;
     font-family: monospace;
