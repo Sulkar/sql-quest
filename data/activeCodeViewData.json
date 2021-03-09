@@ -2,65 +2,125 @@
     {
         "selectedSQLElement": "START",
         "level": 1,
-        "visibleCodeElements": [
-            ".btnSelect"
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnSelect",
+                "codeComponentType": "button"
+            }
         ]
     },
     {
         "selectedSQLElement": "SELECT",
         "level": 1,
-        "visibleCodeElements": [
-            ".btnAdd",
-            ".btnDelete",
-            ".btnWhere"
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnAdd.sqlSelect",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnWhere",
+                "codeComponentType": "button"
+            }
         ]
     },
     {
         "selectedSQLElement": "SELECT_SELECT",
         "level": 1,
-        "visibleCodeElements": [
-            ".btnAdd.sqlSelect",
-            ".btnDelete",
-            ".btnWhere",
-            ".selField.sqlSelect"
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnAdd.sqlSelect",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnWhere",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".selField.sqlSelect",
+                "codeComponentType": "select"
+            }
         ]
     },
     {
         "selectedSQLElement": "SELECT_FROM",
         "level": 1,
-        "visibleCodeElements": [
-            ".btnAdd.sqlSelect",
-            ".btnDelete",
-            ".btnWhere",
-            ".selTable.sqlSelect"
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnAdd.sqlSelect",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnWhere",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".selTable.sqlSelect",
+                "codeComponentType": "select"
+            }
         ]
     },
     {
         "selectedSQLElement": "WHERE",
         "level": 1,
-        "visibleCodeElements": [           
-            ".btnDelete"
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
         ]
     },
     {
         "selectedSQLElement": "WHERE_1",
         "level": 1,
-        "visibleCodeElements": [
-            ".selField.sqlWhere"
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selField.sqlWhere",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
         ]
     },
     {
         "selectedSQLElement": "WHERE_2",
         "level": 1,
-        "visibleCodeElements": [
-            ".selOperators.sqlWhere"
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selOperators.sqlWhere",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
         ]
     },
     {
         "selectedSQLElement": "WHERE_3",
         "level": 1,
-        "visibleCodeElements": [
-            ".inputValue.sqlWhere"
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".inputValue.sqlWhere",
+                "codeComponentType": "input"
+            }
         ]
     }
 ]
