@@ -18,7 +18,7 @@
     <div id="codeArea">
 
     </div>
-    <div id="buttonArea">
+    <div class="buttonArea">
         <button class="btnSelect sqlSelect codeButton">
             SELECT ___ FROM ___
         </button>
@@ -26,7 +26,7 @@
         <select class="selTable sqlSelect codeSelect">
             <option value="" disabled selected hidden>Tabelle wählen</option>
             <option value="benutzer">benutzer</option>
-            <option value="ware">warenausgabepunkt</option>
+            <option value="warenausgabepunkt">warenausgabepunkt</option>
             <option value="punkte">punkte</option>
         </select>
 
@@ -45,7 +45,7 @@
         <button class="btnWhere sqlWhere codeButton">WHERE ___ ___ ___</button>
 
         <select class="selField sqlWhere codeSelect">
-            <option value="" disabled selected hidden>Tabelle wählen</option>
+            <option value="" disabled selected hidden>Spalte wählen</option>
             <option value="*">*</option>
             <option value="id">id</option>
             <option value="name">name</option>
@@ -80,10 +80,10 @@
         </button>
 
     </div>
-    <p>
+    <p style="margin-top: 200px;">
         Debug:
     </p>
-    <div id="debug">
+    <div id="debug" style="height:100px;">
         ...
     </div>
 
