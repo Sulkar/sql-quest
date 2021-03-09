@@ -36,10 +36,6 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".btnWhere",
-                "codeComponentType": "button"
-            },
-            {
                 "codeComponentClass": ".selField.sqlSelect",
                 "codeComponentType": "select"
             }
@@ -50,15 +46,7 @@
         "level": 1,
         "visibleCodeComponents": [
             {
-                "codeComponentClass": ".btnAdd.sqlSelect",
-                "codeComponentType": "button"
-            },
-            {
                 "codeComponentClass": ".btnDelete",
-                "codeComponentType": "button"
-            },
-            {
-                "codeComponentClass": ".btnWhere",
                 "codeComponentType": "button"
             },
             {
@@ -82,14 +70,6 @@
             {
                 "codeComponentClass": ".btnOR.sqlWhere",
                 "codeComponentType": "button"
-            },
-            {
-                "codeComponentClass": ".btnLeftBracket.sqlWhere",
-                "codeComponentType": "button"
-            },
-            {
-                "codeComponentClass": ".btnRightBracket.sqlWhere",
-                "codeComponentType": "button"
             }
         ]
     },
@@ -106,19 +86,7 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".btnAND.sqlWhere",
-                "codeComponentType": "button"
-            },
-            {
-                "codeComponentClass": ".btnOR.sqlWhere",
-                "codeComponentType": "button"
-            },
-            {
                 "codeComponentClass": ".btnLeftBracket.sqlWhere",
-                "codeComponentType": "button"
-            },
-            {
-                "codeComponentClass": ".btnRightBracket.sqlWhere",
                 "codeComponentType": "button"
             }
         ]
@@ -133,22 +101,6 @@
             },
             {
                 "codeComponentClass": ".btnDelete",
-                "codeComponentType": "button"
-            },
-            {
-                "codeComponentClass": ".btnAND.sqlWhere",
-                "codeComponentType": "button"
-            },
-            {
-                "codeComponentClass": ".btnOR.sqlWhere",
-                "codeComponentType": "button"
-            },
-            {
-                "codeComponentClass": ".btnLeftBracket.sqlWhere",
-                "codeComponentType": "button"
-            },
-            {
-                "codeComponentClass": ".btnRightBracket.sqlWhere",
                 "codeComponentType": "button"
             }
         ]
@@ -166,19 +118,63 @@
                 "codeComponentType": "input"
             },
             {
+                "codeComponentClass": ".btnRightBracket.sqlWhere",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "AND",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
                 "codeComponentClass": ".btnAND.sqlWhere",
                 "codeComponentType": "button"
             },
             {
                 "codeComponentClass": ".btnOR.sqlWhere",
                 "codeComponentType": "button"
-            },
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "OR",
+        "level": 1,
+        "visibleCodeComponents": [
             {
-                "codeComponentClass": ".btnLeftBracket.sqlWhere",
+                "codeComponentClass": ".btnDelete",
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".btnRightBracket.sqlWhere",
+                "codeComponentClass": ".btnAND.sqlWhere",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnOR.sqlWhere",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "LEFTBRACKET",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "RIGHTBRACKET",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
                 "codeComponentType": "button"
             }
         ]
