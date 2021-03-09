@@ -1,20 +1,26 @@
 $(document).ready(function () {
+
+    //global variables
     var nr = 0;
     var currentSelectedElementID = "";
     var nextElementNr = 0;
+    var currentSelectedSQLElement = "START";
+    var activeCodeView; // JSON Data holder
+
+    loadJsonData("level1");
 
     // Button: SELECT * FROM *
-    $('.btnSelectFrom').click(function () {
+    $('.btnSelect').click(function () {
         removeSelection();
         currentSelectedElementID = "";
-        var elementSELECT_FROM = "<span id='codeElement_" + nr + "' class='codeWrapper parent'>"; nr++;
-        elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child'>SELECT"; nr++;
+        var elementSELECT_FROM = "<span id='codeElement_" + nr + "' class='codeWrapper parent sqlIdentifier' data-sql-element='SELECT'>"; nr++;
+        elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child sqlIdentifier' data-sql-element='SELECT'>SELECT"; nr++;
         elementSELECT_FROM += addLeerzeichen(); nr++;
-        elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child inputField root dbField' data-next-element='" + (nr + 4) + "'>___</span></span>"; nr++;
+        elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child inputField root dbField sqlIdentifier' data-sql-element='SELECT_SELECT' data-next-element='" + (nr + 4) + "'>___</span></span>"; nr++;
         elementSELECT_FROM += addLeerzeichen(); nr++;
-        elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child'>FROM"; nr++;
+        elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child sqlIdentifier' data-sql-element='SELECT'>FROM"; nr++;
         elementSELECT_FROM += addLeerzeichen(); nr++;
-        elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child inputField root dbTable' data-next-element='" + (nr - 4) + "'>___</span></span>";
+        elementSELECT_FROM += "<span id='codeElement_" + nr + "' class='codeElement child inputField root dbTable sqlIdentifier' data-sql-element='SELECT_FROM' data-next-element='" + (nr - 4) + "'>___</span></span>";
         nextElementNr = nr; nr++;
         elementSELECT_FROM += "</span></span>";
         elementSELECT_FROM += addLeerzeichen(); nr++;
@@ -26,15 +32,15 @@ $(document).ready(function () {
     $('.btnWhere').click(function () {
         removeSelection();
         currentSelectedElementID = "";
-        var elementWHERE = "<span id='codeElement_" + nr + "' class='codeWrapper parent'>"; nr++;
-        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child'>WHERE"; nr++;
+        var elementWHERE = "<span id='codeElement_" + nr + "' class='codeWrapper parent sqlIdentifier' data-sql-element='WHERE''>"; nr++;
+        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child sqlIdentifier' data-sql-element='WHERE'>WHERE"; nr++;
         elementWHERE += addLeerzeichen(); nr++;
-        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root' data-next-element='" + (nr + 2) + "'>___</span></span>";
+        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span></span>";
         nextElementNr = nr; nr++;
         elementWHERE += addLeerzeichen(); nr++;
-        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
+        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_2' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
         elementWHERE += addLeerzeichen(); nr++;
-        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
+        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
         elementWHERE += "</span></span>";
         elementWHERE += addLeerzeichen(); nr++;
         $('#targetArea').append(elementWHERE);
@@ -45,7 +51,8 @@ $(document).ready(function () {
     $('.btnAdd').click(function () {
         var tempSelection = "#" + currentSelectedElementID;
         if ($(tempSelection).hasClass("inputField")) {
-            $(tempSelection).parent().append("<span id='codeElement_" + nr + "' class='codeElement child inputField extended'>,___</span>");
+            var tempSqlElement = $(tempSelection).data("sql-element");
+            $(tempSelection).parent().append("<span id='codeElement_" + nr + "' class='codeElement child inputField sqlIdentifier extended' data-sql-element='" + tempSqlElement + "'>,___</span>");
             removeSelection();
             setSelection(nr);
             nr++;
@@ -78,9 +85,8 @@ $(document).ready(function () {
     $('body').on('click', 'span', function (event) {
         event.stopPropagation();
         removeSelection();
-        var elementNr = getElementNr($(this).attr('id'));
+        var elementNr = getElementNr($(this).attr("id"));
         setSelection(elementNr);
-        $("#debug").html("Selected: " + currentSelectedElementID);
     });
 
     // on Click TargetArea - deselct
@@ -89,9 +95,8 @@ $(document).ready(function () {
         removeSelection();
     });
 
-
     // Select: add dbField, dbTable
-    $('.sqlSelect').on('change', function () {
+    $('.codeSelect').on('change', function () {
         if (currentSelectedElementID != "") {
             var tempSelection = "#" + currentSelectedElementID;
             if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("extended")) {
@@ -108,6 +113,19 @@ $(document).ready(function () {
         $(this)[0].selectedIndex = 0;
     });
 
+    // Input: add text to Selected Element span
+    $(".codeInput").on('input', function () {
+        if (currentSelectedElementID != "") {
+            var tempSelection = "#" + currentSelectedElementID;
+            var tempValue = $(this).val();
+            if (tempValue != "") {
+                $(tempSelection).html(tempValue);
+            } else {
+                $(tempSelection).html("___");
+            }
+        }
+    });
+
     //function: remove Selection from all Elements
     function removeSelection() {
         $(".codeElement").removeClass("active");
@@ -118,6 +136,17 @@ $(document).ready(function () {
     function setSelection(elementNr) {
         $("#codeElement_" + elementNr).addClass("active");
         currentSelectedElementID = "codeElement_" + elementNr;
+
+        $("#debug").html("currentSelectedElementID: " + currentSelectedElementID + "<br>");
+        setSelectedSQLElement(elementNr);
+        updateActiveCodeView();
+    }
+
+    //function: set Selected SQL Element based on selected Element
+    function setSelectedSQLElement(elementNr) {
+        currentSelectedSQLElement = $("#codeElement_" + elementNr).closest(".sqlIdentifier").data("sql-element");
+
+        $("#debug").append("currentSelectedSQLElement: " + currentSelectedSQLElement + "<br>");
     }
 
     //function: get NextElementNr by data field
@@ -140,8 +169,7 @@ $(document).ready(function () {
         return "<span id='codeElement_" + nr + "' class='codeElement leerzeichen'> </span>";
     }
 
-    loadJsonData("level1");
-    var activeCodeView;
+    //load JSON data: activeCodeView    
     function loadJsonData(level) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
@@ -149,9 +177,27 @@ $(document).ready(function () {
                 activeCodeView = JSON.parse(this.responseText);
                 console.log(activeCodeView[0]);
                 console.log(activeCodeView[1]);
+                updateActiveCodeView();
             }
         };
         xmlhttp.open("GET", "./data/activeCodeViewData.json", true);
         xmlhttp.send();
     }
+
+    //function: loops through JSON Data and shows Elements based on selected SQL Element
+    function updateActiveCodeView() {
+        $(".codeButton").hide();
+        $(".codeSelect").hide();
+        $(".codeInput").hide();
+
+        activeCodeView.forEach(element => {
+            if (element.selectedSQLElement == currentSelectedSQLElement) {
+                element.visibleCodeElements.forEach(element => {
+                    $(element).show();
+                    $(element).focus(); // Typ kann noch mit neuer JSON Struktur abgefragt werden
+                });
+            }
+        });
+    }
+
 });
