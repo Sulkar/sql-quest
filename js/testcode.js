@@ -35,7 +35,7 @@ $(document).ready(function () {
         var elementWHERE = "<span id='codeElement_" + nr + "' class='codeElement codeWrapper parent sqlIdentifier' data-sql-element='WHERE''>"; nr++;
         elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child sqlIdentifier' data-sql-element='WHERE'>WHERE"; nr++;
         elementWHERE += addLeerzeichen(); nr++;
-        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span></span>";
+        elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span>";
         nextElementNr = nr; nr++;
         elementWHERE += addLeerzeichen(); nr++;
         elementWHERE += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_2' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
@@ -47,8 +47,28 @@ $(document).ready(function () {
         setSelection(nextElementNr);
     });
 
+    //Button: WHERE -> AND
+    $('.btnAND.sqlWhere').click(function () {
+        var tempSelection = "#" + currentSelectedElementID;
+        removeSelection();
+        var elementWhereAND = addLeerzeichen(); nr++;
+        elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement codeWrapper parent sqlIdentifier' data-sql-element='WHERE''>"; nr++;
+        elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement child sqlIdentifier' data-sql-element='WHERE'>AND"; nr++;
+        elementWhereAND += addLeerzeichen(); nr++;
+        elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span>";
+        nextElementNr = nr; nr++;
+        elementWhereAND += addLeerzeichen(); nr++;
+        elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_2' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
+        elementWhereAND += addLeerzeichen(); nr++;
+        elementWhereAND += "<span id='codeElement_" + nr + "' class='codeElement child inputField root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
+        elementWhereAND += "</span></span>";
+        elementWhereAND += addLeerzeichen(); nr++;
+        $(tempSelection).parent().append(elementWhereAND);
+        setSelection(nextElementNr);
+    });
+
     //Button: Add Element
-    $('.btnAdd').click(function () {
+    $('.btnAdd.sqlSelect').click(function () {
         var tempSelection = "#" + currentSelectedElementID;
         if ($(tempSelection).hasClass("inputField")) {
             var tempSqlElement = $(tempSelection).data("sql-element");
