@@ -46,6 +46,20 @@
         ]
     },
     {
+        "selectedSQLElement": "SELECT_SELECT_AGGREGAT",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".selField.sqlSelect",
+                "codeComponentType": "select"
+            }
+        ]
+    },
+    {
         "selectedSQLElement": "SELECT_FROM",
         "level": 1,
         "visibleCodeComponents": [
