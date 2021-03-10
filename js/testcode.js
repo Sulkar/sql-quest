@@ -88,7 +88,7 @@ $(document).ready(function () {
     $('.btnLeftBracket.sqlWhere').click(function () {
         var tempSelection = "." + currentSelectedElement;
         if ($(tempSelection).hasClass("inputField")) {
-            $("<span class='codeElement_" + nr + " btnLeftBracket sqlWhere child inputField sqlIdentifier extended' data-sql-element='LEFTBRACKET'> ( </span>").insertBefore(tempSelection);
+            $("<span class='codeElement_" + nr + " btnLeftBracket sqlWhere child sqlIdentifier extended' data-sql-element='LEFTBRACKET'> ( </span>").insertBefore(tempSelection);
             nr++;
         }
     });
@@ -96,7 +96,7 @@ $(document).ready(function () {
     $('.btnRightBracket.sqlWhere').click(function () {
         var tempSelection = "." + currentSelectedElement;
         if ($(tempSelection).hasClass("inputField")) {
-            $("<span class='codeElement_" + nr + " btnRightBracket sqlWhere child inputField sqlIdentifier extended' data-sql-element='RIGHTBRACKET'> ) </span>").insertAfter(tempSelection);
+            $("<span class='codeElement_" + nr + " btnRightBracket sqlWhere child sqlIdentifier extended' data-sql-element='RIGHTBRACKET'> ) </span>").insertAfter(tempSelection);
             nr++;
         }
     });
@@ -115,9 +115,9 @@ $(document).ready(function () {
     function getInputField(tempSelection, type) {
         var tempSqlElement = $(tempSelection).data("sql-element");
         if (type == "root") {
-            var tempInputField = "<span class='codeElement_" + nr + " selField sqlSelect child inputField sqlIdentifier root' data-sql-element='" + tempSqlElement + "'>___</span>";
+            var tempInputField = "<span class='codeElement_" + nr + " inputField sqlIdentifier child root' data-sql-element='" + tempSqlElement + "'>___</span>";
         } else if (type == "extended") {
-            var tempInputField = "<span class='codeElement_" + nr + " selField sqlSelect child inputField sqlIdentifier extended' data-sql-element='" + tempSqlElement + "'>,___</span>";
+            var tempInputField = "<span class='codeElement_" + nr + " inputField sqlIdentifier child extended' data-sql-element='" + tempSqlElement + "'>,___</span>";
         }
         nextElementNr = nr;
         nr++;
@@ -131,7 +131,7 @@ $(document).ready(function () {
         if($(tempSelection).hasClass("extended")){
             tempAggregat += addLeerzeichen();
         }
-        tempAggregat += "<span class='codeElement_" + nr + " selField sqlSelect child inputField sqlIdentifier root' data-sql-element='" + tempSqlElement + "'>" + aggregat + "(";
+        tempAggregat += "<span class='codeElement_" + nr + " selAggregate sqlSelect child inputField sqlIdentifier root' data-sql-element='" + tempSqlElement + "'>" + aggregat + "(";
         nr++;
         tempAggregat += getInputField(tempSelection, "root");
         tempAggregat += ")</span>";
@@ -176,7 +176,7 @@ $(document).ready(function () {
             checkCodeAreaSQLElements();
         }
         // Element ist das root inputField? don´t remove Element only change html
-        else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("root")) {  // <----
+        else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("root")) {
             $(tempSelection).html("___");
             nextElementNr = getNextElementNr();
             removeSelection();
