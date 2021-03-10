@@ -171,7 +171,13 @@ $(document).ready(function () {
     $('.btnDelete').click(function () {
         var tempSelection = "." + currentSelectedElement;
         // Element parent? oder inputField + extended?
-        if ($(tempSelection).hasClass("parent") || ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("extended"))) {
+        if ($(tempSelection).hasClass("parent")) {
+            $(tempSelection).remove();
+            removeSelection();
+            checkCodeAreaSQLElements();
+        }
+        else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("extended")) {
+            $(tempSelection).prev().remove();
             $(tempSelection).remove();
             removeSelection();
             checkCodeAreaSQLElements();
@@ -268,7 +274,11 @@ $(document).ready(function () {
         var classesFromCodeComponent = getClassesFromElementAsString(tempSelectField);
         var tempSqlElement = $(tempSelection).data("sql-element");
         var tempSelectValue = "";
-        tempSelectValue += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " inputField sqlIdentifier root' data-sql-element='" + tempSqlElement + "'>" + tempSelectField.value + "</span>";
+        if ($(tempSelection).hasClass("extended")) {
+            tempSelectValue += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " inputField sqlIdentifier extended' data-sql-element='" + tempSqlElement + "'>" + tempSelectField.value + "</span>";
+        } else {
+            tempSelectValue += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " inputField sqlIdentifier root' data-sql-element='" + tempSqlElement + "'>" + tempSelectField.value + "</span>";
+        }
         nr++;
         return tempSelectValue;
     }
@@ -334,7 +344,7 @@ $(document).ready(function () {
         return tempLeerzeichen;
     }
     function addLeerzeichenMitKomma() {
-        var tempLeerzeichen = "<span class='codeElement_" + nr + " leerzeichen'> ,</span>";
+        var tempLeerzeichen = "<span class='codeElement_" + nr + " leerzeichen'>, </span>";
         nr++;
         return tempLeerzeichen;
     }
