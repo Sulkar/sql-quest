@@ -38,6 +38,10 @@
             {
                 "codeComponentClass": ".selField.sqlSelect",
                 "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".selAggregate.sqlSelect",
+                "codeComponentType": "select"
             }
         ]
     },

@@ -18,13 +18,12 @@ $(document).ready(function () {
         elementSELECT_FROM += addLeerzeichen(); nr++;
         elementSELECT_FROM += "<span class='codeElement_" + nr + " selField sqlSelect child inputField root dbField sqlIdentifier' data-sql-element='SELECT_SELECT' data-next-element='" + (nr + 4) + "'>___</span>"; nr++;
         elementSELECT_FROM += addLeerzeichen(); nr++;
-        elementSELECT_FROM += "<span class='codeElement_" + nr + " child' data-goto-element='" + (nr -4) + "'>FROM</span>"; nr++;
+        elementSELECT_FROM += "<span class='codeElement_" + nr + " child' data-goto-element='" + (nr - 4) + "'>FROM</span>"; nr++;
         elementSELECT_FROM += addLeerzeichen(); nr++;
         elementSELECT_FROM += "<span class='codeElement_" + nr + " selTable sqlSelect child inputField root dbTable sqlIdentifier' data-sql-element='SELECT_FROM' data-next-element='" + (nr - 4) + "'>___</span>";
         nextElementNr = nr; nr++;
         elementSELECT_FROM += "</span>";
         elementSELECT_FROM += "</span>";
-        elementSELECT_FROM += addLeerzeichen(); nr++;
         $('#codeArea').append(elementSELECT_FROM);
         setSelection(nextElementNr);
     });
@@ -110,12 +109,61 @@ $(document).ready(function () {
     $('.btnAdd.sqlSelect').click(function () {
         var tempSelection = "." + currentSelectedElement;
         if ($(tempSelection).hasClass("inputField")) {
-            var tempSqlElement = $(tempSelection).data("sql-element");
-            $("<span class='codeElement_" + nr + " selField sqlSelect child inputField sqlIdentifier extended' data-sql-element='" + tempSqlElement + "'>,___</span>").insertAfter(tempSelection);
+            $(getInputField(tempSelection, "extended")).insertAfter(tempSelection);
             removeSelection();
-            setSelection(nr);
-            nr++;
+            setSelection(nextElementNr);
         }
+    });
+
+    //function: returns a normal or extended inputField ( ___ or ,___ )
+    function getInputField(tempSelection, type) {
+        var tempSqlElement = $(tempSelection).data("sql-element");
+        if (type == "root") {
+            var tempInputField = "<span class='codeElement_" + nr + " selField sqlSelect child inputField sqlIdentifier root' data-sql-element='" + tempSqlElement + "'>___</span>";
+        } else if (type == "extended") {
+            var tempInputField = "<span class='codeElement_" + nr + " selField sqlSelect child inputField sqlIdentifier extended' data-sql-element='" + tempSqlElement + "'>,___</span>";
+        }
+        nextElementNr = nr;
+        nr++;
+        return tempInputField;
+
+    }
+    //function: returns an Aggregat <span> with inputField
+    function getAggregat(tempSelection, aggregat) {
+        var tempSqlElement = $(tempSelection).data("sql-element");
+        var tempAggregat = "<span class='codeElement_" + nr + " selField sqlSelect child inputField sqlIdentifier root' data-sql-element='" + tempSqlElement + "'>" + aggregat + "(";
+        nr++;
+        tempAggregat += getInputField(tempSelection, "root");
+        tempAggregat += ")</span>";
+        return tempAggregat;
+    }
+
+    // Select: SELECT add dbField, dbTable, Aggregatsfunktion
+    $('.codeSelect').on('change', function () {
+        if (currentSelectedElement != "") {
+            var tempSelection = "." + currentSelectedElement;
+            // wich select is triggering?
+            // -> selField, selTable
+            if ($(this).hasClass("selField") || $(this).hasClass("selTable")) {
+                if ($(tempSelection).hasClass("extended")) { //Feld erweitert ,___
+                    $(tempSelection).html("," + this.value);
+
+                } else if ($(tempSelection).hasClass("root")) { //Feld normal ___
+                    $(tempSelection).html(this.value);
+                    nextElementNr = getNextElementNr();
+                    removeSelection();
+                    setSelection(nextElementNr);
+                }
+            }
+            // -> selAggregate
+            else if ($(this).hasClass("selAggregate")) {
+                $(tempSelection).replaceWith(getAggregat(tempSelection, this.value));
+                removeSelection();
+                setSelection(nextElementNr);
+            }
+        }
+        //reset select option
+        $(this)[0].selectedIndex = 0;
     });
 
     // Button: Delete Element
@@ -128,7 +176,7 @@ $(document).ready(function () {
             checkCodeAreaSQLElements();
         }
         // Element ist das root inputField? don´t remove Element only change html
-        else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("root")) {
+        else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("root")) {  // <----
             $(tempSelection).html("___");
             nextElementNr = getNextElementNr();
             removeSelection();
@@ -147,9 +195,9 @@ $(document).ready(function () {
         removeSelection();
 
 
-        if($(this).data("goto-element") != undefined){
+        if ($(this).data("goto-element") != undefined) {
             var elementNr = $(this).data("goto-element");
-        }else{
+        } else {
             var elementNr = getElementNr($(this).attr("class"));
         }
         setSelection(elementNr);
@@ -162,23 +210,7 @@ $(document).ready(function () {
         checkCodeAreaSQLElements();
     });
 
-    // Select: add dbField, dbTable
-    $('.codeSelect').on('change', function () {
-        if (currentSelectedElement != "") {
-            var tempSelection = "." + currentSelectedElement;
-            if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("extended")) {
-                $(tempSelection).html("," + this.value);
-            } else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("root")) {
-                $(tempSelection).html(this.value);
-                nextElementNr = getNextElementNr();
-                removeSelection();
-                setSelection(nextElementNr);
-            }
 
-        }
-        //reset select option
-        $(this)[0].selectedIndex = 0;
-    });
 
     // Input: add text to Selected Element span
     $(".codeInput").on('input', function () {
