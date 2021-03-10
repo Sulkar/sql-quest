@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     //global variables
     var nr = 0;
-    var currentSelectedElement = "";
+    var currentSelectedElement = undefined;
     var nextElementNr = 0;
     var currentSelectedSQLElement = "START";
     var activeCodeView; // JSON Data holder
@@ -14,13 +14,12 @@ $(document).ready(function () {
     // Button: SELECT * FROM *
     $('.btnSelect').click(function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
-        removeSelection();
-        currentSelectedElement = "";
+        currentSelectedElement = undefined;
         var elementSELECT_FROM = "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='SELECT'>SELECT"; nr++;
         elementSELECT_FROM += addLeerzeichen();
         elementSELECT_FROM += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='SELECT_SELECT' data-next-element='" + (nr + 4) + "'>___</span>"; nr++;
         elementSELECT_FROM += addLeerzeichen();
-        elementSELECT_FROM += "<span class='codeElement_" + nr + " data-goto-element='" + (nr - 4) + "'>FROM</span>"; nr++;
+        elementSELECT_FROM += "<span class='codeElement_" + nr + "' data-goto-element='" + (nr - 4) + "'>FROM</span>"; nr++;
         elementSELECT_FROM += addLeerzeichen();
         elementSELECT_FROM += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier active' data-sql-element='SELECT_FROM' data-next-element='" + (nr - 4) + "'>___</span>";
         nextElementNr = nr; nr++;
@@ -32,43 +31,38 @@ $(document).ready(function () {
     // Button: WHERE age > 21 -- WHERE ___ ___ ___ 
     $('.btnWhere.sqlWhere').click(function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
-        var tempSelection = "." + currentSelectedElement;
-        removeSelection();
         var elementWHERE = addLeerzeichen();
         elementWHERE += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='WHERE'>WHERE"; nr++;
         elementWHERE += addLeerzeichen();
-        elementWHERE += "<span class='codeElement_" + nr + " inputField root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span>";
+        elementWHERE += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span>";
         nextElementNr = nr; nr++;
         elementWHERE += addLeerzeichen();
-        elementWHERE += "<span class='codeElement_" + nr + " inputField root sqlIdentifier' data-sql-element='WHERE_2' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
+        elementWHERE += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='WHERE_2' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
         elementWHERE += addLeerzeichen();
-        elementWHERE += "<span class='codeElement_" + nr + " inputField root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
+        elementWHERE += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
         elementWHERE += "</span>";
-        //$(elementWHERE).insertAfter($(tempSelection).closest(".inputFields").first());
-        $(tempSelection).closest(".inputFields").first().append(elementWHERE);
+        currentSelectedElement.closest(".inputFields").first().append(elementWHERE);
         setSelection(nextElementNr);
     });
 
     //Button: WHERE -> AND
     $('.btnAND.sqlWhere').click(function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
-        var tempSelection = "." + currentSelectedElement;
-        removeSelection();
         var elementWhereAND = addLeerzeichen();
         elementWhereAND += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='AND'>AND"; nr++;
         elementWhereAND += addLeerzeichen();
-        elementWhereAND += "<span class='codeElement_" + nr + " inputField root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span>";
+        elementWhereAND += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span>";
         nextElementNr = nr; nr++;
         elementWhereAND += addLeerzeichen();
-        elementWhereAND += "<span class='codeElement_" + nr + " inputField root sqlIdentifier' data-sql-element='WHERE_2' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
+        elementWhereAND += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='WHERE_2' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
         elementWhereAND += addLeerzeichen();
-        elementWhereAND += "<span class='codeElement_" + nr + " inputField root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
+        elementWhereAND += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
         elementWhereAND += "</span>";
         //check selected element is AND or OR -> if yes then replace if not create new one         
-        if ($(tempSelection).data("sql-element") == "AND" || $(tempSelection).data("sql-element") == "OR") {
-            $(tempSelection).replaceWith(elementWhereAND);
+        if (currentSelectedElement.data("sql-element") == "AND" || currentSelectedElement.data("sql-element") == "OR") {
+            currentSelectedElement.replaceWith(elementWhereAND);
         } else {
-            $(tempSelection).closest(".inputFields").first().append(elementWhereAND);
+            currentSelectedElement.closest(".inputFields").first().append(elementWhereAND);
         }
         setSelection(nextElementNr);
     });
@@ -76,23 +70,21 @@ $(document).ready(function () {
     //Button: WHERE -> OR
     $('.btnOR.sqlWhere').click(function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
-        var tempSelection = "." + currentSelectedElement;
-        removeSelection();
         var elementWhereOR = addLeerzeichen();
         elementWhereOR += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='OR'>OR"; nr++;
         elementWhereOR += addLeerzeichen();
-        elementWhereOR += "<span class='codeElement_" + nr + " inputField root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span>";
+        elementWhereOR += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='WHERE_1' data-next-element='" + (nr + 2) + "'>___</span>";
         nextElementNr = nr; nr++;
         elementWhereOR += addLeerzeichen();
-        elementWhereOR += "<span class='codeElement_" + nr + " inputField root sqlIdentifier' data-sql-element='WHERE_2' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
+        elementWhereOR += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='WHERE_2' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
         elementWhereOR += addLeerzeichen();
-        elementWhereOR += "<span class='codeElement_" + nr + " inputField root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
+        elementWhereOR += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
         elementWhereOR += "</span>";
         //check selected element is AND or OR -> if yes then replace if not create new one
-        if ($(tempSelection).data("sql-element") == "AND" || $(tempSelection).data("sql-element") == "OR") {
-            $(tempSelection).replaceWith(elementWhereOR);
+        if (currentSelectedElement.data("sql-element") == "AND" || currentSelectedElement.data("sql-element") == "OR") {
+            currentSelectedElement.replaceWith(elementWhereOR);
         } else {
-            $(tempSelection).closest(".inputFields").first().append(elementWhereOR);
+            currentSelectedElement.closest(".inputFields").first().append(elementWhereOR);
         }
         setSelection(nextElementNr);
     });
@@ -100,67 +92,58 @@ $(document).ready(function () {
     //Button: WHERE -> LeftBracket
     $('.btnLeftBracket.sqlWhere').click(function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
-        var tempSelection = "." + currentSelectedElement;
-        if ($(tempSelection).hasClass("inputField")) {
-            $("<span class='codeElement_" + nr + "  " + classesFromCodeComponent + " sqlIdentifier extended' data-sql-element='LEFTBRACKET'> ( </span>").insertBefore(tempSelection);
+        if (currentSelectedElement.hasClass("inputField")) {
+            $("<span class='codeElement_" + nr + "  " + classesFromCodeComponent + " sqlIdentifier extended' data-sql-element='LEFTBRACKET'> ( </span>").insertBefore(currentSelectedElement);
             nr++;
         }
     });
     //Button: WHERE -> RightBracket
     $('.btnRightBracket.sqlWhere').click(function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
-        var tempSelection = "." + currentSelectedElement;
-        if ($(tempSelection).hasClass("inputField")) {
-            $("<span class='codeElement_" + nr + "  " + classesFromCodeComponent + " sqlIdentifier extended' data-sql-element='RIGHTBRACKET'> ) </span>").insertAfter(tempSelection);
+        if (currentSelectedElement.hasClass("inputField")) {
+            $("<span class='codeElement_" + nr + "  " + classesFromCodeComponent + " sqlIdentifier extended' data-sql-element='RIGHTBRACKET'> ) </span>").insertAfter(currentSelectedElement);
             nr++;
         }
     });
 
     //Button: SELECT Add Element
     $('.btnAdd.sqlSelect').click(function () {
-        var tempSelection = "." + currentSelectedElement;
-        var dataSqlElement = $(tempSelection).data("sql-element");
+        var dataSqlElement = currentSelectedElement.data("sql-element");
 
-        if ($(tempSelection).hasClass("inputField")) {
+        if (currentSelectedElement.hasClass("inputField")) {
             if (dataSqlElement == "SELECT_SELECT_AGGREGAT") { //...
-                $(addInputField(dataSqlElement, "extendedSpace")).insertAfter(tempSelection);
+                $(addInputField(dataSqlElement, "extendedSpace")).insertAfter(currentSelectedElement);
             } else {
-                $(addInputField(dataSqlElement, "extendedComma")).insertAfter(tempSelection);
+                $(addInputField(dataSqlElement, "extendedComma")).insertAfter(currentSelectedElement);
             }
-            removeSelection();
             setSelection(nextElementNr);
         }
     });
 
     // Select: SELECT add dbField, dbTable, Aggregatsfunktion
     $('.codeSelect').on('change', function () {
-        if (currentSelectedElement != "") {
-            var tempSelection = "." + currentSelectedElement;
+        if (currentSelectedElement != undefined) {
             var tempSelectField = this;
             // wich select is triggering?
             // -> selField, selTable
             if ($(tempSelectField).hasClass("selField") || $(tempSelectField).hasClass("selTable") || $(tempSelectField).hasClass("selOperators")) {
-                if ($(tempSelection).hasClass("extended") && $(tempSelection).hasClass("comma")) { //Feld erweitert ,___
-                    $(addLeerzeichenMitKomma()).insertBefore(tempSelection);
-                    $(tempSelection).replaceWith(addSelectValue(tempSelection, tempSelectField));
-                    removeSelection();
+                if (currentSelectedElement.hasClass("extended") && currentSelectedElement.hasClass("comma")) { //Feld erweitert ,___
+                    currentSelectedElement.replaceWith(addSelectValue(tempSelectField));
                     setSelection(nextElementNr);
                 }
-                else if ($(tempSelection).hasClass("extended")) { //Feld erweitert ___
-                    $(tempSelection).replaceWith(addSelectValue(tempSelection, tempSelectField));
-                    removeSelection();
+                else if (currentSelectedElement.hasClass("extended")) { //Feld erweitert ___
+                    currentSelectedElement.replaceWith(addSelectValue(tempSelectField));
                     setSelection(nextElementNr);
                 }
-                else if ($(tempSelection).hasClass("root")) { //Feld normal ___
-                    $(tempSelection).replaceWith(addSelectValue(tempSelection, tempSelectField));
+                else if (currentSelectedElement.hasClass("root")) { //Feld normal ___
+                    currentSelectedElement.replaceWith(addSelectValue(tempSelectField));
 
                     setSelection("next");
                 }
             }
             // -> selAggregate
             else if ($(tempSelectField).hasClass("selAggregate")) {
-                $(tempSelection).replaceWith(addAggregat(tempSelection, tempSelectField));
-                removeSelection();
+                currentSelectedElement.replaceWith(addAggregat(tempSelectField));
                 setSelection(nextElementNr);
             }
         }
@@ -172,29 +155,27 @@ $(document).ready(function () {
 
     // Button: Delete Element
     $('.btnDelete').click(function () {
-        var tempSelection = "." + currentSelectedElement;
         // Element parent? oder inputField + extended?
-        if ($(tempSelection).hasClass("parent")) {
-            $(tempSelection).remove();
+        if (currentSelectedElement.hasClass("parent")) {
+            currentSelectedElement.remove();
             removeSelection();
             checkCodeAreaSQLElements();
         }
-        else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("extended")) {
-            $(tempSelection).prev().remove();
-            $(tempSelection).remove();
+        else if (currentSelectedElement.hasClass("inputField") && currentSelectedElement.hasClass("extended")) {
+            currentSelectedElement.prev().remove();
+            currentSelectedElement.remove();
             removeSelection();
             checkCodeAreaSQLElements();
         }
         // Element ist das root inputField? remove old Element and create new one
-        else if ($(tempSelection).hasClass("inputField") && $(tempSelection).hasClass("root")) {
-            var dataSqlElement = $(tempSelection).data("sql-element");
-            $(tempSelection).replaceWith(addInputField(dataSqlElement, "root"));
-            removeSelection();
+        else if (currentSelectedElement.hasClass("inputField") && currentSelectedElement.hasClass("root")) {
+            var dataSqlElement = currentSelectedElement.data("sql-element");
+            currentSelectedElement.replaceWith(addInputField(dataSqlElement, "root"));
             setSelection(nextElementNr);
         }
         // don´t delete, select parent Element
         else {
-            var elementNr = getElementNr($(tempSelection).parent().attr('class'));
+            var elementNr = getElementNr(currentSelectedElement.parent().attr('class'));
             setSelection(elementNr);
         }
     });
@@ -202,8 +183,7 @@ $(document).ready(function () {
     // on Click Element
     $('body').on('click', 'span', function (event) {
         event.stopPropagation();
-        removeSelection();
-
+        //
         if ($(this).data("goto-element") == "next") {
             var elementNr = "0";
         }
@@ -222,19 +202,16 @@ $(document).ready(function () {
         checkCodeAreaSQLElements();
     });
 
-
-
     // Input: add text to Selected Element span
     $(".codeInput").on('input', function () {
-        if (currentSelectedElement != "") {
-            var tempSelection = "." + currentSelectedElement;
+        if (currentSelectedElement != undefined) {
             var tempValue = $(this).val();
             if (tempValue != "") {
-                $(tempSelection).html(tempValue);
+                currentSelectedElement.html(tempValue);
             } else {
-                $(tempSelection).html("___");
+                currentSelectedElement.html("___");
             }
-            $(tempSelection).addClass("input");
+            currentSelectedElement.addClass("input");
         }
     });
 
@@ -255,11 +232,11 @@ $(document).ready(function () {
 
     }
     //function: adds an Aggregat <span> with inputField
-    function addAggregat(tempSelection, tempSelectField) {
+    function addAggregat(tempSelectField) {
         var classesFromCodeComponent = getClassesFromElementAsString(tempSelectField);
-        var tempSqlElement = $(tempSelection).data("sql-element");
+        var tempSqlElement = currentSelectedElement.data("sql-element");
         var tempAggregat = "";
-        if ($(tempSelection).hasClass("extended")) {
+        if (currentSelectedElement.hasClass("extended")) {
             tempAggregat += addLeerzeichen();
             tempAggregat += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " inputField sqlIdentifier extended' data-sql-element='" + tempSqlElement + "'>," + tempSelectField.value + "(";
         } else {
@@ -272,11 +249,11 @@ $(document).ready(function () {
     }
 
     //function: adds a selected Value from and <select> Component
-    function addSelectValue(tempSelection, tempSelectField) {
+    function addSelectValue(tempSelectField) {
         var classesFromCodeComponent = getClassesFromElementAsString(tempSelectField);
-        var tempSqlElement = $(tempSelection).data("sql-element");
+        var tempSqlElement = currentSelectedElement.data("sql-element");
         var tempSelectValue = "";
-        if ($(tempSelection).hasClass("extended")) {
+        if (currentSelectedElement.hasClass("extended")) {
             tempSelectValue += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " inputField sqlIdentifier extended' data-sql-element='" + tempSqlElement + "'>" + tempSelectField.value + "</span>";
         } else {
             tempSelectValue += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " inputField sqlIdentifier root' data-sql-element='" + tempSqlElement + "'>" + tempSelectField.value + "</span>";
@@ -302,7 +279,7 @@ $(document).ready(function () {
     function removeSelection() {
         $("[class^='codeElement_']").removeClass("active");
         $(".codeInput").val("");
-        currentSelectedElement = "";
+        currentSelectedElement = undefined;
     }
 
     //function: set Selection to an Element
@@ -313,28 +290,28 @@ $(document).ready(function () {
         //next element is chosen by number
         if (elementNr != "next") {
             element = $(".codeElement_" + elementNr);
-            element.addClass("active");
-            currentSelectedElement = "codeElement_" + elementNr;
-        } 
+        }
         //no number is given -> get next unfilled inputField
         else {
-            element = $("." + oldCurrentSelectedElement).closest(".parent").find(".unfilled");
+            element = $("." + oldCurrentSelectedElement).closest(".parent").find(".unfilled").first();
             if (!element.length) {
-                element = $("." + oldCurrentSelectedElement).closest(".parent");
+                element = $("." + oldCurrentSelectedElement).closest(".parent").first();
             }
-            element.addClass("active");
-            currentSelectedElement = "codeElement_" + element.attr("class").split(" ")[0].split("_")[1]; // ändern
         }
+        element.addClass("active");
+        currentSelectedElement = element;
         currentSelectedSQLElement = element.closest(".sqlIdentifier").data("sql-element");
         updateActiveCodeView();
+        //DEBUG:
+        $("#debug").html("<span style='font-weight: 700;'>currentSelectedElement:</span><br>" + currentSelectedElement.attr("class"));
+        $("#debug").append("<br><span style='font-weight: 700;'>currentSelectedSQLElement:</span><br>" + currentSelectedSQLElement);
     }
 
     //function: get NextElementNr by data field
     function getNextElementNr() {
-        if (currentSelectedElement != "") {
-            var tempSelection = "." + currentSelectedElement;
-            if ($(tempSelection).data("next-element") != undefined) {
-                return $(tempSelection).data("next-element");
+        if (currentSelectedElement != undefined) {
+            if (currentSelectedElement.data("next-element") != undefined) {
+                return currentSelectedElement.data("next-element");
             }
         }
     }
@@ -362,8 +339,6 @@ $(document).ready(function () {
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 activeCodeView = JSON.parse(this.responseText);
-                console.log(activeCodeView[0]);
-                console.log(activeCodeView[1]);
                 updateActiveCodeView();
             }
         };
@@ -385,14 +360,12 @@ $(document).ready(function () {
                     if (element.codeComponentType == "input") {
                         $(element.codeComponentClass).focus();
                     }
-
-                    if (currentSelectedElement != "") {
-                        var tempSelection = "." + currentSelectedElement;
-                        if ($(tempSelection).hasClass("input")) {
-                            if ($(tempSelection).text() == "___") {
+                    if (currentSelectedElement != undefined) {
+                        if (currentSelectedElement.hasClass("input")) {
+                            if (currentSelectedElement.text() == "___") {
                                 $(element.codeComponentClass).val("");
                             } else {
-                                $(element.codeComponentClass).val($(tempSelection).text());
+                                $(element.codeComponentClass).val(currentSelectedElement.text());
                             }
                         }
                     }
