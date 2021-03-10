@@ -100,17 +100,19 @@ $(document).ready(function () {
 
     //Button: WHERE -> LeftBracket
     $('.btnLeftBracket.sqlWhere').click(function () {
+        var classesFromCodeComponent = getClassesFromElementAsString(this);
         var tempSelection = "." + currentSelectedElement;
         if ($(tempSelection).hasClass("inputField")) {
-            $("<span class='codeElement_" + nr + " btnLeftBracket sqlWhere sqlIdentifier extended' data-sql-element='LEFTBRACKET'> ( </span>").insertBefore(tempSelection);
+            $("<span class='codeElement_" + nr + "  " + classesFromCodeComponent + " sqlIdentifier extended' data-sql-element='LEFTBRACKET'> ( </span>").insertBefore(tempSelection);
             nr++;
         }
     });
     //Button: WHERE -> RightBracket
     $('.btnRightBracket.sqlWhere').click(function () {
+        var classesFromCodeComponent = getClassesFromElementAsString(this);
         var tempSelection = "." + currentSelectedElement;
         if ($(tempSelection).hasClass("inputField")) {
-            $("<span class='codeElement_" + nr + " btnRightBracket sqlWhere sqlIdentifier extended' data-sql-element='RIGHTBRACKET'> ) </span>").insertAfter(tempSelection);
+            $("<span class='codeElement_" + nr + "  " + classesFromCodeComponent + " sqlIdentifier extended' data-sql-element='RIGHTBRACKET'> ) </span>").insertAfter(tempSelection);
             nr++;
         }
     });
@@ -148,7 +150,7 @@ $(document).ready(function () {
         return tempInputField;
 
     }
-    //function: returns an Aggregat <span> with inputField
+    //function: adds an Aggregat <span> with inputField
     function addAggregat(tempSelection, tempSelectField) {
         var classesFromCodeComponent = getClassesFromElementAsString(tempSelectField);
         var tempSqlElement = $(tempSelection).data("sql-element");
@@ -165,7 +167,7 @@ $(document).ready(function () {
         return tempAggregat;
     }
 
-
+    //function: adds a selected Value from and <select> Component
     function addSelectValue(tempSelection, tempSelectField) {
         var classesFromCodeComponent = getClassesFromElementAsString(tempSelectField);
         var tempSqlElement = $(tempSelection).data("sql-element");
@@ -182,7 +184,7 @@ $(document).ready(function () {
             var tempSelectField = this;
             // wich select is triggering?
             // -> selField, selTable
-            if ($(tempSelectField).hasClass("selField") || $(tempSelectField).hasClass("selTable")) {
+            if ($(tempSelectField).hasClass("selField") || $(tempSelectField).hasClass("selTable")|| $(tempSelectField).hasClass("selOperators")) {
                 if ($(tempSelection).hasClass("extended") && $(tempSelection).hasClass("comma")) { //Feld erweitert ,___
                     $(addLeerzeichenMitKomma()).insertBefore(tempSelection);
                     $(tempSelection).replaceWith(addSelectValue(tempSelection, tempSelectField));
@@ -195,6 +197,7 @@ $(document).ready(function () {
                 }
                 else if ($(tempSelection).hasClass("root")) { //Feld normal ___
                     $(tempSelection).replaceWith(addSelectValue(tempSelection, tempSelectField));
+                    console.log(tempSelectField);
                     removeSelection();
                     setSelection(nextElementNr);
                 }
