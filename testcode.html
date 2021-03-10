@@ -13,39 +13,45 @@
 
 <body>
     <p><a href="./index.html">zurück</a></p>
+    <span id="codeVersion" style="font-size: 1em; float: right;"> Version </span>
     <h2> Online SQL - Testcode</h2>
+
 
     <div class="codeArea">
 
     </div>
     <div class="buttonArea">
-        <button class="btnSelect sqlSelect codeButton">
-            SELECT ___ FROM ___
-        </button>
 
-        <select class="selTable sqlSelect codeSelect">
-            <option value="" disabled selected hidden>Tabelle wählen</option>
-            <option value="benutzer">benutzer</option>
-            <option value="warenausgabepunkt">warenausgabepunkt</option>
-            <option value="punkte">punkte</option>
-        </select>
+        <p class="sqlSelectBefehl">
+            <button class="btnSelect synSQL sqlSelect codeButton">SELECT ___ FROM ___</button>
+
+            <select class="selTable synTables sqlSelect codeSelect">
+                <option value="" disabled selected hidden>Tabelle wählen</option>
+                <option value="benutzer">benutzer</option>
+                <option value="ware">warenausgabepunkt</option>
+                <option value="punkte">punkte</option>
+            </select>
 
 
-        <select class="selField sqlSelect codeSelect">
-            <option value="" disabled selected hidden>Spalte wählen</option>
-            <option value="*">*</option>
-            <option value="id">id</option>
-            <option value="name">name</option>
-        </select>
+            <select class="selField synColumns synColumns sqlSelect codeSelect">
+                <option value="" disabled selected hidden>Spalte wählen</option>
+                <option value="*">*</option>
+                <option value="id">id</option>
+                <option value="name">name</option>
+            </select>
 
-        <select class="selAggregate sqlSelect codeSelect">
-            <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
-            <option value="AVG">AVG ( ___ )</option>
-            <option value="COUNT">COUNT ( ___ )</option>
-            <option value="MIN">MIN ( ___ )</option>
-            <option value="MAX">MAX ( ___ )</option>
-            <option value="SUM">SUM ( ___ )</option>
-        </select>
+            <select class="selAggregate synSQL sqlSelect codeSelect">
+                <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
+                <option value="AVG">AVG ( ___ )</option>
+                <option value="COUNT">COUNT ( ___ )</option>
+                <option value="MIN">MIN ( ___ )</option>
+                <option value="MAX">MAX ( ___ )</option>
+                <option value="SUM">SUM ( ___ )</option>
+            </select>
+
+            <input type="text" placeholder="Wert" class="inputValue synValues sqlSelect codeInput"> </input>
+            
+        </p>
 
         <button class="btnAdd sqlSelect codeButton">
             +
