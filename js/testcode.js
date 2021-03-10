@@ -44,8 +44,6 @@ $(document).ready(function () {
         elementWHERE += "<span class='codeElement_" + nr + " inputValue sqlWhere child inputField root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
         elementWHERE += "</span>";
         elementWHERE += "</span>";
-        elementWHERE += addLeerzeichen(); nr++;
-        //$('#codeArea').append(elementWHERE);
         $(elementWHERE).insertAfter($(tempSelection).children().closest(".inputFields").first());
         setSelection(nextElementNr);
     });
@@ -64,7 +62,6 @@ $(document).ready(function () {
         elementWhereAND += addLeerzeichen(); nr++;
         elementWhereAND += "<span class='codeElement_" + nr + " inputValue sqlWhere child inputField root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
         elementWhereAND += "</span>";
-        elementWhereAND += addLeerzeichen(); nr++;
         $(elementWhereAND).insertAfter($(tempSelection).children().closest(".inputFields").first());
         setSelection(nextElementNr);
     });
@@ -83,7 +80,6 @@ $(document).ready(function () {
         elementWhereOR += addLeerzeichen(); nr++;
         elementWhereOR += "<span class='codeElement_" + nr + " inputValue sqlWhere child inputField root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
         elementWhereOR += "</span>";
-        elementWhereOR += addLeerzeichen(); nr++;
         $(elementWhereOR).insertAfter($(tempSelection).children().closest(".inputFields").first());
         setSelection(nextElementNr);
     });
