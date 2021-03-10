@@ -81,13 +81,6 @@ footer {
     color: #222;
 }
 
-#codeArea {
-    height: 100px;
-    background-color: LightGray;
-    font-family: monospace;
-    font-size: 1.3em;
-}
-
 .buttonArea {
     margin-top: 5px;
     font-family: monospace;
@@ -269,6 +262,40 @@ footer {
 
 .buttonArea select.selAggregate {
     color: indigo;
+}
+
+
+/* Code Coloring */
+
+.codeArea {
+    height: 100px;
+    background-color: LightGray;
+    font-family: monospace;
+    font-size: 1.3em;
+}
+
+.codeArea .synSQL {
+    color: steelblue;
+}
+
+.codeArea .synTables {
+    color: cadetblue;
+}
+
+.codeArea .synColumns {
+    color: tomato;
+}
+
+.codeArea .synOperators {
+    color: orchid;
+}
+
+.codeArea .synBrackets {
+    color: indigo;
+}
+
+.codeArea .synValues {
+    color: goldenrod;
 }
 
 #debug {

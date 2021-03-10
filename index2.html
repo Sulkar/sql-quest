@@ -40,13 +40,31 @@ Bitte eine Datenbank auswählen!
     <hr>
 
     <div>
-        <div id="targetArea"></div>
+        <div class="targetArea">
+            <div class="codeArea">
 
-        <div class="buttonArea">
-            <p class="sqlSelectBefehl">
-                <button class="btnSelect sqlSelect">SELECT ___ FROM ___</button>
 
-                <select class="selTable sqlSelect">
+                <span class="codeElement_0 btnSelect sqlSelect parent sqlIdentifier synSQL" data-sql-element="SELECT">SELECT<span class="inputFields"><span class="codeElement_1 leerzeichen"> </span><span class="codeElement_2 synColumns selField sqlSelect child inputField root dbField sqlIdentifier"
+                    data-sql-element="SELECT_SELECT" data-next-element="6">name</span><span class="codeElement_8 synColumns selField sqlSelect child inputField sqlIdentifier extended" data-sql-element="SELECT_SELECT">,id</span><span class="codeElement_3 leerzeichen"> </span>
+                <span class="codeElement_4 synSQL child" data-goto-element="0">FROM</span><span class="codeElement_5 leerzeichen"> </span><span class="codeElement_6 selTable  synTables sqlSelect child inputField root dbTable sqlIdentifier" data-sql-element="SELECT_FROM"
+                    data-next-element="2">warenausgabepunkt</span></span>
+                <span class="codeElement_9 leerzeichen"> </span><span class="codeElement_10 btnWhere sqlWhere parent synSQL sqlIdentifier" data-sql-element="WHERE">WHERE<span class="inputFields"><span class="codeElement_11 leerzeichen"> </span><span class="codeElement_12 selField synColumns sqlWhere child inputField root sqlIdentifier"
+                    data-sql-element="WHERE_1" data-next-element="14">name</span><span class="codeElement_13 leerzeichen"> </span><span class="codeElement_14 selOperators sqlWhere child inputField root synOperators sqlIdentifier" data-sql-element="WHERE_2"
+                    data-next-element="16">&gt;</span>
+                <span class="codeElement_15 leerzeichen"> </span><span class="codeElement_16 inputValue sqlWhere child inputField root sqlIdentifier synValues input" data-sql-element="WHERE_3" data-next-element="12">7</span></span>
+                <span class="codeElement_18 leerzeichen"> </span><span class="codeElement_19 btnAND synSQL sqlWhere parent sqlIdentifier sqlWhereAND  inputFields" data-sql-element="AND">AND<span class="codeElement_20 leerzeichen"> </span>
+                <span class="codeElement_21 synColumns child inputField root sqlIdentifier" data-sql-element="WHERE_1" data-next-element="23">name</span><span class="codeElement_22 leerzeichen"> </span><span class="codeElement_23 selOperators sqlWhere child inputField root synOperators sqlIdentifier"
+                    data-sql-element="WHERE_2" data-next-element="25">=</span>
+                <span class="codeElement_24 leerzeichen"> </span><span class="codeElement_25 inputValue sqlWhere child inputField root sqlIdentifier synValues input" data-sql-element="WHERE_3" data-next-element="21">'Franz'</span></span>
+                <span class="codeElement_26 leerzeichen"> </span>
+                </span><span class="codeElement_17 leerzeichen"> </span></span><span class="codeElement_7 leerzeichen"> </span>
+            </div>
+
+            <div class="buttonArea">
+                <p class="sqlSelectBefehl">
+                    <button class="btnSelect sqlSelect">SELECT ___ FROM ___</button>
+
+                    <select class="selTable sqlSelect">
                 <option value="" disabled selected hidden>Tabelle wählen</option>
                 <option value="benutzer">benutzer</option>
                 <option value="ware">warenausgabepunkt</option>
@@ -54,14 +72,14 @@ Bitte eine Datenbank auswählen!
               </select>
 
 
-                <select class="selField sqlSelect">
+                    <select class="selField sqlSelect">
                 <option value="" disabled selected hidden>Spalte wählen</option>
                 <option value="*">*</option>
                 <option value="id">id</option>
                 <option value="name">name</option>
               </select>
 
-                <select class="selAggregate sqlSelect">
+                    <select class="selAggregate sqlSelect">
                 <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
                 <option value="AVG">AVG ( ___ )</option>
                 <option value="COUNT">COUNT ( ___ )</option>
@@ -70,20 +88,20 @@ Bitte eine Datenbank auswählen!
                 <option value="SUM">SUM ( ___ )</option>
               </select>
 
-                <input type="text" placeholder="Wert" class="inputValue sqlSelect"> </input>
-                <button class="btnDelete sqlSelect">X</button>
-            </p>
-            <p class="sqlWhereBefehl">
-                <button class="btnWhere sqlWhere">WHERE ___ ___ ___</button>
+                    <input type="text" placeholder="Wert" class="inputValue sqlSelect"> </input>
+                    <button class="btnDelete sqlSelect">X</button>
+                </p>
+                <p class="sqlWhereBefehl">
+                    <button class="btnWhere sqlWhere">WHERE ___ ___ ___</button>
 
-                <select class="selField sqlWhere">
+                    <select class="selField sqlWhere">
                   <option value="" disabled selected hidden>Tabelle wählen</option>
                   <option value="*">*</option>
                   <option value="id">id</option>
                   <option value="name">name</option>
                 </select>
 
-                <select class="selOperators sqlWhere">
+                    <select class="selOperators sqlWhere">
                   <option value="" disabled selected hidden>Operator wählen</option>
                   <option value="=">=</option>
                   <option value="&gt;">&gt;</option>
@@ -96,31 +114,31 @@ Bitte eine Datenbank auswählen!
                   <option value="IN">IN</option>
                 </select>
 
-                <button class="btnAND sqlWhere">AND</button>
-                <button class="btnOR sqlWhere">OR</button>
-                <button class="btnLeftBracket sqlWhere">(</button>
-                <button class="btnRightBracket sqlWhere">)</button>
+                    <button class="btnAND sqlWhere">AND</button>
+                    <button class="btnOR sqlWhere">OR</button>
+                    <button class="btnLeftBracket sqlWhere">(</button>
+                    <button class="btnRightBracket sqlWhere">)</button>
 
 
-                <input type="text" placeholder="Wert" class="inputValue sqlWhere"> </input>
-            </p>
-            <p class="sqlOrderBefehl">
-                <button class="btnOrder sqlOrder">ORDER BY ___</button>
+                    <input type="text" placeholder="Wert" class="inputValue sqlWhere"> </input>
+                </p>
+                <p class="sqlOrderBefehl">
+                    <button class="btnOrder sqlOrder">ORDER BY ___</button>
 
-                <button class="btnLimit sqlOrder">LIMIT ___</button>
-                <button class="btnOffset sqlOrder">OFFSET ___</button>
-                <input type="text" placeholder="Wert" class="inputValue sqlOrder"> </input>
-                <button class="btnAsc sqlOrder">ASC</button>
-                <button class="btnDesc sqlOrder">DESC</button>
-            </p>
-            <p class="sqlGroupBefehl">
+                    <button class="btnLimit sqlOrder">LIMIT ___</button>
+                    <button class="btnOffset sqlOrder">OFFSET ___</button>
+                    <input type="text" placeholder="Wert" class="inputValue sqlOrder"> </input>
+                    <button class="btnAsc sqlOrder">ASC</button>
+                    <button class="btnDesc sqlOrder">DESC</button>
+                </p>
+                <p class="sqlGroupBefehl">
 
-                <button class="btnGroup sqlGroup">GROUP BY ___</button>
-                <button class="btnHAVING sqlGroup">HAVING ___ ___ ___</button>
+                    <button class="btnGroup sqlGroup">GROUP BY ___</button>
+                    <button class="btnHAVING sqlGroup">HAVING ___ ___ ___</button>
 
 
 
-                <select class="selAggregate sqlGroup">
+                    <select class="selAggregate sqlGroup">
                   <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
                   <option value="AVG">AVG ( ___ )</option>
                   <option value="COUNT">COUNT ( ___ )</option>
@@ -129,12 +147,12 @@ Bitte eine Datenbank auswählen!
                   <option value="SUM">SUM ( ___ )</option>
                 </select>
 
-                <button class="btnAND sqlGroup">AND</button>
-                <button class="btnOR sqlGroup">OR</button>
-                <button class="btnLeftBracket sqlGroup">(</button>
-                <button class="btnRightBracket sqlGroup">)</button>
+                    <button class="btnAND sqlGroup">AND</button>
+                    <button class="btnOR sqlGroup">OR</button>
+                    <button class="btnLeftBracket sqlGroup">(</button>
+                    <button class="btnRightBracket sqlGroup">)</button>
 
-                <select class="selOperators sqlGroup">
+                    <select class="selOperators sqlGroup">
                   <option value="" disabled selected hidden>Operator wählen</option>
                   <option value="=">=</option>
                   <option value="&gt;">&gt;</option>
@@ -147,20 +165,20 @@ Bitte eine Datenbank auswählen!
                   <option value="IN">IN</option>
                 </select>
 
-                <input type="text" placeholder="Wert" class="inputValue sqlGroup"> </input>
-            </p>
+                    <input type="text" placeholder="Wert" class="inputValue sqlGroup"> </input>
+                </p>
 
-            <p class="sqlJoinBefehl">
-                <button class="btnJoin sqlJoin">JOIN ___ ON ___ ___ ___</button>
+                <p class="sqlJoinBefehl">
+                    <button class="btnJoin sqlJoin">JOIN ___ ON ___ ___ ___</button>
 
-                <select class="selTable sqlJoin">
+                    <select class="selTable sqlJoin">
                 <option value="" disabled selected hidden>Tabelle wählen</option>
                 <option value="benutzer">benutzer</option>
                 <option value="ware">warenausgabepunkt</option>
                 <option value="punkte">punkte</option>
               </select>
 
-                <select class="selField sqlJoin">
+                    <select class="selField sqlJoin">
                 <option value="" disabled selected hidden>Spalte wählen</option>
                 <option value="*">*</option>
                 <option value="id">id</option>
@@ -168,7 +186,7 @@ Bitte eine Datenbank auswählen!
               </select>
 
 
-                <select class="selOperators sqlJoin">
+                    <select class="selOperators sqlJoin">
                 <option value="" disabled selected hidden>Operator wählen</option>
                 <option value="=">=</option>
                 <option value="&gt;">&gt;</option>
@@ -181,48 +199,48 @@ Bitte eine Datenbank auswählen!
                 <option value="IN">IN</option>
               </select>
 
-            </p>
+                </p>
+            </div>
+
+            <p>Debug:</p>
+
+            <div id="debug">
+                ...
+            </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js">
+        </script>
+        <script type="text/javascript" src="js/index.js">
+        </script>
+        <script type="text/javascript" src="js/sqlbuilder.js">
+        </script>
+        <script>
+            // Target Area
+            Sortable.create(gridSortTargetArea, {
+                group: 'shared',
+                animation: 150
+            });
+            // Library Buttons Area
+            Sortable.create(gridSortLibrary, {
+                group: {
+                    name: 'shared',
+                    pull: 'clone',
+                    //put: false
+                },
+                animation: 150,
+                sort: false, // To disable sorting: set sort to false
+                onAdd: function(evt) { // löscht Items, welche in die Library zurückgedropt werden
+                    var el = evt.item;
+                    el.parentNode.removeChild(el);
 
-        <p>Debug:</p>
+                }
 
-        <div id="debug">
-            ...
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js">
-    </script>
-    <script type="text/javascript" src="js/index.js">
-    </script>
-    <script type="text/javascript" src="js/sqlbuilder.js">
-    </script>
-    <script>
-        // Target Area
-        Sortable.create(gridSortTargetArea, {
-            group: 'shared',
-            animation: 150
-        });
-        // Library Buttons Area
-        Sortable.create(gridSortLibrary, {
-            group: {
-                name: 'shared',
-                pull: 'clone',
-                //put: false
-            },
-            animation: 150,
-            sort: false, // To disable sorting: set sort to false
-            onAdd: function(evt) { // löscht Items, welche in die Library zurückgedropt werden
-                var el = evt.item;
-                el.parentNode.removeChild(el);
-
-            }
-
-        });
-    </script>
+            });
+        </script>
 </body>
 
 </html>
