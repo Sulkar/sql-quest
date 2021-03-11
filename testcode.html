@@ -28,7 +28,7 @@
             <select class="selTable synTables sqlSelect codeSelect">
                 <option value="" disabled selected hidden>Tabelle wählen</option>
                 <option value="benutzer">benutzer</option>
-                <option value="ware">warenausgabepunkt</option>
+                <option value="warenausgabepunkt">warenausgabepunkt</option>
                 <option value="punkte">punkte</option>
             </select>
 
@@ -50,46 +50,45 @@
             </select>
 
             <input type="text" placeholder="Wert" class="inputValue synValues sqlSelect codeInput"> </input>
-            
+
         </p>
 
         <button class="btnAdd sqlSelect codeButton">
             +
         </button>
 
-        <button class="btnWhere sqlWhere codeButton">WHERE ___ ___ ___</button>
+        <p class="sqlWhereBefehl">
+            <button class="btnWhere synSQL sqlWhere codeButton">WHERE ___ ___ ___</button>
 
-        <select class="selField sqlWhere codeSelect">
-            <option value="" disabled selected hidden>Spalte wählen</option>
-            <option value="*">*</option>
-            <option value="id">id</option>
-            <option value="name">name</option>
-        </select>
+            <select class="selField synColumns sqlWhere codeSelect">
+                <option value="" disabled selected hidden>Spalte wählen</option>
+                <option value="*">*</option>
+                <option value="id">id</option>
+                <option value="name">name</option>
+            </select>
 
-        <select class="selOperators sqlWhere codeSelect">
-            <option value="" disabled selected hidden>Operator wählen</option>
-            <option value="=">=</option>
-            <option value="&gt;">&gt;</option>
-            <option value="&lt;">&lt;</option>
-            <option value="&gt;=">&gt;=</option>
-            <option value="=">&lt;=</option>
-            <option value="&lt;&gt;">&lt;&gt;</option>
-            <option value="BETWEEN">BETWEEN</option>
-            <option value="LIKE">LIKE</option>
-            <option value="IN">IN</option>
-        </select>
+            <select class="selOperators synOperators sqlWhere codeSelect">
+                <option value="" disabled selected hidden>Operator wählen</option>
+                <option value="=">=</option>
+                <option value="&gt;">&gt;</option>
+                <option value="&lt;">&lt;</option>
+                <option value="&gt;=">&gt;=</option>
+                <option value="=">&lt;=</option>
+                <option value="&lt;&gt;">&lt;&gt;</option>
+                <option value="BETWEEN">BETWEEN</option>
+                <option value="LIKE">LIKE</option>
+                <option value="IN">IN</option>
+            </select>
 
-        <input type="text" placeholder="Wert" class="inputValue sqlWhere codeInput"> </input>
+            <button class="btnAND synSQL sqlWhere codeButton">AND</button>
+            <button class="btnOR synSQL sqlWhere codeButton">OR</button>
+            <button class="btnLeftBracket synBrackets sqlWhere codeButton">(</button>
+            <button class="btnRightBracket synBrackets sqlWhere codeButton">)</button>
 
-        <button class="btnAND sqlWhere codeButton">AND</button>
-        <button class="btnOR sqlWhere codeButton">OR</button>
-        <button class="btnLeftBracket sqlWhere codeButton">(</button>
-        <button class="btnRightBracket sqlWhere codeButton">)</button>
 
-        <button class="btnAdd sqlWhere codeButton">
-            +
-        </button>
-
+            <input type="text" placeholder="Wert" class="inputValue synValues sqlWhere codeInput"> </input>
+        </p>
+      
         <button class="btnDelete codeButton">
             X
         </button>

@@ -1,9 +1,10 @@
 $(document).ready(function () {
 
-    $(codeVersion).append("0.2");
+    $(codeVersion).append("0.21");
 
     //global variables
     var nr = 0;
+    var lastSelectedElement = undefined;
     var currentSelectedElement = undefined;
     var nextElementNr = 0;
     var currentSelectedSQLElement = "START";
@@ -15,7 +16,7 @@ $(document).ready(function () {
     $('.btnSelect').click(function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         currentSelectedElement = undefined;
-        var elementSELECT_FROM = "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='SELECT'>SELECT"; nr++;
+        var elementSELECT_FROM = "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " start parent sqlIdentifier inputFields' data-sql-element='SELECT'>SELECT"; nr++;
         elementSELECT_FROM += addLeerzeichen();
         elementSELECT_FROM += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='SELECT_SELECT' data-next-element='" + (nr + 4) + "'>___</span>"; nr++;
         elementSELECT_FROM += addLeerzeichen();
@@ -25,7 +26,7 @@ $(document).ready(function () {
         nextElementNr = nr; nr++;
         elementSELECT_FROM += "</span>";
         $('.codeArea').append(elementSELECT_FROM);
-        setSelection(nextElementNr);
+        setSelection(nextElementNr, false);
     });
 
     // Button: WHERE age > 21 -- WHERE ___ ___ ___ 
@@ -42,7 +43,7 @@ $(document).ready(function () {
         elementWHERE += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
         elementWHERE += "</span>";
         currentSelectedElement.closest(".inputFields").first().append(elementWHERE);
-        setSelection(nextElementNr);
+        setSelection(nextElementNr, false);
     });
 
     //Button: WHERE -> AND
@@ -64,7 +65,7 @@ $(document).ready(function () {
         } else {
             currentSelectedElement.closest(".inputFields").first().append(elementWhereAND);
         }
-        setSelection(nextElementNr);
+        setSelection(nextElementNr, false);
     });
 
     //Button: WHERE -> OR
@@ -86,7 +87,7 @@ $(document).ready(function () {
         } else {
             currentSelectedElement.closest(".inputFields").first().append(elementWhereOR);
         }
-        setSelection(nextElementNr);
+        setSelection(nextElementNr, false);
     });
 
     //Button: WHERE -> LeftBracket
@@ -116,7 +117,7 @@ $(document).ready(function () {
             } else {
                 $(addInputField(dataSqlElement, "extendedComma")).insertAfter(currentSelectedElement);
             }
-            setSelection(nextElementNr);
+            setSelection(nextElementNr, false);
         }
     });
 
@@ -124,27 +125,38 @@ $(document).ready(function () {
     $('.codeSelect').on('change', function () {
         if (currentSelectedElement != undefined) {
             var tempSelectField = this;
+            var returnObject = {};
             // wich select is triggering?
             // -> selField, selTable
             if ($(tempSelectField).hasClass("selField") || $(tempSelectField).hasClass("selTable") || $(tempSelectField).hasClass("selOperators")) {
+
                 if (currentSelectedElement.hasClass("extended") && currentSelectedElement.hasClass("comma")) { //Feld erweitert ,___
-                    currentSelectedElement.replaceWith(addSelectValue(tempSelectField));
-                    setSelection(nextElementNr);
+                    returnObject = addSelectValue(tempSelectField);
+                    currentSelectedElement.replaceWith(returnObject.tempSelectValue);
+                    currentSelectedElement = $(returnObject.thisCodeElement);
+
+                    setSelection("next", false);
                 }
                 else if (currentSelectedElement.hasClass("extended")) { //Feld erweitert ___
-                    currentSelectedElement.replaceWith(addSelectValue(tempSelectField));
-                    setSelection(nextElementNr);
+                    returnObject = addSelectValue(tempSelectField);
+                    currentSelectedElement.replaceWith(returnObject.tempSelectValue);
+                    currentSelectedElement = $(returnObject.thisCodeElement);
+
+                    setSelection("next", false);
+
                 }
                 else if (currentSelectedElement.hasClass("root")) { //Feld normal ___
-                    currentSelectedElement.replaceWith(addSelectValue(tempSelectField));
+                    returnObject = addSelectValue(tempSelectField);
+                    currentSelectedElement.replaceWith(returnObject.tempSelectValue);
+                    currentSelectedElement = $(returnObject.thisCodeElement);
 
-                    setSelection("next");
+                    setSelection("next", false);
                 }
             }
             // -> selAggregate
             else if ($(tempSelectField).hasClass("selAggregate")) {
                 currentSelectedElement.replaceWith(addAggregat(tempSelectField));
-                setSelection(nextElementNr);
+                setSelection(nextElementNr, false);
             }
         }
         //reset select option
@@ -157,26 +169,25 @@ $(document).ready(function () {
     $('.btnDelete').click(function () {
         // Element parent? oder inputField + extended?
         if (currentSelectedElement.hasClass("parent")) {
-            currentSelectedElement.remove();
-            removeSelection();
-            checkCodeAreaSQLElements();
+            setSelection("parent", true);
+        }
+        else if (currentSelectedElement.hasClass("synBrackets") && currentSelectedElement.hasClass("extended")) {
+            setSelection("next", true);
         }
         else if (currentSelectedElement.hasClass("inputField") && currentSelectedElement.hasClass("extended")) {
             currentSelectedElement.prev().remove();
-            currentSelectedElement.remove();
-            removeSelection();
-            checkCodeAreaSQLElements();
+            setSelection("next", true);
         }
         // Element ist das root inputField? remove old Element and create new one
         else if (currentSelectedElement.hasClass("inputField") && currentSelectedElement.hasClass("root")) {
             var dataSqlElement = currentSelectedElement.data("sql-element");
             currentSelectedElement.replaceWith(addInputField(dataSqlElement, "root"));
-            setSelection(nextElementNr);
+            setSelection(nextElementNr, false);
         }
         // don´t delete, select parent Element
         else {
             var elementNr = getElementNr(currentSelectedElement.parent().attr('class'));
-            setSelection(elementNr);
+            setSelection(elementNr, false);
         }
     });
 
@@ -192,13 +203,13 @@ $(document).ready(function () {
         } else {
             var elementNr = getElementNr($(this).attr("class"));
         }
-        setSelection(elementNr);
+        setSelection(elementNr, false);
     });
 
     // on Click CodeArea - deselct
     $('body').on('click', '.codeArea', function (event) {
         event.stopPropagation();
-        removeSelection();
+        removeSelection(false);
         checkCodeAreaSQLElements();
     });
 
@@ -237,8 +248,7 @@ $(document).ready(function () {
         var tempSqlElement = currentSelectedElement.data("sql-element");
         var tempAggregat = "";
         if (currentSelectedElement.hasClass("extended")) {
-            tempAggregat += addLeerzeichen();
-            tempAggregat += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " inputField sqlIdentifier extended' data-sql-element='" + tempSqlElement + "'>," + tempSelectField.value + "(";
+            tempAggregat += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " inputField sqlIdentifier extended' data-sql-element='" + tempSqlElement + "'>" + tempSelectField.value + "(";
         } else {
             tempAggregat += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " inputField sqlIdentifier root' data-sql-element='" + tempSqlElement + "'>" + tempSelectField.value + "(";
         }
@@ -258,9 +268,12 @@ $(document).ready(function () {
         } else {
             tempSelectValue += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " inputField sqlIdentifier root' data-sql-element='" + tempSqlElement + "'>" + tempSelectField.value + "</span>";
         }
-        currentSelectedElement = "codeElement_" + nr;
+        var returnObject = {};
+        returnObject.tempSelectValue = tempSelectValue;
+        returnObject.thisCodeElement = ".codeElement_" + nr;
+
         nr++;
-        return tempSelectValue;
+        return returnObject;
     }
 
     //function: liefert alle Klassen eines Elements als Array zurück, außer der letzten Kontrollklasse (codeButton, codeSelect, codeInput)
@@ -276,31 +289,44 @@ $(document).ready(function () {
         return codeComponentClassesAsString;
     }
     //function: remove Selection from all Elements
-    function removeSelection() {
+    function removeSelection(removeLastSelectedElement) {
         $("[class^='codeElement_']").removeClass("active");
         $(".codeInput").val("");
+        if (removeLastSelectedElement) currentSelectedElement.remove();
         currentSelectedElement = undefined;
     }
 
     //function: set Selection to an Element
-    function setSelection(elementNr) {
-        var oldCurrentSelectedElement = currentSelectedElement;
-        removeSelection();
+    function setSelection(elementNr, removeLastSelectedElement) {
         var element;
-        //next element is chosen by number
-        if (elementNr != "next") {
-            element = $(".codeElement_" + elementNr);
-        }
         //no number is given -> get next unfilled inputField
-        else {
-            element = $("." + oldCurrentSelectedElement).closest(".parent").find(".unfilled").first();
-            if (!element.length) {
-                element = $("." + oldCurrentSelectedElement).closest(".parent").first();
+        if (elementNr == "next") {
+            console.log("setSelection next");
+            element = currentSelectedElement.closest(".parent").find(".unfilled").first();
+            if (element.length == 0) {
+                element = currentSelectedElement.closest(".parent").first();
             }
         }
-        element.addClass("active");
-        currentSelectedElement = element;
-        currentSelectedSQLElement = element.closest(".sqlIdentifier").data("sql-element");
+        //
+        else if (elementNr == "parent") {
+            console.log("setSelection parent");
+            element = currentSelectedElement.parents().closest(".parent").last();
+        }
+        //next element is chosen by number
+        else {
+            console.log("setSelection NOT next");
+            element = $(".codeElement_" + elementNr);
+        }
+
+        removeSelection(removeLastSelectedElement);
+
+        if (element.length != 0) {
+            element.addClass("active");
+            currentSelectedElement = element;
+            currentSelectedSQLElement = element.closest(".sqlIdentifier").data("sql-element");
+        } else {
+            currentSelectedSQLElement = "START";
+        }
         updateActiveCodeView();
         //DEBUG:
         $("#debug").html("<span style='font-weight: 700;'>currentSelectedElement:</span><br>" + currentSelectedElement.attr("class"));
