@@ -42,9 +42,9 @@ Bitte eine Datenbank auswählen!
     <div>
         <div class="targetArea">
             <div class="codeArea">
-
-
-                <span class="codeElement_0 btnSelect sqlSelect parent sqlIdentifier synSQL" data-sql-element="SELECT">SELECT<span class="inputFields"><span class="codeElement_1 leerzeichen"> </span><span class="codeElement_2 synColumns selField sqlSelect child inputField root dbField sqlIdentifier"
+                <pre>
+                  <!--
+                <span class="codeElement_0  codeline btnSelect sqlSelect parent sqlIdentifier synSQL" data-sql-element="SELECT">SELECT<span class="inputFields"><span class="codeElement_1 leerzeichen"> </span><span class="codeElement_2 synColumns selField sqlSelect child inputField root dbField sqlIdentifier"
                     data-sql-element="SELECT_SELECT" data-next-element="6">name</span><span class="codeElement_8 synColumns selField sqlSelect child inputField sqlIdentifier extended" data-sql-element="SELECT_SELECT">,id</span><span class="codeElement_3 leerzeichen"> </span>
                 <span class="codeElement_4 synSQL child" data-goto-element="0">FROM</span><span class="codeElement_5 leerzeichen"> </span><span class="codeElement_6 selTable  synTables sqlSelect child inputField root dbTable sqlIdentifier" data-sql-element="SELECT_FROM"
                     data-next-element="2">warenausgabepunkt</span></span>
@@ -58,6 +58,11 @@ Bitte eine Datenbank auswählen!
                 <span class="codeElement_24 leerzeichen"> </span><span class="codeElement_25 inputValue sqlWhere child inputField root sqlIdentifier synValues input" data-sql-element="WHERE_3" data-next-element="21">'Franz'</span></span>
                 <span class="codeElement_26 leerzeichen"> </span>
                 </span><span class="codeElement_17 leerzeichen"> </span></span><span class="codeElement_7 leerzeichen"> </span>
+              -->
+
+<span class="codeElement_0 codeline btnSelect synSQL sqlSelect parent sqlIdentifier inputFields" data-sql-element="SELECT">SELECT<span class="codeElement_1 leerzeichen"> </span><span class="codeElement_8 selField synColumns synColumns sqlSelect inputField sqlIdentifier root" data-sql-element="SELECT_SELECT">id</span><span class="codeElement_3 leerzeichen"> </span><span class="codeElement_4" data-goto-element="0">FROM</span><span class="codeElement_5 leerzeichen"> </span><span class="codeElement_7 selTable synTables sqlSelect inputField sqlIdentifier root" data-sql-element="SELECT_FROM">ware</span><span class="codeElement_9 leerzeichen"> </span><span class="codeElement_10 btnWhere sqlWhere parent sqlIdentifier codeline inputFields" data-sql-element="WHERE">WHERE<span class="codeElement_11 leerzeichen"> </span><span class="codeElement_17 btnLeftBracket sqlWhere sqlIdentifier extended" data-sql-element="LEFTBRACKET"> ( </span><span class="codeElement_18 selField sqlWhere inputField sqlIdentifier root" data-sql-element="WHERE_1">id</span><span class="codeElement_13 leerzeichen"> </span><span class="codeElement_19 selOperators sqlWhere inputField sqlIdentifier root" data-sql-element="WHERE_2">=</span><span class="codeElement_15 leerzeichen"> </span><span class="codeElement_16 inputField unfilled root sqlIdentifier input" data-sql-element="WHERE_3" data-next-element="12">15</span><span class="codeElement_20 btnRightBracket sqlWhere sqlIdentifier extended" data-sql-element="RIGHTBRACKET"> ) </span><span class="codeElement_21 leerzeichen"> </span><span class="codeElement_22 btnAND sqlWhere parent sqlIdentifier inputFields" data-sql-element="AND">AND<span class="codeElement_23 leerzeichen"> </span><span class="codeElement_29 selField sqlWhere inputField sqlIdentifier root" data-sql-element="WHERE_1">name</span><span class="codeElement_25 leerzeichen"> </span><span class="codeElement_30 selOperators sqlWhere inputField sqlIdentifier root" data-sql-element="WHERE_2">=</span><span class="codeElement_27 leerzeichen"> </span><span class="codeElement_28 inputField unfilled root sqlIdentifier input" data-sql-element="WHERE_3" data-next-element="24">'Franz'</span></span></span></span>
+
+              </pre>
             </div>
 
             <div class="buttonArea">
@@ -65,28 +70,28 @@ Bitte eine Datenbank auswählen!
                     <button class="btnSelect synSQL sqlSelect">SELECT ___ FROM ___</button>
 
                     <select class="selTable synTables sqlSelect">
-                <option value="" disabled selected hidden>Tabelle wählen</option>
-                <option value="benutzer">benutzer</option>
-                <option value="ware">warenausgabepunkt</option>
-                <option value="punkte">punkte</option>
-              </select>
+            <option value="" disabled selected hidden>Tabelle wählen</option>
+            <option value="benutzer">benutzer</option>
+            <option value="ware">warenausgabepunkt</option>
+            <option value="punkte">punkte</option>
+          </select>
 
 
                     <select class="selField synColumns synColumns sqlSelect">
-                <option value="" disabled selected hidden>Spalte wählen</option>
-                <option value="*">*</option>
-                <option value="id">id</option>
-                <option value="name">name</option>
-              </select>
+            <option value="" disabled selected hidden>Spalte wählen</option>
+            <option value="*">*</option>
+            <option value="id">id</option>
+            <option value="name">name</option>
+          </select>
 
                     <select class="selAggregate synSQL sqlSelect">
-                <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
-                <option value="AVG">AVG ( ___ )</option>
-                <option value="COUNT">COUNT ( ___ )</option>
-                <option value="MIN">MIN ( ___ )</option>
-                <option value="MAX">MAX ( ___ )</option>
-                <option value="SUM">SUM ( ___ )</option>
-              </select>
+            <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
+            <option value="AVG">AVG ( ___ )</option>
+            <option value="COUNT">COUNT ( ___ )</option>
+            <option value="MIN">MIN ( ___ )</option>
+            <option value="MAX">MAX ( ___ )</option>
+            <option value="SUM">SUM ( ___ )</option>
+          </select>
 
                     <input type="text" placeholder="Wert" class="inputValue synValues sqlSelect"> </input>
                     <button class="btnDelete sqlSelect">X</button>
@@ -95,24 +100,24 @@ Bitte eine Datenbank auswählen!
                     <button class="btnWhere synSQL sqlWhere">WHERE ___ ___ ___</button>
 
                     <select class="selField synColumns sqlWhere">
-                  <option value="" disabled selected hidden>Spalte wählen</option>
-                  <option value="*">*</option>
-                  <option value="id">id</option>
-                  <option value="name">name</option>
-                </select>
+            <option value="" disabled selected hidden>Spalte wählen</option>
+            <option value="*">*</option>
+            <option value="id">id</option>
+            <option value="name">name</option>
+          </select>
 
                     <select class="selOperators synOperators sqlWhere">
-                  <option value="" disabled selected hidden>Operator wählen</option>
-                  <option value="=">=</option>
-                  <option value="&gt;">&gt;</option>
-                  <option value="&lt;">&lt;</option>
-                  <option value="&gt;=">&gt;=</option>
-                  <option value="=">&lt;=</option>
-                  <option value="&&lt;&gt;">&lt;&gt;</option>
-                  <option value="BETWEEN">BETWEEN</option>
-                  <option value="LIKE">LIKE</option>
-                  <option value="IN">IN</option>
-                </select>
+            <option value="" disabled selected hidden>Operator wählen</option>
+            <option value="=">=</option>
+            <option value="&gt;">&gt;</option>
+            <option value="&lt;">&lt;</option>
+            <option value="&gt;=">&gt;=</option>
+            <option value="=">&lt;=</option>
+            <option value="&&lt;&gt;">&lt;&gt;</option>
+            <option value="BETWEEN">BETWEEN</option>
+            <option value="LIKE">LIKE</option>
+            <option value="IN">IN</option>
+          </select>
 
                     <button class="btnAND synSQL sqlWhere">AND</button>
                     <button class="btnOR synSQL sqlWhere">OR</button>
@@ -139,13 +144,13 @@ Bitte eine Datenbank auswählen!
 
 
                     <select class="selAggregate synSQL sqlGroup">
-                  <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
-                  <option value="AVG">AVG ( ___ )</option>
-                  <option value="COUNT">COUNT ( ___ )</option>
-                  <option value="MIN">MIN ( ___ )</option>
-                  <option value="MAX">MAX ( ___ )</option>
-                  <option value="SUM">SUM ( ___ )</option>
-                </select>
+            <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
+            <option value="AVG">AVG ( ___ )</option>
+            <option value="COUNT">COUNT ( ___ )</option>
+            <option value="MIN">MIN ( ___ )</option>
+            <option value="MAX">MAX ( ___ )</option>
+            <option value="SUM">SUM ( ___ )</option>
+          </select>
 
                     <button class="btnAND synSQL sqlGroup">AND</button>
                     <button class="btnOR synSQL sqlGroup">OR</button>
@@ -153,17 +158,17 @@ Bitte eine Datenbank auswählen!
                     <button class="btnRightBracket synBrackets sqlGroup">)</button>
 
                     <select class="selOperators synOperators sqlGroup">
-                  <option value="" disabled selected hidden>Operator wählen</option>
-                  <option value="=">=</option>
-                  <option value="&gt;">&gt;</option>
-                  <option value="&lt;">&lt;</option>
-                  <option value="&gt;=">&gt;=</option>
-                  <option value="=">&lt;=</option>
-                  <option value="&&lt;&gt;">&lt;&gt;</option>
-                  <option value="BETWEEN">BETWEEN</option>
-                  <option value="LIKE">LIKE</option>
-                  <option value="IN">IN</option>
-                </select>
+            <option value="" disabled selected hidden>Operator wählen</option>
+            <option value="=">=</option>
+            <option value="&gt;">&gt;</option>
+            <option value="&lt;">&lt;</option>
+            <option value="&gt;=">&gt;=</option>
+            <option value="=">&lt;=</option>
+            <option value="&&lt;&gt;">&lt;&gt;</option>
+            <option value="BETWEEN">BETWEEN</option>
+            <option value="LIKE">LIKE</option>
+            <option value="IN">IN</option>
+          </select>
 
                     <input type="text" placeholder="Wert" class="inputValue synValues sqlGroup"> </input>
                 </p>
@@ -172,32 +177,32 @@ Bitte eine Datenbank auswählen!
                     <button class="btnJoin synSQL sqlJoin">JOIN ___ ON ___ ___ ___</button>
 
                     <select class="selTable synTables sqlJoin">
-                <option value="" disabled selected hidden>Tabelle wählen</option>
-                <option value="benutzer">benutzer</option>
-                <option value="ware">warenausgabepunkt</option>
-                <option value="punkte">punkte</option>
-              </select>
+            <option value="" disabled selected hidden>Tabelle wählen</option>
+            <option value="benutzer">benutzer</option>
+            <option value="ware">warenausgabepunkt</option>
+            <option value="punkte">punkte</option>
+          </select>
 
                     <select class="selField synColumns sqlJoin">
-                <option value="" disabled selected hidden>Spalte wählen</option>
-                <option value="*">*</option>
-                <option value="id">id</option>
-                <option value="name">name</option>
-              </select>
+            <option value="" disabled selected hidden>Spalte wählen</option>
+            <option value="*">*</option>
+            <option value="id">id</option>
+            <option value="name">name</option>
+          </select>
 
 
                     <select class="selOperators synOperators sqlJoin">
-                <option value="" disabled selected hidden>Operator wählen</option>
-                <option value="=">=</option>
-                <option value="&gt;">&gt;</option>
-                <option value="&lt;">&lt;</option>
-                <option value="&gt;=">&gt;=</option>
-                <option value="=">&lt;=</option>
-                <option value="&&lt;&gt;">&lt;&gt;</option>
-                <option value="BETWEEN">BETWEEN</option>
-                <option value="LIKE">LIKE</option>
-                <option value="IN">IN</option>
-              </select>
+            <option value="" disabled selected hidden>Operator wählen</option>
+            <option value="=">=</option>
+            <option value="&gt;">&gt;</option>
+            <option value="&lt;">&lt;</option>
+            <option value="&gt;=">&gt;=</option>
+            <option value="=">&lt;=</option>
+            <option value="&&lt;&gt;">&lt;&gt;</option>
+            <option value="BETWEEN">BETWEEN</option>
+            <option value="LIKE">LIKE</option>
+            <option value="IN">IN</option>
+          </select>
 
                 </p>
             </div>
