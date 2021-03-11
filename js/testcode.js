@@ -214,7 +214,7 @@ $(document).ready(function () {
     });
 
     // Input: add text to Selected Element span
-    $(".codeInput").on('input', function () {
+    $(".codeInput").on('keyup', function (e) {
         if (currentSelectedElement != undefined) {
             var tempValue = $(this).val();
             if (tempValue != "") {
@@ -223,6 +223,17 @@ $(document).ready(function () {
                 currentSelectedElement.html("___");
             }
             currentSelectedElement.addClass("input");
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                var classesFromCodeComponent = getClassesFromElementAsString(this);
+                if (tempValue != "") {
+                    currentSelectedElement.removeClass("unfilled");
+                    currentSelectedElement.addClass(classesFromCodeComponent);
+                } else {
+                    currentSelectedElement.addClass("unfilled");
+                    currentSelectedElement.removeClass(classesFromCodeComponent);
+                }
+                setSelection("next", false);
+            }
         }
     });
 
@@ -391,11 +402,10 @@ $(document).ready(function () {
                             if (currentSelectedElement.text() == "___") {
                                 $(element.codeComponentClass).val("");
                             } else {
-                                $(element.codeComponentClass).val(currentSelectedElement.text());
+                                $(element.codeComponentClass).val(currentSelectedElement.text()).select();
                             }
                         }
                     }
-
                 });
             }
         });
