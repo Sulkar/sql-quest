@@ -20,6 +20,14 @@
             {
                 "codeComponentClass": ".btnWhere",
                 "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnOrder",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnLimit",
+                "codeComponentType": "button"
             }
         ]
     },
@@ -28,7 +36,7 @@
         "level": 1,
         "visibleCodeComponents": [
             {
-                "codeComponentClass": ".btnAdd.sqlSelect",
+                "codeComponentClass": ".btnAdd",
                 "codeComponentType": "button"
             },
             {
@@ -36,7 +44,7 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".selField.sqlSelect",
+                "codeComponentClass": ".selField",
                 "codeComponentType": "select"
             },
             {
@@ -54,7 +62,7 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".selField.sqlSelect",
+                "codeComponentClass": ".selField",
                 "codeComponentType": "select"
             }
         ]
@@ -96,7 +104,7 @@
         "level": 1,
         "visibleCodeComponents": [
             {
-                "codeComponentClass": ".selField.sqlWhere",
+                "codeComponentClass": ".selField",
                 "codeComponentType": "select"
             },
             {
@@ -132,7 +140,7 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".inputValue.sqlWhere",
+                "codeComponentClass": ".inputValue",
                 "codeComponentType": "input"
             },
             {
@@ -193,6 +201,94 @@
         "visibleCodeComponents": [
             {
                 "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "ORDER",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnAsc",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnDesc",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "ORDER_1",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selField",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "ASC",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnDesc",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "DESC",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnAsc",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "LIMIT",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "LIMIT_1",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".inputValue",
+                "codeComponentType": "input"
+            },
+            {
+                "codeComponentClass": ".btnAdd",
                 "codeComponentType": "button"
             }
         ]

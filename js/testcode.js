@@ -107,8 +107,8 @@ $(document).ready(function () {
         }
     });
 
-    //Button: SELECT Add Element
-    $('.btnAdd.sqlSelect').click(function () {
+    //Button: ALL Add Element
+    $('.btnAdd').click(function () {
         var dataSqlElement = currentSelectedElement.data("sql-element");
 
         if (currentSelectedElement.hasClass("inputField")) {
@@ -121,7 +121,67 @@ $(document).ready(function () {
         }
     });
 
-    // Select: SELECT add dbField, dbTable, Aggregatsfunktion
+    // Button: ORDER BY ___ 
+    $('.btnOrder.sqlOrder').click(function () {
+        var classesFromCodeComponent = getClassesFromElementAsString(this);
+        var elementORDER = addLeerzeichen();
+        elementORDER += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='ORDER'>ORDER BY"; nr++;
+        elementORDER += addLeerzeichen();
+        elementORDER += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='ORDER_1' data-next-element='" + (nr + 2) + "'>___</span>";
+        nextElementNr = nr; nr++;
+        elementORDER += "</span>";
+        currentSelectedElement.closest(".inputFields").first().append(elementORDER);
+        setSelection(nextElementNr, false);
+    });
+
+    //Button: ORDER BY -> ASC
+    $('.btnAsc.sqlOrder').click(function () {
+        var classesFromCodeComponent = getClassesFromElementAsString(this);
+        var elementOrderAsc = addLeerzeichen();
+        elementOrderAsc += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='ASC'>ASC";
+        nextElementNr = nr; nr++;
+        elementOrderAsc += "</span>";
+        //check selected element is AND or OR -> if yes then replace if not create new one
+        if (currentSelectedElement.data("sql-element") == "ASC" || currentSelectedElement.data("sql-element") == "DESC") {
+            currentSelectedElement.replaceWith(elementOrderAsc);
+            setSelection(nextElementNr, false);
+        } else {
+            currentSelectedElement.closest(".inputFields").first().append(elementOrderAsc);
+            setSelection("next", false);
+        }
+    });
+
+    //Button: ORDER BY -> DESC
+    $('.btnDesc.sqlOrder').click(function () {
+        var classesFromCodeComponent = getClassesFromElementAsString(this);
+        var elementOrderDesc = addLeerzeichen();
+        elementOrderDesc += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='DESC'>DESC";
+        nextElementNr = nr; nr++;
+        elementOrderDesc += "</span>";
+        //check selected element is AND or OR -> if yes then replace if not create new one
+        if (currentSelectedElement.data("sql-element") == "ASC" || currentSelectedElement.data("sql-element") == "DESC") {
+            currentSelectedElement.replaceWith(elementOrderDesc);
+            setSelection(nextElementNr, false);
+        } else {
+            currentSelectedElement.closest(".inputFields").first().append(elementOrderDesc);
+            setSelection("next", false);
+        }
+    });
+
+    // Button: LIMIT ___ = [offset,] row_count
+    $('.btnLimit.sqlOrder').click(function () {
+        var classesFromCodeComponent = getClassesFromElementAsString(this);
+        var elementLIMIT = addLeerzeichen();
+        elementLIMIT += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='LIMIT'>LIMIT"; nr++;
+        elementLIMIT += addLeerzeichen();
+        elementLIMIT += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='LIMIT_1' >___</span>";
+        nextElementNr = nr; nr++;
+        elementLIMIT += "</span>";
+        currentSelectedElement.closest(".inputFields").first().append(elementLIMIT);
+        setSelection(nextElementNr, false);
+    });
+
+    // Select: ALL add dbField, dbTable, Aggregatsfunktion
     $('.codeSelect').on('change', function () {
         if (currentSelectedElement != undefined) {
             var tempSelectField = this;
@@ -165,7 +225,7 @@ $(document).ready(function () {
 
 
 
-    // Button: Delete Element
+    // Button: ALL Delete Element
     $('.btnDelete').click(function () {
         // Element parent? oder inputField + extended?
         if (currentSelectedElement.hasClass("parent")) {
