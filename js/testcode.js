@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $(codeVersion).append("0.21");
+    $(codeVersion).append("0.3");
 
     //global variables
     var nr = 0;
@@ -313,6 +313,7 @@ $(document).ready(function () {
         //no number is given -> get next unfilled inputField
         if (elementNr == "next") {
             console.log("setSelection next");
+            currentSelectedElement.removeClass("unfilled");
             element = currentSelectedElement.closest(".parent").find(".unfilled").first();
             if (element.length == 0) {
                 element = currentSelectedElement.closest(".parent").first();
