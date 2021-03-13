@@ -29,6 +29,13 @@
             <option value="name">name</option>
         </select>
 
+        <select class="selTable synTables codeSelect">
+            <option value="" disabled selected hidden>Tabelle wählen</option>
+            <option value="benutzer">benutzer</option>
+            <option value="warenausgabepunkt">warenausgabepunkt</option>
+            <option value="punkte">punkte</option>
+        </select>
+
         <input type="text" placeholder="Wert" class="inputValue synValue codeInput"> </input>
 
         <button class="btnAdd codeButton">
@@ -37,13 +44,6 @@
 
         <p class="sqlSelectBefehl">
             <button class="btnSelect synSQL sqlSelect codeButton">SELECT ___ FROM ___</button>
-
-            <select class="selTable synTables sqlSelect codeSelect">
-                <option value="" disabled selected hidden>Tabelle wählen</option>
-                <option value="benutzer">benutzer</option>
-                <option value="warenausgabepunkt">warenausgabepunkt</option>
-                <option value="punkte">punkte</option>
-            </select>
 
             <select class="selAggregate synSQL sqlSelect codeSelect">
                 <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
@@ -92,6 +92,10 @@
         <p class="sqlGroupBefehl">
             <button class="btnGroup synSQL sqlGroup codeButton">GROUP BY ___</button>
             <button class="btnHaving synSQL sqlGroup codeButton">HAVING ___ ___ ___</button>
+        </p>
+
+        <p class="sqlJoinBefehl">
+            <button class="btnJoin synSQL sqlJoin codeButton">JOIN ___ ON ___ ___ ___</button>
         </p>
 
         <button class="btnDelete codeButton">
