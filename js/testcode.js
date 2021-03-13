@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-    $(codeVersion).append("0.3");
-
     //global variables
     var nr = 0;
     var lastSelectedElement = undefined;
@@ -43,6 +41,7 @@ $(document).ready(function () {
         elementWHERE += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='WHERE_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
         elementWHERE += "</span>";
         currentSelectedElement.closest(".inputFields").first().append(elementWHERE);
+        //currentSelectedElement.closest(".inputFields").first().children().last().after(elementWHERE);
         setSelection(nextElementNr, false);
     });
 
@@ -94,7 +93,7 @@ $(document).ready(function () {
     $('.btnLeftBracket.sqlWhere').click(function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         if (currentSelectedElement.hasClass("inputField")) {
-            $("<span class='codeElement_" + nr + "  " + classesFromCodeComponent + " sqlIdentifier extended' data-sql-element='LEFTBRACKET'> ( </span>").insertBefore(currentSelectedElement);
+            currentSelectedElement.before("<span class='codeElement_" + nr + "  " + classesFromCodeComponent + " sqlIdentifier extended' data-sql-element='LEFTBRACKET'> ( </span>");
             nr++;
         }
     });
@@ -102,7 +101,7 @@ $(document).ready(function () {
     $('.btnRightBracket.sqlWhere').click(function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         if (currentSelectedElement.hasClass("inputField")) {
-            $("<span class='codeElement_" + nr + "  " + classesFromCodeComponent + " sqlIdentifier extended' data-sql-element='RIGHTBRACKET'> ) </span>").insertAfter(currentSelectedElement);
+            currentSelectedElement.after("<span class='codeElement_" + nr + "  " + classesFromCodeComponent + " sqlIdentifier extended' data-sql-element='RIGHTBRACKET'> ) </span>");
             nr++;
         }
     });
@@ -113,9 +112,9 @@ $(document).ready(function () {
 
         if (currentSelectedElement.hasClass("inputField")) {
             if (dataSqlElement == "SELECT_SELECT_AGGREGAT") { //...
-                $(addInputField(dataSqlElement, "extendedSpace")).insertAfter(currentSelectedElement);
+                currentSelectedElement.after(addInputField(dataSqlElement, "extendedSpace"));
             } else {
-                $(addInputField(dataSqlElement, "extendedComma")).insertAfter(currentSelectedElement);
+                currentSelectedElement.after(addInputField(dataSqlElement, "extendedComma"));
             }
             setSelection(nextElementNr, false);
         }
@@ -180,6 +179,39 @@ $(document).ready(function () {
         currentSelectedElement.closest(".inputFields").first().append(elementLIMIT);
         setSelection(nextElementNr, false);
     });
+
+    // Button: GROUP BY ___ 
+    $('.btnGroup.sqlGroup').click(function () {
+        var classesFromCodeComponent = getClassesFromElementAsString(this);
+        var elementGROUP = addLeerzeichen();
+        elementGROUP += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='GROUP'>GROUP BY"; nr++;
+        elementGROUP += addLeerzeichen();
+        elementGROUP += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='GROUP_1'>___</span>";
+        nextElementNr = nr; nr++;
+        elementGROUP += "</span>";
+        currentSelectedElement.closest(".inputFields").first().append(elementGROUP);
+        setSelection(nextElementNr, false);
+    });
+
+    // Button: HAVING ___ ___ ___ = like WHERE but can handle Aggregate functions
+    $('.btnHaving.sqlGroup').click(function () {
+        var classesFromCodeComponent = getClassesFromElementAsString(this);
+        var elementHAVING = addLeerzeichen();
+        elementHAVING += "<span class='codeElement_" + nr + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='HAVING'>HAVING"; nr++;
+        elementHAVING += addLeerzeichen();
+        elementHAVING += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='HAVING_1' data-next-element='" + (nr + 2) + "'>___</span>";
+        nextElementNr = nr; nr++;
+        elementHAVING += addLeerzeichen();
+        elementHAVING += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='HAVING_2' data-next-element='" + (nr + 2) + "'>___</span>"; nr++;
+        elementHAVING += addLeerzeichen();
+        elementHAVING += "<span class='codeElement_" + nr + " inputField unfilled root sqlIdentifier' data-sql-element='HAVING_3' data-next-element='" + (nr - 4) + "'>___</span>"; nr++;
+        elementHAVING += "</span>";
+        currentSelectedElement.closest(".inputFields").first().append(elementHAVING);
+        //currentSelectedElement.closest(".inputFields").first().children().last().after(elementWHERE);
+        setSelection(nextElementNr, false);
+    });
+
+
 
     // Select: ALL add dbField, dbTable, Aggregatsfunktion
     $('.codeSelect').on('change', function () {
@@ -501,5 +533,30 @@ $(document).ready(function () {
             return false;
         }
     }
+    /////////
+    //DEBUG//
+    //display current version
+    $(codeVersion).append("0.3");
+
+    //function log
+    function log(tempValue) {
+        console.log(tempValue);
+    }
+    //Debug jquery-code textarea
+    $(".btnCode-parent").click(function () {
+        currentSelectedElement.parent().addClass("debug");
+    });
+    $(".btnCode-closest1").click(function () {
+        currentSelectedElement.closest(".parent").addClass("debug");
+    });
+    $(".btnCode-find1").click(function () {
+        currentSelectedElement.find(".parent").addClass("debug");
+    });
+    $(".btnCode-remove").click(function () {
+        $("div").removeClass("debug");
+        $("[class^='codeElement_']").removeClass("debug");
+
+    });
+
 
 });

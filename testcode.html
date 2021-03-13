@@ -56,7 +56,7 @@
 
         </p>
 
-        
+
 
         <p class="sqlWhereBefehl">
             <button class="btnWhere synSQL sqlWhere codeButton">WHERE ___ ___ ___</button>
@@ -83,11 +83,15 @@
 
         <p class="sqlOrderBefehl">
             <button class="btnOrder synSQL sqlOrder codeButton">ORDER BY ___</button>
-
             <button class="btnLimit synSQL sqlOrder codeButton">LIMIT ___</button>
-            <button class="btnOffset synSQL sqlOrder codeButton">OFFSET ___</button>            
+            <button class="btnOffset synSQL sqlOrder codeButton">OFFSET ___</button>
             <button class="btnAsc synSQL sqlOrder codeButton">ASC</button>
             <button class="btnDesc synSQL sqlOrder codeButton">DESC</button>
+        </p>
+
+        <p class="sqlGroupBefehl">
+            <button class="btnGroup synSQL sqlGroup codeButton">GROUP BY ___</button>
+            <button class="btnHaving synSQL sqlGroup codeButton">HAVING ___ ___ ___</button>
         </p>
 
         <button class="btnDelete codeButton">
@@ -98,6 +102,13 @@
     <p style="margin-top: 200px;">
         Debug:
     </p>
+    <button class="btnCode-parent">.parent()</button>
+    <button class="btnCode-closest1">.closest(".parent") </button>
+    <button class="btnCode-find1">.find(".parent")</button>
+    <button class="btnCode-remove">remove</button>
+
+    <textarea id="jquery-code" name="jquery-code" rows="4" style="width: 100%;"></textarea>
+
     <div id="debug" style="height:100px;">
         ...
     </div>
