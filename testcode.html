@@ -22,23 +22,28 @@
     </div>
     <div class="buttonArea">
 
+        <select class="selField synColumns codeSelect">
+            <option value="" disabled selected hidden>Spalte wählen</option>
+            <option value="*">*</option>
+            <option value="id">id</option>
+            <option value="name">name</option>
+        </select>
+
+        <select class="selTable synTables codeSelect">
+            <option value="" disabled selected hidden>Tabelle wählen</option>
+            <option value="benutzer">benutzer</option>
+            <option value="warenausgabepunkt">warenausgabepunkt</option>
+            <option value="punkte">punkte</option>
+        </select>
+
+        <input type="text" placeholder="Wert" class="inputValue synValue codeInput"> </input>
+
+        <button class="btnAdd codeButton">
+            +
+        </button>
+
         <p class="sqlSelectBefehl">
             <button class="btnSelect synSQL sqlSelect codeButton">SELECT ___ FROM ___</button>
-
-            <select class="selTable synTables sqlSelect codeSelect">
-                <option value="" disabled selected hidden>Tabelle wählen</option>
-                <option value="benutzer">benutzer</option>
-                <option value="warenausgabepunkt">warenausgabepunkt</option>
-                <option value="punkte">punkte</option>
-            </select>
-
-
-            <select class="selField synColumns synColumns sqlSelect codeSelect">
-                <option value="" disabled selected hidden>Spalte wählen</option>
-                <option value="*">*</option>
-                <option value="id">id</option>
-                <option value="name">name</option>
-            </select>
 
             <select class="selAggregate synSQL sqlSelect codeSelect">
                 <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
@@ -49,23 +54,12 @@
                 <option value="SUM">SUM ( ___ )</option>
             </select>
 
-            <input type="text" placeholder="Wert" class="inputValue synValues sqlSelect codeInput"> </input>
-
         </p>
 
-        <button class="btnAdd sqlSelect codeButton">
-            +
-        </button>
+
 
         <p class="sqlWhereBefehl">
             <button class="btnWhere synSQL sqlWhere codeButton">WHERE ___ ___ ___</button>
-
-            <select class="selField synColumns sqlWhere codeSelect">
-                <option value="" disabled selected hidden>Spalte wählen</option>
-                <option value="*">*</option>
-                <option value="id">id</option>
-                <option value="name">name</option>
-            </select>
 
             <select class="selOperators synOperators sqlWhere codeSelect">
                 <option value="" disabled selected hidden>Operator wählen</option>
@@ -85,10 +79,25 @@
             <button class="btnLeftBracket synBrackets sqlWhere codeButton">(</button>
             <button class="btnRightBracket synBrackets sqlWhere codeButton">)</button>
 
-
-            <input type="text" placeholder="Wert" class="inputValue synValues sqlWhere codeInput"> </input>
         </p>
-      
+
+        <p class="sqlOrderBefehl">
+            <button class="btnOrder synSQL sqlOrder codeButton">ORDER BY ___</button>
+            <button class="btnLimit synSQL sqlOrder codeButton">LIMIT ___</button>
+            <button class="btnOffset synSQL sqlOrder codeButton">OFFSET ___</button>
+            <button class="btnAsc synSQL sqlOrder codeButton">ASC</button>
+            <button class="btnDesc synSQL sqlOrder codeButton">DESC</button>
+        </p>
+
+        <p class="sqlGroupBefehl">
+            <button class="btnGroup synSQL sqlGroup codeButton">GROUP BY ___</button>
+            <button class="btnHaving synSQL sqlGroup codeButton">HAVING ___ ___ ___</button>
+        </p>
+
+        <p class="sqlJoinBefehl">
+            <button class="btnJoin synSQL sqlJoin codeButton">JOIN ___ ON ___ ___ ___</button>
+        </p>
+
         <button class="btnDelete codeButton">
             X
         </button>
@@ -97,6 +106,15 @@
     <p style="margin-top: 200px;">
         Debug:
     </p>
+    <input id="checkDisplayAllCodeComponents" type="checkbox"><label for="checkDisplayAllCodeComponents"> display all code components</label> 
+    <button class="btnCode-parent">.parent()</button>
+    <button class="btnCode-closest1">.closest(".parent") </button>
+    <button class="btnCode-closest2">.closest(".inputFields") </button>
+    <button class="btnCode-find1">.find(".parent")</button>
+    <button class="btnCode-remove">remove</button>
+
+    <textarea id="jquery-code" name="jquery-code" rows="4" style="width: 100%;"></textarea>
+
     <div id="debug" style="height:100px;">
         ...
     </div>

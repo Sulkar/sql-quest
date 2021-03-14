@@ -20,6 +20,22 @@
             {
                 "codeComponentClass": ".btnWhere",
                 "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnOrder",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnLimit",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnGroup",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnJoin",
+                "codeComponentType": "button"
             }
         ]
     },
@@ -28,7 +44,7 @@
         "level": 1,
         "visibleCodeComponents": [
             {
-                "codeComponentClass": ".btnAdd.sqlSelect",
+                "codeComponentClass": ".btnAdd",
                 "codeComponentType": "button"
             },
             {
@@ -36,11 +52,11 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".selField.sqlSelect",
+                "codeComponentClass": ".selField",
                 "codeComponentType": "select"
             },
             {
-                "codeComponentClass": ".selAggregate.sqlSelect",
+                "codeComponentClass": ".selAggregate",
                 "codeComponentType": "select"
             }
         ]
@@ -54,7 +70,7 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".selField.sqlSelect",
+                "codeComponentClass": ".selField",
                 "codeComponentType": "select"
             }
         ]
@@ -68,7 +84,7 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".selTable.sqlSelect",
+                "codeComponentClass": ".selTable",
                 "codeComponentType": "select"
             }
         ]
@@ -82,11 +98,11 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".btnAND.sqlWhere",
+                "codeComponentClass": ".btnAND",
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".btnOR.sqlWhere",
+                "codeComponentClass": ".btnOR",
                 "codeComponentType": "button"
             }
         ]
@@ -96,7 +112,7 @@
         "level": 1,
         "visibleCodeComponents": [
             {
-                "codeComponentClass": ".selField.sqlWhere",
+                "codeComponentClass": ".selField",
                 "codeComponentType": "select"
             },
             {
@@ -104,7 +120,7 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".btnLeftBracket.sqlWhere",
+                "codeComponentClass": ".btnLeftBracket",
                 "codeComponentType": "button"
             }
         ]
@@ -114,7 +130,7 @@
         "level": 1,
         "visibleCodeComponents": [
             {
-                "codeComponentClass": ".selOperators.sqlWhere",
+                "codeComponentClass": ".selOperators",
                 "codeComponentType": "select"
             },
             {
@@ -132,11 +148,111 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".inputValue.sqlWhere",
+                "codeComponentClass": ".inputValue",
                 "codeComponentType": "input"
             },
             {
-                "codeComponentClass": ".btnRightBracket.sqlWhere",
+                "codeComponentClass": ".btnRightBracket",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "WHERE_AND_1",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selField",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnLeftBracket",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "WHERE_AND_2",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selOperators",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "WHERE_AND_3",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".inputValue",
+                "codeComponentType": "input"
+            },
+            {
+                "codeComponentClass": ".btnRightBracket",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "WHERE_OR_1",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selField",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnLeftBracket",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "WHERE_OR_2",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selOperators",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "WHERE_OR_3",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".inputValue",
+                "codeComponentType": "input"
+            },
+            {
+                "codeComponentClass": ".btnRightBracket",
                 "codeComponentType": "button"
             }
         ]
@@ -150,11 +266,11 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".btnAND.sqlWhere",
+                "codeComponentClass": ".btnAND",
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".btnOR.sqlWhere",
+                "codeComponentClass": ".btnOR",
                 "codeComponentType": "button"
             }
         ]
@@ -168,11 +284,11 @@
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".btnAND.sqlWhere",
+                "codeComponentClass": ".btnAND",
                 "codeComponentType": "button"
             },
             {
-                "codeComponentClass": ".btnOR.sqlWhere",
+                "codeComponentClass": ".btnOR",
                 "codeComponentType": "button"
             }
         ]
@@ -191,6 +307,274 @@
         "selectedSQLElement": "RIGHTBRACKET",
         "level": 1,
         "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "ORDER",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnAsc",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnDesc",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "ORDER_1",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selField",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "ASC",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnDesc",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "DESC",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnAsc",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "LIMIT",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "LIMIT_1",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".inputValue",
+                "codeComponentType": "input"
+            },
+            {
+                "codeComponentClass": ".btnAdd",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "GROUP",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnHaving",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "GROUP_1",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnAdd",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".selField",
+                "codeComponentType": "select"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "HAVING",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "HAVING_1",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selField",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnLeftBracket",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".selAggregate",
+                "codeComponentType": "select"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "HAVING_2",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selOperators",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "HAVING_3",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".inputValue",
+                "codeComponentType": "input"
+            },
+            {
+                "codeComponentClass": ".btnRightBracket",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "HAVING_1_AGGREGAT",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".selField",
+                "codeComponentType": "select"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "JOIN",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnWhere",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "JOIN_1",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selTable",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "JOIN_2",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selField",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "JOIN_3",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selOperators",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "JOIN_4",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selField",
+                "codeComponentType": "select"
+            },
             {
                 "codeComponentClass": ".btnDelete",
                 "codeComponentType": "button"
