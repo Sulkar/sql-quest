@@ -111,11 +111,14 @@ $(document).ready(function () {
     //Button: ALL Add Element
     $('.btnAdd').click(function () {
         var dataSqlElement = currentSelectedElement.data("sql-element");
-
         if (currentSelectedElement.hasClass("inputField")) {
-            if (dataSqlElement == "SELECT_SELECT_AGGREGAT") { //...
+            if (hasCurrentSelectedElementSqlDataString(currentSelectedElement, "_AGGREGAT")) { //...
                 currentSelectedElement.after(addInputField(dataSqlElement, "extendedSpace"));
-            } else {
+            }
+            else if (hasCurrentSelectedElementSqlDataString(currentSelectedElement, "WHERE_3, OR_3, AND_3")) { //...
+                currentSelectedElement.after(addInputField(dataSqlElement, "extendedSpace"));
+            }
+            else {
                 currentSelectedElement.after(addInputField(dataSqlElement, "extendedComma"));
             }
             setSelection(nextElementNr, false);
@@ -351,6 +354,18 @@ $(document).ready(function () {
         }
     });
 
+    //function: checks if data-sql-element contains string i.e. "WHERE_3, OR_3, AND_3"
+    function hasCurrentSelectedElementSqlDataString(currentSelectedElement, sqlDataIdentifier) {
+        var sqlStringFound = false;
+        var tempSqlDataArray = sqlDataIdentifier.replaceAll(" ", "").split(",");
+        tempSqlDataArray.forEach(element => {
+            if (currentSelectedElement.data("sql-element").includes(element)) {
+                sqlStringFound = true;
+            }
+        });
+        return sqlStringFound;
+    }
+
     //function: returns a normal or extended inputField ( ___ or ,___ )
     function addInputField(tempSqlElement, type) {
         if (type == "root") {
@@ -500,30 +515,37 @@ $(document).ready(function () {
 
     //function: loops through JSON Data and shows Elements based on selected SQL Element
     function updateActiveCodeView() {
-        $(".codeButton").hide();
-        $(".codeSelect").hide();
-        $(".codeInput").hide();
+        if (!isCheckboxChecked("#checkDisplayAllCodeComponents")) {
+            $(".codeButton").hide();
+            $(".codeSelect").hide();
+            $(".codeInput").hide();
 
-        activeCodeView.forEach(element => {
-            if (element.selectedSQLElement == currentSelectedSQLElement) {
-                element.visibleCodeComponents.forEach(element => {
 
-                    $(element.codeComponentClass).show();
-                    if (element.codeComponentType == "input") {
-                        $(element.codeComponentClass).focus();
-                    }
-                    if (currentSelectedElement != undefined) {
-                        if (currentSelectedElement.hasClass("input")) {
-                            if (currentSelectedElement.text() == "___") {
-                                $(element.codeComponentClass).val("");
-                            } else {
-                                $(element.codeComponentClass).val(currentSelectedElement.text()).select();
+            activeCodeView.forEach(element => {
+                if (element.selectedSQLElement == currentSelectedSQLElement) {
+                    element.visibleCodeComponents.forEach(element => {
+
+                        $(element.codeComponentClass).show();
+                        if (element.codeComponentType == "input") {
+                            $(element.codeComponentClass).focus();
+                        }
+                        if (currentSelectedElement != undefined) {
+                            if (currentSelectedElement.hasClass("input")) {
+                                if (currentSelectedElement.text() == "___") {
+                                    $(element.codeComponentClass).val("");
+                                } else {
+                                    $(element.codeComponentClass).val(currentSelectedElement.text()).select();
+                                }
                             }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        } else {
+            $(".codeButton").show();
+            $(".codeSelect").show();
+            $(".codeInput").show();
+        }
     }
 
     //function: checks all Code Elements in the CodeArea, and updates Code View
@@ -571,6 +593,9 @@ $(document).ready(function () {
     $(".btnCode-closest1").click(function () {
         currentSelectedElement.closest(".parent").addClass("debug");
     });
+    $(".btnCode-closest2").click(function () {
+        currentSelectedElement.closest(".inputFields").addClass("debug");
+    });
     $(".btnCode-find1").click(function () {
         currentSelectedElement.find(".parent").addClass("debug");
     });
@@ -579,6 +604,16 @@ $(document).ready(function () {
         $("[class^='codeElement_']").removeClass("debug");
 
     });
+
+    $("#checkDisplayAllCodeComponents").click(function () {
+        updateActiveCodeView();
+    });
+
+    function isCheckboxChecked(tempCheckbox) {
+        if ($(tempCheckbox).prop("checked")) return true;
+        else return false;
+    }
+
 
 
 });
