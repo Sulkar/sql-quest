@@ -90,7 +90,7 @@ footer {
 .buttonArea button,
 .buttonArea input {
     display: inline-block;
-    padding: 0.35em 1.0em;
+    padding: 0.35em 1.0em 0.15em;
     border: 0;
     margin: 0 0.3em 0.3em 0;
     border-radius: 0.18em;
@@ -111,7 +111,7 @@ footer {
     -moz-appearance: button;
     border: none;
     border-radius: 0.18em;
-    padding: 0.35em 1.0em;
+    padding: 0.35em 1.0em 0.15em;
     margin: 0 0.3em 0.3em 0;
     font-family: inherit;
     font-size: inherit;
@@ -148,173 +148,113 @@ footer {
 
 .buttonArea select:hover,
 .buttonArea button:hover {
-    background-color: lightskyblue;
+    background-color: lightsteelblue;
 }
 
 .buttonArea input:focus {
     outline: none;
-    background-color: lightskyblue;
+    background-color: lightsteelblue;
 }
 
 
-/* Einfärbung für SELECT*/
+/* Unterstreichung der Befehle */
 
-.buttonArea .sqlSelect {
-    display: inline-block;
-    border-bottom: 0.2em solid midnightblue;
-    color: midnightblue;
-}
-
-.buttonArea select.sqlSelect {
-    background-image: url("data:image/svg+xml;utf8,<svg fill='midnightblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-}
-
-.buttonArea button.sqlSelect {
-    border-bottom: 0.2em solid midnightblue;
-    color: midnightblue;
-}
-
-
-/*Einfärbung für WHERE*/
-
+.buttonArea .sqlSelect,
+.buttonArea .sqlGroup,
+.buttonArea .sqlJoin,
+.buttonArea .sqlOrder,
 .buttonArea .sqlWhere {
     display: inline-block;
-    border-bottom: 0.2em solid mediumblue;
-    color: mediumblue;
+    border-bottom: 0.15em solid steelblue;
 }
 
-.buttonArea select.sqlWhere {
-    background-image: url("data:image/svg+xml;utf8,<svg fill='mediumblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-}
-
+.buttonArea button.sqlSelect,
+.buttonArea button.sqlGroup,
+.buttonArea button.sqlJoin,
+.buttonArea button.sqlOrder,
 .buttonArea button.sqlWhere {
-    border-bottom: 0.2em solid mediumblue;
-    color: mediumblue;
+    border-bottom: 0.15em solid steelblue;
 }
 
 
-/*Einfärbung für ORDER*/
+/* Code Coloring & Befehlsfarben*/
 
-.buttonArea .sqlOrder {
-    display: inline-block;
-    border-bottom: 0.2em solid royalblue;
-    color: royalblue;
-}
-
-.buttonArea select.sqlOrder {
-    background-image: url("data:image/svg+xml;utf8,<svg fill='royalblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-}
-
-.buttonArea button.sqlOrder {
-    border-bottom: 0.2em solid royalblue;
-    color: royalblue;
-}
-
-
-/*Einfärbung für GROUP*/
-
-.buttonArea .sqlGroup {
-    display: inline-block;
-    border-bottom: 0.2em solid dodgerblue;
-    color: dodgerblue;
-}
-
-.buttonArea select.sqlGroup {
-    background-image: url("data:image/svg+xml;utf8,<svg fill='dodgerblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-}
-
-.buttonArea button.sqlGroup {
-    border-bottom: 0.2em solid dodgerblue;
-    color: dodgerblue;
-}
-
-
-/*Einfärbung für JOIN*/
-
-.buttonArea .sqlJoin {
-    display: inline-block;
-    border-bottom: 0.2em solid deepskyblue;
-    color: deepskyblue;
-}
-
-.buttonArea select.sqlJoin {
-    background-image: url("data:image/svg+xml;utf8,<svg fill='deepskyblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-}
-
-.buttonArea button.sqlJoin {
-    border-bottom: 0.2em solid deepskyblue;
-    color: deepskyblue;
-}
-
-
-/* Einfärbung für Conditions */
-
-.buttonArea select.selOperators,
-.buttonArea button.btnAND,
-.buttonArea button.btnOR,
-.buttonArea button.btnLeftBracket,
-.buttonArea button.btnRightBracket {
-    color: green;
-}
-
-
-/* Einfärbung für Aggregate Functions */
-
-.buttonArea select.selAggregate {
-    color: indigo;
-}
-
-
-/* Code Coloring */
-
-.codeArea {
-    height: 100px;
-    background-color: LightGray;
-    font-family: monospace;
-    font-size: 1.3em;
-}
-
-.codeArea .synSQL {
+.codeArea .synSQL,
+.buttonArea .synSQL {
     color: steelblue;
 }
 
-.codeArea .synTables {
+.buttonArea select.synSQL {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='steelblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+}
+
+.codeArea .synTables,
+.buttonArea .synTables {
     color: cadetblue;
 }
 
-.codeArea .synColumns {
+.buttonArea select.synTables {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='cadetblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+}
+
+.codeArea .synColumns,
+.buttonArea .synColumns {
     color: tomato;
 }
 
-.codeArea .synOperators {
-    color: orchid;
+.buttonArea select.synColumns {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='tomato' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
 }
 
-.codeArea .synBrackets {
+.codeArea .synOperators,
+.buttonArea .synOperators {
+    color: goldenrod;
+}
+
+.buttonArea select.synOperators {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='goldenrod' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+}
+
+.codeArea .synBrackets,
+.buttonArea .synBrackets {
     color: indigo;
 }
 
-.codeArea .synValues {
-    color: goldenrod;
+.buttonArea select.synBrackets {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='indigo' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+}
+
+.codeArea .synValues,
+.buttonArea .synValues {
+    color: orchid;
+}
+
+.buttonArea select.synValues {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='orchid' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
 }
 
 
 /* Linenumbers */
 
-body {
-    background-color: #eee;
-    color: #555;
+.codeArea {
+    font-family: monospace;
+    font-size: 1.3em;
+    border: 1px solid lightgrey;
+}
+
+code {
+    font-family: monospace;
 }
 
 pre {
     font-family: monospace;
     background-color: #fff;
-    margin: 4em auto;
+    margin: 0.4em auto;
     padding: 0.5em;
     border-radius: 0.25em;
-    box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.45);
     line-height: 0;
     counter-reset: line;
+    white-space: pre-line;
 }
 
 pre span.codeline {
