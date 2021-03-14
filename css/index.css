@@ -277,10 +277,23 @@ pre {
     white-space: pre-line;
 }
 
+pre span.codeline .active span span{
+    background-color: lightblue;
+}
+
 pre span.codeline {
     display: block;
     line-height: 1.5rem;
+ }
+
+pre span.codeline span:first {
+    padding-left: 2em;
 }
+
+/*pre span.codeline {
+
+    padding-left: 2em;
+}*/
 
 pre span.codeline:before {
     counter-increment: line;
