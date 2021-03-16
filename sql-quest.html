@@ -27,14 +27,14 @@
     <div class="buttonArea">
 
         <select class="selField synColumns codeSelect">
-            <option value="" disabled selected hidden>Spalte wählen</option>
+            <option value="0" disabled selected hidden>Spalte wählen</option>
             <option value="*">*</option>
             <option value="id">id</option>
             <option value="name">name</option>
         </select>
 
         <select class="selTable synTables codeSelect">
-            <option value="" disabled selected hidden>Tabelle wählen</option>
+            <option value="0" disabled selected hidden>Tabelle wählen</option>
             <option value="benutzer">benutzer</option>
             <option value="warenausgabepunkt">warenausgabepunkt</option>
             <option value="punkte">punkte</option>
@@ -127,9 +127,11 @@
         </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     </script>
+    <script src="/dist/sql-wasm.js"></script>
 
-    <script type="text/javascript" src="js/testcode.js">
-    </script>
+    <script type="text/javascript" src="js/database.js" ></script>
+    <script type="text/javascript" src="js/sql-quest.js" ></script>
+
 
 </body>
 

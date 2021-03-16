@@ -1,0 +1,32 @@
+{
+  "tables": [
+    {
+      "id": 0,
+      "name": "Mitarbeiter",
+      "fields": "id, vorname, nachname, alter",
+      "table": "CREATE TABLE mitarbeiter(id integer, vorname text,nachname text, 'alter' integer);",
+      "rows": [
+        {
+          "row": "INSERT INTO mitarbeiter VALUES (1,'Richi','Müller',38);"
+        },
+        {
+          "row": "INSERT INTO mitarbeiter VALUES (2,'Benni','Huber',38);"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Gehalt",
+      "fields": "id, mitarbeiter_id, gehalt",
+      "table": "CREATE TABLE gehalt(id integer, mitarbeiter_id integer, gehalt decimal);",
+      "rows": [
+        {
+          "row": "INSERT INTO gehalt VALUES (1,1,2500.50);"
+        },
+        {
+          "row": "INSERT INTO gehalt VALUES (2,2,2700.80);"
+        }
+      ]
+    }
+  ]
+}
