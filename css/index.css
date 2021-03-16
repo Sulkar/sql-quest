@@ -94,6 +94,18 @@ footer {
     font-size: 1.3em;
 }
 
+.mainMenu.leftMenu {
+    text-align: left;
+}
+
+div.col.centerMenu {
+    text-align: center;
+}
+
+.mainMenu .rightMenu {
+    text-align: right;
+}
+
 .buttonArea button,
 .buttonArea input {
     display: inline-block;
@@ -241,7 +253,7 @@ footer {
 }
 
 
-/* Löschen & Hinzufügen Button*/
+/* Löschen, Hinzufügen, Run Button*/
 
 .buttonArea button.btnDelete {
     color: orangered;
@@ -251,6 +263,17 @@ footer {
 .buttonArea button.btnAdd {
     color: forestgreen;
     border-bottom: 0.15em solid forestgreen;
+}
+
+.buttonArea button.btnRun {
+    color: forestgreen;
+    border-bottom: 0.15em solid forestgreen;
+}
+
+.buttonArea button.btnUndo,
+.buttonArea button.btnRedo {
+    color: cornflowerblue;
+    border-bottom: 0.15em solid cornflowerblue;
 }
 
 
@@ -277,18 +300,19 @@ pre {
     white-space: pre-line;
 }
 
-pre span.codeline .active span span{
+pre span.codeline .active span span {
     background-color: lightblue;
 }
 
 pre span.codeline {
     display: block;
     line-height: 1.5rem;
- }
+}
 
 pre span.codeline span:first {
     padding-left: 2em;
 }
+
 
 /*pre span.codeline {
 
