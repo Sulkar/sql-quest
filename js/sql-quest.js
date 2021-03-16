@@ -293,10 +293,8 @@ $(document).ready(function () {
             }
         }
 
-        if ($(tempSelectField).hasClass("selTable")) {
-            updateSelectCodeComponents();
-        }
-
+        // aktualisiert alle .selField <select>
+        updateSelectCodeComponents();
         //reset select option
         $(this)[0].selectedIndex = 0;
     });
@@ -432,7 +430,6 @@ $(document).ready(function () {
 
     //function: erstellt neue select elemente basierend auf den gewählten Tabellen in der code area
     function updateSelectCodeComponents() {
-        log("start update");
         //check all used tables in code area
         updateUsedTables();
         //entfernt alle "alten" select Elemente 
@@ -443,6 +440,12 @@ $(document).ready(function () {
             USED_TABLES.forEach(element => {
                 if ($(this).hasClass(element)) {
                     isTableActive = true;
+                    var updatedFieldNameBasedOnTableCount = $(this).html().replace(element + ".", "");
+                    if (USED_TABLES.length > 1) {
+                        $(this).html(element + "." + updatedFieldNameBasedOnTableCount);
+                    } else {
+                        $(this).html(updatedFieldNameBasedOnTableCount);
+                    }
                 }
             });
             if (!isTableActive) {

@@ -2,7 +2,7 @@
   "tables": [
     {
       "id": 0,
-      "name": "Mitarbeiter",
+      "name": "mitarbeiter",
       "fields": "id, vorname, nachname, alter",
       "table": "CREATE TABLE mitarbeiter(id integer, vorname text,nachname text, 'alter' integer);",
       "rows": [
@@ -16,7 +16,7 @@
     },
     {
       "id": 1,
-      "name": "Gehalt",
+      "name": "gehalt",
       "fields": "id, mitarbeiter_id, gehalt",
       "table": "CREATE TABLE gehalt(id integer, mitarbeiter_id integer, gehalt decimal);",
       "rows": [
