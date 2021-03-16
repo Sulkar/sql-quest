@@ -2,14 +2,17 @@ $(document).ready(function () {
 
     //global variables
     var nr = 0;
-    var lastSelectedElement = undefined;
     var currentSelectedElement = undefined;
     var nextElementNr = 0;
     var currentSelectedSQLElement = "START";
     var activeCodeView; // JSON Data holder
+    var usedTables = []; // listet alle genutzten Tabellen einer DB auf, um SELECTs entsprechend zu erstellen
+    var currentJsonDatabase; //aktuell geladene DB im JSON Format
 
     loadJsonData();
+    loadJsonDatabase("sqlSampleDB.json");
 
+    /////////////////////
     // Button: SELECT ___ FROM ___
     $('.btnSelect').click(function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
@@ -252,7 +255,8 @@ $(document).ready(function () {
 
 
     // Select: add dbField, dbTable, Aggregatsfunktion
-    $('.codeSelect').on('change', function () {
+    $('.buttonArea').on('change', '.codeSelect', function () {
+        log("inn");
         if (currentSelectedElement != undefined) {
             var tempSelectField = this;
             var returnObject = {};
@@ -289,6 +293,14 @@ $(document).ready(function () {
                 setSelection(nextElementNr, false);
             }
         }
+
+        //check all used tables in code area
+        updateUsedTables();
+
+        if ($(tempSelectField).hasClass("selTable")) {
+            createSelectCodeComponents();
+        }
+
         //reset select option
         $(this)[0].selectedIndex = 0;
     });
@@ -371,6 +383,75 @@ $(document).ready(function () {
             }
         }
     });
+
+    ////////////////
+    // FUNKTIONEN //
+
+    //function: befüllt .selTable mit allen Tabellen der Datenbank
+    function fillSelectionTables() {
+        clearSelectionOptions(".selTable");
+        for (var i = 0; i < currentJsonDatabase.length; i++) {
+            $(".selTable").append(new Option(currentJsonDatabase[i]['name'], currentJsonDatabase[i]['name']));
+        }
+    }
+
+    //function: entfernt alle select Optionen außer die erste
+    function clearSelectionOptions(selectElement) {
+        $(selectElement + ' option[value!="0"]').remove();
+    }
+
+    //function: lädt eine DB im JSON Format und befüllt die .selTable selection
+    function loadJsonDatabase(databaseNameJson) {
+        // lädt JSON TableData
+        var requestURL = 'data/' + databaseNameJson;
+        var request = new XMLHttpRequest();
+        request.open('GET', requestURL);
+        request.responseType = 'json';
+        request.send();
+
+        request.onload = function () {
+            var tempJson = request.response;
+            currentJsonDatabase = tempJson['tables'];
+            fillSelectionTables();
+        }
+    }
+
+    //function: get all used db tables in code area
+    function updateUsedTables() {
+        usedTables = [];
+        $(".codeArea .selTable").each(function () {
+            usedTables.push($(this).html());
+        });
+        log(usedTables);
+    }
+
+    //function: erstellt neue select elemente basierend auf den gewählten Tabellen in der code area
+    function createSelectCodeComponents() {
+        //entfernt alle "alten" select Elemente
+        $(".buttonArea .selField").remove();
+
+        usedTables.forEach(element => {
+            var selectCodeComponent = "<select class='selField synColumns codeSelect'>";
+            selectCodeComponent += "<option value='0' disabled selected hidden>Spalten " + element + "</option>";
+            selectCodeComponent += "<option value='*'>*</option>";
+            selectCodeComponent += "</select>";
+            var selectedCodeComponentObject = $.parseHTML(selectCodeComponent);
+            $(".buttonArea").append(selectedCodeComponentObject);
+            fillSelectionFields(element, selectedCodeComponentObject);
+        });
+    }
+
+    //function: befüllt die .selField Element mit Feldern der genutzten Datenbanken
+    function fillSelectionFields(tableName, selectFields) {
+        for (i = 0; i < currentJsonDatabase.length; i++) {
+            if (tableName == currentJsonDatabase[i]['name']) {
+                var tempFields = currentJsonDatabase[i]["fields"].replaceAll(" ", "").split(",");
+                for (var i = 0; i < tempFields.length; i++) {
+                    $(selectFields).append(new Option(tempFields[i], tempFields[i]));
+                }
+            }
+        }
+    }
 
     //function: checks if data-sql-element contains string i.e. "WHERE_3, OR_3, AND_3"
     function hasCurrentSelectedElementSqlDataString(currentSelectedElement, sqlDataIdentifier) {
