@@ -237,33 +237,11 @@ Bitte eine Datenbank auswählen!
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js">
         </script>
-        <script type="text/javascript" src="js/index.js">
+        <script type="text/javascript" src="js/index_old.js">
         </script>
         <script type="text/javascript" src="js/sqlbuilder.js">
         </script>
-        <script>
-            // Target Area
-            Sortable.create(gridSortTargetArea, {
-                group: 'shared',
-                animation: 150
-            });
-            // Library Buttons Area
-            Sortable.create(gridSortLibrary, {
-                group: {
-                    name: 'shared',
-                    pull: 'clone',
-                    //put: false
-                },
-                animation: 150,
-                sort: false, // To disable sorting: set sort to false
-                onAdd: function(evt) { // löscht Items, welche in die Library zurückgedropt werden
-                    var el = evt.item;
-                    el.parentNode.removeChild(el);
-
-                }
-
-            });
-        </script>
+        
 </body>
 
 </html>
