@@ -753,6 +753,15 @@ $(document).ready(function () {
     $(".btnCode-find1").click(function () {
         CURRENT_SELECTED_ELEMENT.find(".parent").addClass("debug");
     });
+    $(".btnCode-copycodeto").click(function () {
+        var copyCode = $("#jquery-code").val();
+        $(".codeArea pre code").html(copyCode);
+    });
+    $(".btnCode-copycodefrom").click(function () {
+        var copyCode = $(".codeArea pre code").html().trim();
+        log(copyCode)
+        $("#jquery-code").html(copyCode);
+    });
     $(".btnCode-remove").click(function () {
         $("div").removeClass("debug");
         $("[class^='codeElement_']").removeClass("debug");
@@ -768,5 +777,7 @@ $(document).ready(function () {
     }
 
 
+
+    
 
 });
