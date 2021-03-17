@@ -3,31 +3,30 @@
 
 
 
+async function loadDB() {
 
-function loadDatabases() {
-    config = {
-        locateFile: filename => `/dist/${filename}`
-    }
-    // The `initSqlJs` function is globally provided by all of the main dist files if loaded in the browser.
-    // We must specify this locateFile function if we are loading a wasm file from anywhere other than the current html page's folder.
-    initSqlJs(config).then(function (SQL) {
-        //Create the database
-        var db = new SQL.Database();
-        // Run a query without reading the results
-        db.run("CREATE TABLE test (col1, col2);");
-        // Insert two rows: (1,111) and (2,222)
-        db.run("INSERT INTO test VALUES (?,?), (?,?)", [1, 111, 2, 222]);
-
-        // Prepare a statement
-        var stmt = db.prepare("SELECT * FROM test WHERE col1 BETWEEN $start AND $end");
-        stmt.getAsObject({ $start: 1, $end: 1 }); // {col1:1, col2:111}
-
-        // Bind new values
-        stmt.bind({ $start: 1, $end: 2 });
-        while (stmt.step()) { //
-            var row = stmt.getAsObject();
-            console.log('Here is a row: ' + JSON.stringify(row));
-        }
+    // The producing code (this may take some time)
+    const sqlPromise = initSqlJs({
+        locateFile: file => `/dist/${file}`
     });
+    const dataPromise = fetch("/data/mitarbeiterDB.db").then(res => res.arrayBuffer());
+
+    const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
+    return new SQL.Database(new Uint8Array(buf));
+
 }
+
+var db2;
+loadDB().then(function (dbCon) {
+    db2 = dbCon;
+    console.log(db2);
+    $(".btnCode-db").click(function () {
+        var contents1 = db2.exec("SELECT * FROM sqlite_master WHERE type = 'table'");
+        var contents2 = db2.exec("SELECT * FROM pragma_table_info ('mitarbeiter')");
+        console.log(contents1);
+        console.log(contents2);
+    });
+
+}, function (error) { console.log(error) });
+
 
