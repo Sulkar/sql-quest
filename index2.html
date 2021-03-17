@@ -9,16 +9,16 @@
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.css">
     <link rel="stylesheet" href="css/index.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.js">
-    </script>
-    <script src="https://SortableJS.github.io/Sortable/Sortable.js">
-    </script>
+
 </head>
 
 <body>
     <p><a href="./index.html">zurück</a></p>
+
+
+
+
     <h1>Online SQL Abenteuer</h1><select id="selectTable">
         <option value="init">
             Wähle eine Datenbank
@@ -37,9 +37,16 @@ Bitte eine Datenbank auswählen!
 
     <div id="error" class="error"></div>
     <pre id="output">
+
+
+
 ...
 </pre>
     <hr>
+
+
+
+
 
     <div>
         <div class="container">
@@ -47,23 +54,6 @@ Bitte eine Datenbank auswählen!
                 <div class="col">
                     <div class="codeArea">
                         <pre><code>
-                  <!--
-                <span class="codeElement_0  codeline btnSelect sqlSelect parent sqlIdentifier synSQL" data-sql-element="SELECT">SELECT<span class="inputFields"><span class="codeElement_1 leerzeichen"> </span><span class="codeElement_2 synColumns selField sqlSelect child inputField root dbField sqlIdentifier"
-                    data-sql-element="SELECT_SELECT" data-next-element="6">name</span><span class="codeElement_8 synColumns selField sqlSelect child inputField sqlIdentifier extended" data-sql-element="SELECT_SELECT">,id</span><span class="codeElement_3 leerzeichen"> </span>
-                <span class="codeElement_4 synSQL child" data-goto-element="0">FROM</span><span class="codeElement_5 leerzeichen"> </span><span class="codeElement_6 selTable  synTables sqlSelect child inputField root dbTable sqlIdentifier" data-sql-element="SELECT_FROM"
-                    data-next-element="2">warenausgabepunkt</span></span>
-                <span class="codeElement_9 leerzeichen"> </span><span class="codeElement_10 btnWhere sqlWhere parent synSQL sqlIdentifier" data-sql-element="WHERE">WHERE<span class="inputFields"><span class="codeElement_11 leerzeichen"> </span><span class="codeElement_12 selField synColumns sqlWhere child inputField root sqlIdentifier"
-                    data-sql-element="WHERE_1" data-next-element="14">name</span><span class="codeElement_13 leerzeichen"> </span><span class="codeElement_14 selOperators sqlWhere child inputField root synOperators sqlIdentifier" data-sql-element="WHERE_2"
-                    data-next-element="16">&gt;</span>
-                <span class="codeElement_15 leerzeichen"> </span><span class="codeElement_16 inputValue sqlWhere child inputField root sqlIdentifier synValues input" data-sql-element="WHERE_3" data-next-element="12">7</span></span>
-                <span class="codeElement_18 leerzeichen"> </span><span class="codeElement_19 btnAND synSQL sqlWhere parent sqlIdentifier sqlWhereAND  inputFields" data-sql-element="AND">AND<span class="codeElement_20 leerzeichen"> </span>
-                <span class="codeElement_21 synColumns child inputField root sqlIdentifier" data-sql-element="WHERE_1" data-next-element="23">name</span><span class="codeElement_22 leerzeichen"> </span><span class="codeElement_23 selOperators sqlWhere child inputField root syn sqlIdentifier"
-                    data-sql-element="WHERE_2" data-next-element="25">=</span>
-                <span class="codeElement_24 leerzeichen"> </span><span class="codeElement_25 inputValue sqlWhere child inputField root sqlIdentifier synValues input" data-sql-element="WHERE_3" data-next-element="21">'Franz'</span></span>
-                <span class="codeElement_26 leerzeichen"> </span>
-                  -->  
-            </span><span class="codeElement_17 leerzeichen"> </span></span><span class="codeElement_7 leerzeichen"> </span>
-              
 
 <span class="codeElement_0 codeline btnSelect synSQL sqlSelect parent sqlIdentifier inputFields" data-sql-element="SELECT">SELECT<span class="codeElement_1 leerzeichen"> </span><span class="codeElement_8 selField synColumns synColumns sqlSelect inputField sqlIdentifier root" data-sql-element="SELECT_SELECT">id</span><span class="codeElement_3 leerzeichen"> </span><span class="codeElement_4" data-goto-element="0">FROM</span><span class="codeElement_5 leerzeichen"> </span><span class="codeElement_7 selTable synTables sqlSelect inputField sqlIdentifier root" data-sql-element="SELECT_FROM">warenausgabepunkt, warenausgabepunkt, warenausgabepunkt, warenausgabepunkt, warenausgabepunkt</span><span class="codeElement_9 leerzeichen"> </span><span class="codeElement_10 btnWhere sqlWhere parent sqlIdentifier codeline inputFields" data-sql-element="WHERE">WHERE<span class="codeElement_11 leerzeichen"> </span><span class="codeElement_17 btnLeftBracket sqlWhere sqlIdentifier extended" data-sql-element="LEFTBRACKET"> ( </span><span class="codeElement_18 selField sqlWhere inputField sqlIdentifier root" data-sql-element="WHERE_1">id</span><span class="codeElement_13 leerzeichen"> </span><span class="codeElement_19 selOperators sqlWhere inputField sqlIdentifier root" data-sql-element="WHERE_2">=</span><span class="codeElement_15 leerzeichen"> </span><span class="codeElement_16 inputField unfilled root sqlIdentifier input" data-sql-element="WHERE_3" data-next-element="12">15</span><span class="codeElement_20 btnRightBracket sqlWhere sqlIdentifier extended" data-sql-element="RIGHTBRACKET"> ) </span><span class="codeElement_21 leerzeichen"> </span><span class="codeElement_22 btnAND sqlWhere parent sqlIdentifier inputFields" data-sql-element="AND">AND<span class="codeElement_23 leerzeichen"> </span><span class="codeElement_29 selField sqlWhere inputField sqlIdentifier root" data-sql-element="WHERE_1">name</span><span class="codeElement_25 leerzeichen"> </span><span class="codeElement_30 selOperators sqlWhere inputField sqlIdentifier root" data-sql-element="WHERE_2">=</span><span class="codeElement_27 leerzeichen"> </span><span class="codeElement_28 inputField unfilled root sqlIdentifier input" data-sql-element="WHERE_3" data-next-element="24">'Franz'</span></span></span></span>
 
@@ -73,15 +63,85 @@ Bitte eine Datenbank auswählen!
                 </div>
             </div>
 
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">SQL-Output</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <h2>SQL</h2>
+                                        <div class="codeArea">
+                                            <pre><code>
+            
+            <span class="codeElement_0 codeline btnSelect synSQL sqlSelect parent sqlIdentifier inputFields" data-sql-element="SELECT">SELECT<span class="codeElement_1 leerzeichen"> </span><span class="codeElement_8 selField synColumns synColumns sqlSelect inputField sqlIdentifier root" data-sql-element="SELECT_SELECT">id</span><span class="codeElement_3 leerzeichen"> </span><span class="codeElement_4" data-goto-element="0">FROM</span><span class="codeElement_5 leerzeichen"> </span><span class="codeElement_7 selTable synTables sqlSelect inputField sqlIdentifier root" data-sql-element="SELECT_FROM">warenausgabepunkt, warenausgabepunkt, warenausgabepunkt, warenausgabepunkt, warenausgabepunkt</span><span class="codeElement_9 leerzeichen"> </span><span class="codeElement_10 btnWhere sqlWhere parent sqlIdentifier codeline inputFields" data-sql-element="WHERE">WHERE<span class="codeElement_11 leerzeichen"> </span><span class="codeElement_17 btnLeftBracket sqlWhere sqlIdentifier extended" data-sql-element="LEFTBRACKET"> ( </span><span class="codeElement_18 selField sqlWhere inputField sqlIdentifier root" data-sql-element="WHERE_1">id</span><span class="codeElement_13 leerzeichen"> </span><span class="codeElement_19 selOperators sqlWhere inputField sqlIdentifier root" data-sql-element="WHERE_2">=</span><span class="codeElement_15 leerzeichen"> </span><span class="codeElement_16 inputField unfilled root sqlIdentifier input" data-sql-element="WHERE_3" data-next-element="12">15</span><span class="codeElement_20 btnRightBracket sqlWhere sqlIdentifier extended" data-sql-element="RIGHTBRACKET"> ) </span><span class="codeElement_21 leerzeichen"> </span><span class="codeElement_22 btnAND sqlWhere parent sqlIdentifier inputFields" data-sql-element="AND">AND<span class="codeElement_23 leerzeichen"> </span><span class="codeElement_29 selField sqlWhere inputField sqlIdentifier root" data-sql-element="WHERE_1">name</span><span class="codeElement_25 leerzeichen"> </span><span class="codeElement_30 selOperators sqlWhere inputField sqlIdentifier root" data-sql-element="WHERE_2">=</span><span class="codeElement_27 leerzeichen"> </span><span class="codeElement_28 inputField unfilled root sqlIdentifier input" data-sql-element="WHERE_3" data-next-element="24">'Franz'</span></span></span></span>
+            
+            </code></pre>
+
+
+                                        </div>
+                                        <h2>Ergebnis</h2>
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">First</th>
+                                                    <th scope="col">Last</th>
+                                                    <th scope="col">Handle</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td>@fat</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>Larry the Bird</td>
+                                                    <td>Test</td>
+                                                    <td>@twitter</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row buttonArea mainMenu">
                 <div class="col leftMenu">
-                    <button class="btnRun">
+                    <button class="btnRun" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" fill="currentColor" class="bi bi-play-btn" viewBox="0 0 16 16">
                             <path d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>
                             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
                           </svg>
                     </button>
                 </div>
+
+
                 <div class="col centerMenu">
                     <button class="btnUndo ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
@@ -269,39 +329,15 @@ Bitte eine Datenbank auswählen!
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/sql/sql.min.js">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
-    <script type="text/javascript" src="js/index.js">
-    </script>
+
+
     <script type="text/javascript" src="js/sqlbuilder.js">
     </script>
-    <script>
-        // Target Area
-        Sortable.create(gridSortTargetArea, {
-            group: 'shared',
-            animation: 150
-        });
-        // Library Buttons Area
-        Sortable.create(gridSortLibrary, {
-            group: {
-                name: 'shared',
-                pull: 'clone',
-                //put: false
-            },
-            animation: 150,
-            sort: false, // To disable sorting: set sort to false
-            onAdd: function(evt) { // löscht Items, welche in die Library zurückgedropt werden
-                var el = evt.item;
-                el.parentNode.removeChild(el);
 
-            }
-
-        });
-    </script>
 </body>
 
 </html>
