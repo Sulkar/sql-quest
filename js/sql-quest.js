@@ -8,9 +8,38 @@ $(document).ready(function () {
     var ACTIVE_CODE_VIEW_DATA; // JSON Data holder
     var USED_TABLES = []; // listet alle genutzten Tabellen einer DB auf, um SELECTs entsprechend zu erstellen
     var CURRENT_JSON_DATABASE; //aktuell geladene DB im JSON Format
+    var CURRENT_SQL_DATABASE; //aktuell geladene DB im JSON Format
 
-    loadJsonData();
-    loadJsonDatabase("sqlSampleDB.json");
+    //////////
+    // INIT //
+
+    //function: Datenbank und JSON für active code view werden geladen
+    async function init(datenbankName) {
+        //fetch Database
+        const sqlPromise = initSqlJs({
+            locateFile: file => `/dist/${file}`
+        });
+        const dataPromise = fetch("/data/" + datenbankName).then(res => res.arrayBuffer());
+
+        //fetch active code view json
+        const activeCodeViewPromise = fetch("/data/activeCodeViewData.json");
+
+        const [SQL, bufferedDatabase, activeCodeView] = await Promise.all([sqlPromise, dataPromise, activeCodeViewPromise]);
+        const jsonData = await activeCodeView.json();
+
+        return [new SQL.Database(new Uint8Array(bufferedDatabase)), jsonData];
+    }
+
+    // START - when data is loaded
+    init("mitarbeiterDB.db").then(function (initObject) {
+        CURRENT_SQL_DATABASE = initObject[0];
+        ACTIVE_CODE_VIEW_DATA = initObject[1];
+
+        CURRENT_SQL_DATABASE_TABLES = getSqlTables();
+        updateActiveCodeView();
+        fillSelectionTables();
+
+    }, function (error) { console.log(error) });
 
     ////////////
     // EVENTS //
@@ -391,8 +420,9 @@ $(document).ready(function () {
     //function: befüllt .selTable mit allen Tabellen der Datenbank
     function fillSelectionTables() {
         clearSelectionOptions(".selTable");
-        for (var i = 0; i < CURRENT_JSON_DATABASE.length; i++) {
-            $(".selTable").append(new Option(CURRENT_JSON_DATABASE[i]['name'], CURRENT_JSON_DATABASE[i]['name']));
+        var databaseTables = getSqlTables();
+        for (var i = 0; i < databaseTables.length; i++) {
+            $(".selTable").append(new Option(databaseTables[i], databaseTables[i]));
         }
     }
 
@@ -425,7 +455,7 @@ $(document).ready(function () {
                 USED_TABLES.push($(this).html());
             }
         });
-        log("used Tables: " + USED_TABLES);
+        log("used Tables: ", USED_TABLES);
     }
 
     //function: erstellt neue select elemente basierend auf den gewählten Tabellen in der code area
@@ -462,20 +492,16 @@ $(document).ready(function () {
             var selectedCodeComponentObject = $.parseHTML(selectCodeComponent);
             $(".buttonArea").append(selectedCodeComponentObject);
             fillSelectionFields(element, selectedCodeComponentObject);
-            log("create loop");
+            log("create loop", "");
         });
     }
 
     //function: befüllt die .selField Element mit Feldern der genutzten Datenbanken
     function fillSelectionFields(tableName, selectFields) {
-        for (i = 0; i < CURRENT_JSON_DATABASE.length; i++) {
-            if (tableName == CURRENT_JSON_DATABASE[i]['name']) {
-                var tempFields = CURRENT_JSON_DATABASE[i]["fields"].replaceAll(" ", "").split(",");
-                for (var i = 0; i < tempFields.length; i++) {
-                    $(selectFields).append(new Option(tempFields[i], tempFields[i]));
-                }
-            }
-        }
+        var tempTableFields = getSqlTableFields(tableName);
+        tempTableFields.forEach(element => {
+            $(selectFields).append(new Option(element[1], element[1]));
+        });
     }
 
     //function: checks if data-sql-element contains string i.e. "WHERE_3, OR_3, AND_3"
@@ -653,19 +679,6 @@ $(document).ready(function () {
         return tempLeerzeichen;
     }
 
-    //load JSON data: activeCodeView    
-    function loadJsonData() {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                ACTIVE_CODE_VIEW_DATA = JSON.parse(this.responseText);
-                updateActiveCodeView();
-            }
-        };
-        xmlhttp.open("GET", "./data/activeCodeViewData.json", true);
-        xmlhttp.send();
-    }
-
     //function: loops through JSON Data and shows Elements based on selected SQL Element
     function updateActiveCodeView() {
         if (!isCheckboxChecked("#checkDisplayAllCodeComponents")) {
@@ -730,6 +743,16 @@ $(document).ready(function () {
             return false;
         }
     }
+
+    //SQLite functions:
+    function getSqlTables() {
+
+        return CURRENT_SQL_DATABASE.exec("SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%'")[0].values;
+    }
+    function getSqlTableFields(tempTableName) {
+        return CURRENT_SQL_DATABASE.exec("PRAGMA table_info(" + tempTableName + ")")[0].values;
+    }
+
     /////////
     //DEBUG//
 
@@ -737,7 +760,8 @@ $(document).ready(function () {
     $(codeVersion).append("0.3");
 
     //function log
-    function log(tempValue) {
+    function log(info, tempValue) {
+        if (info != "") console.log(info + ":");
         console.log(tempValue);
     }
     //Debug jquery-code textarea
@@ -758,10 +782,30 @@ $(document).ready(function () {
         $(".codeArea pre code").html(copyCode);
     });
     $(".btnCode-copycodefrom").click(function () {
-        var copyCode = $(".codeArea pre code").html().trim();
-        log(copyCode)
-        $("#jquery-code").html(copyCode);
+        var tempCode = $(".codeArea pre code").html().trim();
+        $("#jquery-code").html(tempCode);
     });
+    $(".btnCode-getSqlString").click(function () {
+        var tempCode = $(".codeArea pre code").clone();
+        tempCode.find(".codeline").prepend("<span>&nbsp;</span>");
+        $("#jquery-code").html(tempCode.text().trim());
+    });
+    $(".btnCode-execSql").click(function () {
+        execSqlCommand();
+
+    });
+
+    function execSqlCommand() {
+        var tempSqlCommand = $(".codeArea pre code").clone();
+        tempSqlCommand.find(".codeline").prepend("<span>&nbsp;</span>");
+        tempSqlCommand = tempSqlCommand.text().trim();
+        log("editor command", tempSqlCommand);
+        log("DB2", CURRENT_SQL_DATABASE.exec(String(tempSqlCommand)));
+        var tempResult = CURRENT_SQL_DATABASE.exec("SELECT vorname FROM mitarbeiter");
+        log("sql", tempResult);
+        // $("#jquery-code").html(tempResult);
+    }
+
     $(".btnCode-remove").click(function () {
         $("div").removeClass("debug");
         $("[class^='codeElement_']").removeClass("debug");
@@ -778,6 +822,6 @@ $(document).ready(function () {
 
 
 
-    
+
 
 });
