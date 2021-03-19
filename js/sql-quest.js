@@ -390,7 +390,11 @@ $(document).ready(function () {
         if (CURRENT_SELECTED_ELEMENT != undefined) {
             var tempValue = $(this).val();
             if (tempValue != "") {
-                CURRENT_SELECTED_ELEMENT.html("'" + tempValue + "'");
+                if (isNaN(tempValue)) {
+                    CURRENT_SELECTED_ELEMENT.html("'" + tempValue + "'");
+                } else {
+                    CURRENT_SELECTED_ELEMENT.html(tempValue);
+                }
             } else {
                 CURRENT_SELECTED_ELEMENT.html("___");
             }
@@ -483,7 +487,6 @@ $(document).ready(function () {
                 USED_TABLES.push($(this).html());
             }
         });
-        log("used Tables: ", USED_TABLES);
     }
 
     //function: erstellt neue select elemente basierend auf den gewählten Tabellen in der code area
@@ -520,7 +523,6 @@ $(document).ready(function () {
             var selectedCodeComponentObject = $.parseHTML(selectCodeComponent);
             $(".buttonArea").append(selectedCodeComponentObject);
             fillSelectionFields(element, selectedCodeComponentObject);
-            log("create loop", "");
         });
     }
 
@@ -620,7 +622,6 @@ $(document).ready(function () {
 
         //no number is given -> get next unfilled inputField
         if (elementNr == "next") {
-            console.log("setSelection next");
             CURRENT_SELECTED_ELEMENT.removeClass("unfilled");
             //find .parent then find .unfilled
             element = CURRENT_SELECTED_ELEMENT.closest(".parent").find(".unfilled").first();
@@ -635,7 +636,6 @@ $(document).ready(function () {
         }
         //.parent ist selektiert
         else if (elementNr == "parent") {
-            console.log("setSelection parent");
             //select next .parent
             element = CURRENT_SELECTED_ELEMENT.next(".parent");
             if (element.length == 0) {
@@ -653,7 +653,6 @@ $(document).ready(function () {
         }
         //next element is chosen by number
         else {
-            console.log("setSelection NOT next");
             element = $(".codeElement_" + elementNr);
         }
 
