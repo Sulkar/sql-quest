@@ -7,7 +7,6 @@ $(document).ready(function () {
     var CURRENT_SELECTED_SQL_ELEMENT = "START";
     var ACTIVE_CODE_VIEW_DATA; // JSON Data holder
     var USED_TABLES = []; // listet alle genutzten Tabellen einer DB auf, um SELECTs entsprechend zu erstellen
-    var CURRENT_JSON_DATABASE; //aktuell geladene DB im JSON Format
     var CURRENT_SQL_DATABASE; //aktuell geladene DB im JSON Format
 
     //////////
@@ -747,10 +746,16 @@ $(document).ready(function () {
     //SQLite functions:
     function getSqlTables() {
 
+
+        
         return CURRENT_SQL_DATABASE.exec("SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%'")[0].values;
     }
     function getSqlTableFields(tempTableName) {
         return CURRENT_SQL_DATABASE.exec("PRAGMA table_info(" + tempTableName + ")")[0].values;
+    }
+    function execSqlCommand(sqlCommand) {
+        var result = CURRENT_SQL_DATABASE.exec(sqlCommand);
+        log("exec sql:", result);
     }
 
     /////////
@@ -795,16 +800,7 @@ $(document).ready(function () {
 
     });
 
-    function execSqlCommand() {
-        var tempSqlCommand = $(".codeArea pre code").clone();
-        tempSqlCommand.find(".codeline").prepend("<span>&nbsp;</span>");
-        tempSqlCommand = tempSqlCommand.text().trim();
-        log("editor command", tempSqlCommand);
-        log("DB2", CURRENT_SQL_DATABASE.exec(String(tempSqlCommand)));
-        var tempResult = CURRENT_SQL_DATABASE.exec("SELECT vorname FROM mitarbeiter");
-        log("sql", tempResult);
-        // $("#jquery-code").html(tempResult);
-    }
+    
 
     $(".btnCode-remove").click(function () {
         $("div").removeClass("debug");
