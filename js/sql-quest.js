@@ -390,7 +390,7 @@ $(document).ready(function () {
         if (CURRENT_SELECTED_ELEMENT != undefined) {
             var tempValue = $(this).val();
             if (tempValue != "") {
-                CURRENT_SELECTED_ELEMENT.html(tempValue);
+                CURRENT_SELECTED_ELEMENT.html("'" + tempValue + "'");
             } else {
                 CURRENT_SELECTED_ELEMENT.html("___");
             }
@@ -773,21 +773,53 @@ $(document).ready(function () {
         }
     }
 
+    //function: Erstelle eine Tabelle mit den Resultaten der SQL Abfrage
+    var tableCreate = function () {
+        function valconcat(vals, tagName) {
+            if (vals.length === 0) return '';
+            var open = '<' + tagName + '>', close = '</' + tagName + '>';
+            return open + vals.join(close + open) + close;
+        }
+        return function (columns, values) {
+            var tbl = document.createElement('table');
+            var html = '<thead>' + valconcat(columns, 'th') + '</thead>';
+            var rows = values.map(function (v) { return valconcat(v, 'td'); });
+            html += '<tbody>' + valconcat(rows, 'tr') + '</tbody>';
+            tbl.innerHTML = html;
+            return tbl;
+        }
+    }();
+
     //SQLite functions:
     function getSqlTables() {
-
-
-
         return CURRENT_SQL_DATABASE.exec("SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%'")[0].values;
     }
 
     function getSqlTableFields(tempTableName) {
         return CURRENT_SQL_DATABASE.exec("PRAGMA table_info(" + tempTableName + ")")[0].values;
     }
-    function execSqlCommand(sqlCommand) {
-        var result = CURRENT_SQL_DATABASE.exec(sqlCommand);
-        log("exec sql:", result);
+    function execSqlCommand() {
+        //bereitet den sql Befehl vor
+        var re = new RegExp(String.fromCharCode(160), "g"); // entfernt &nbsp;
+        var sqlCommand = $(".codeArea pre code").clone();
+        sqlCommand.find(".codeline").prepend("<span>&nbsp;</span>");
+        sqlCommand = sqlCommand.text().replaceAll(re, " ").trim();
+
+        //versucht den sql Befehl auszuführen und gibt im Debugbereich das Ergebnis oder die Fehlermeldung aus
+        try {
+            var result = CURRENT_SQL_DATABASE.exec(sqlCommand);
+
+            //erstellt eine Tabelle mit den Ergebnissen
+            $("#debug").html("");
+            for (var i = 0; i < result.length; i++) {
+                $("#debug").append(tableCreate(result[i].columns, result[i].values));
+            }
+        }
+        catch (err) {
+            $("#debug").html(err.message);
+        }
     }
+
 
     /////////
     //DEBUG//
@@ -828,28 +860,11 @@ $(document).ready(function () {
     });
     $(".btnCode-execSql").click(function () {
         execSqlCommand();
-
     });
-
-
-    function execSqlCommand() {
-        var re = new RegExp(String.fromCharCode(160), "g");
-        var tempSqlCommand = $(".codeArea pre code").clone();
-        tempSqlCommand.find(".codeline").prepend("<span>&nbsp;</span>");
-        tempSqlCommand = tempSqlCommand.text().trim().replace(re, " ");
-        result = CURRENT_SQL_DATABASE.exec(String(tempSqlCommand));
-        log("sql", result);
-
-        // TODO: Ergebnis in Taballe stopfen
-        $("#jquery-code").html(result);
-    }
-
-
     $(".btnCode-remove").click(function () {
         $("div").removeClass("debug");
         $("[class^='codeElement_']").removeClass("debug");
     });
-
     $("#checkDisplayAllCodeComponents").click(function () {
         updateActiveCodeView();
     });
