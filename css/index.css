@@ -1,9 +1,3 @@
-/* debug */
-
-.debug {
-    color: red;
-    border: 2px solid red;
-}
 
 html {
     background: #222;
@@ -48,16 +42,6 @@ h1 {
 #execute {
     margin-top: 5px;
     min-width: 100px;
-}
-
-.CodeMirror {
-    border: 1px solid #222;
-    height: auto;
-}
-
-.CodeMirror-scroll {
-    overflow-y: hidden;
-    overflow-x: auto;
 }
 
 .error {
@@ -313,12 +297,6 @@ pre span.codeline span:first {
     padding-left: 2em;
 }
 
-
-/*pre span.codeline {
-
-    padding-left: 2em;
-}*/
-
 pre span.codeline:before {
     counter-increment: line;
     content: counter(line);
@@ -335,4 +313,13 @@ pre span.codeline:before {
 
 .active {
     background-color: LightBlue;
+}
+
+/* debug area */
+#debug-area{
+    display: none;
+}
+.debug {
+    color: red;
+    border: 2px solid red;
 }
