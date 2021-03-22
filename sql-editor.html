@@ -32,7 +32,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="resultModalLabel">SQL-Output</h5>
-                    <button type="button" class="btn-close resultModal" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close resultModal" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
@@ -45,14 +46,15 @@
                                 </div>
                                 <h2>Ergebnis</h2>
                                 <div class="resultArea resultModal">
-                                        ddd
+                                    ddd
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary close resultModal" data-bs-dismiss="modal">Schließen</button>
+                    <button type="button" class="btn btn-secondary close resultModal"
+                        data-bs-dismiss="modal">Schließen</button>
                 </div>
             </div>
         </div>
@@ -99,8 +101,8 @@
                 </svg>
             </button>
             <button class="btnDelete codeButton" style="display: none;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
-                    fill="currentColor" class="bi bi-backspace" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor"
+                    class="bi bi-backspace" viewBox="0 0 16 16">
                     <path
                         d="M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z" />
                     <path
@@ -111,75 +113,11 @@
     </div>
 
     <!-- button area for code components -->
-    <div class="buttonArea codeComponents" style="display: none;">
+    <div class="buttonArea codeComponents">
 
-        <select class="selField synColumns codeSelect">
-            <option value="0" disabled selected hidden>Spalte wählen</option>
-            <option value="*">*</option>
-            <option value="id">id</option>
-            <option value="name">name</option>
-        </select>
+        
 
-        <select class="selTable synTables codeSelect">
-            <option value="0" disabled selected hidden>Tabelle wählen</option>
-            <option value="benutzer">benutzer</option>
-            <option value="warenausgabepunkt">warenausgabepunkt</option>
-            <option value="punkte">punkte</option>
-        </select>
 
-        <input type="text" placeholder="Wert" class="inputValue synValue codeInput"> </input>
-
-        <p class="sqlSelectBefehl">
-            <button class="btnSelect synSQL sqlSelect codeButton">SELECT ___ FROM ___</button>
-
-            <select class="selAggregate synSQL sqlSelect codeSelect">
-                <option value="" disabled selected hidden>Aggregatsfunktion wählen</option>
-                <option value="AVG">AVG ( ___ )</option>
-                <option value="COUNT">COUNT ( ___ )</option>
-                <option value="MIN">MIN ( ___ )</option>
-                <option value="MAX">MAX ( ___ )</option>
-                <option value="SUM">SUM ( ___ )</option>
-            </select>
-
-        </p>
-
-        <p class="sqlWhereBefehl">
-            <button class="btnWhere synSQL sqlWhere codeButton">WHERE ___ ___ ___</button>
-
-            <select class="selOperators synOperators sqlWhere codeSelect">
-                <option value="" disabled selected hidden>Operator wählen</option>
-                <option value="=">=</option>
-                <option value="&gt;">&gt;</option>
-                <option value="&lt;">&lt;</option>
-                <option value="&gt;=">&gt;=</option>
-                <option value="=">&lt;=</option>
-                <option value="&lt;&gt;">&lt;&gt;</option>
-                <option value="LIKE">LIKE</option>
-                <option value="IN">IN</option>
-            </select>
-
-            <button class="btnAND synSQL sqlWhere codeButton">AND</button>
-            <button class="btnOR synSQL sqlWhere codeButton">OR</button>
-            <button class="btnLeftBracket synBrackets sqlWhere codeButton">(</button>
-            <button class="btnRightBracket synBrackets sqlWhere codeButton">)</button>
-
-        </p>
-
-        <p class="sqlOrderBefehl">
-            <button class="btnOrder synSQL sqlOrder codeButton">ORDER BY ___</button>
-            <button class="btnLimit synSQL sqlOrder codeButton">LIMIT ___</button>
-            <button class="btnAsc synSQL sqlOrder codeButton">ASC</button>
-            <button class="btnDesc synSQL sqlOrder codeButton">DESC</button>
-        </p>
-
-        <p class="sqlGroupBefehl">
-            <button class="btnGroup synSQL sqlGroup codeButton">GROUP BY ___</button>
-            <button class="btnHaving synSQL sqlGroup codeButton">HAVING ___ ___ ___</button>
-        </p>
-
-        <p class="sqlJoinBefehl">
-            <button class="btnJoin synSQL sqlJoin codeButton">JOIN ___ ON ___ ___ ___</button>
-        </p>
 
     </div>
     <div id="debug-area">

@@ -112,15 +112,15 @@
         "level": 1,
         "visibleCodeComponents": [
             {
+                "codeComponentClass": ".btnLeftBracket",
+                "codeComponentType": "button"
+            },
+            {
                 "codeComponentClass": ".selField",
                 "codeComponentType": "select"
             },
             {
                 "codeComponentClass": ".btnDelete",
-                "codeComponentType": "button"
-            },
-            {
-                "codeComponentClass": ".btnLeftBracket",
                 "codeComponentType": "button"
             }
         ]

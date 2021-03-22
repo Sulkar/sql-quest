@@ -35,7 +35,7 @@ $(document).ready(function () {
         ACTIVE_CODE_VIEW_DATA = initObject[1];
 
         updateActiveCodeView();
-        fillSelectionTables();
+        //fillSelectionTables();
 
     }, function (error) { console.log(error) });
 
@@ -43,7 +43,7 @@ $(document).ready(function () {
     // EVENTS //
 
     // Button: SELECT ___ FROM ___
-    $('.btnSelect').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnSelect', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         CURRENT_SELECTED_ELEMENT = undefined;
         var elementSELECT_FROM = "<span class='codeline'>";
@@ -65,7 +65,7 @@ $(document).ready(function () {
     });
 
     // Button: WHERE ___ ___ ___ 
-    $('.btnWhere').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnWhere', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         var elementWHERE = "<span class='codeline'>";
         elementWHERE += "<span class='codeElement_" + NR + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='WHERE'>WHERE";
@@ -92,7 +92,7 @@ $(document).ready(function () {
     });
 
     // Button: JOIN ___ ON ___ ___ ___ 
-    $('.btnJoin').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnJoin', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         var elementJOIN = "<span class='codeline'>";
         elementJOIN += "<span class='codeElement_" + NR + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='JOIN'>JOIN";
@@ -124,7 +124,7 @@ $(document).ready(function () {
     });
 
     //Button: AND
-    $('.btnAND').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnAND', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         var parentSqlIdentifier = CURRENT_SELECTED_ELEMENT.data("sql-element");
         var elementWhereAND = "";
@@ -149,7 +149,7 @@ $(document).ready(function () {
     });
 
     //Button: OR
-    $('.btnOR').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnOR', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         var parentSqlIdentifier = CURRENT_SELECTED_ELEMENT.data("sql-element");
         var elementWhereOR = "";
@@ -174,7 +174,7 @@ $(document).ready(function () {
     });
 
     //Button: LeftBracket
-    $('.btnLeftBracket').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnLeftBracket', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         if (CURRENT_SELECTED_ELEMENT.hasClass("inputField")) {
             CURRENT_SELECTED_ELEMENT.before("<span class='codeElement_" + NR + "  " + classesFromCodeComponent + " sqlIdentifier extended' data-sql-element='LEFTBRACKET'> ( </span>");
@@ -182,7 +182,7 @@ $(document).ready(function () {
         }
     });
     //Button: RightBracket
-    $('.btnRightBracket').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnRightBracket', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         if (CURRENT_SELECTED_ELEMENT.hasClass("inputField")) {
             CURRENT_SELECTED_ELEMENT.after("<span class='codeElement_" + NR + "  " + classesFromCodeComponent + " sqlIdentifier extended' data-sql-element='RIGHTBRACKET'> ) </span>");
@@ -190,23 +190,8 @@ $(document).ready(function () {
         }
     });
 
-    //Button: Add Element "inputField"
-    $('.btnAdd').click(function () {
-        var dataSqlElement = CURRENT_SELECTED_ELEMENT.data("sql-element");
-        if (CURRENT_SELECTED_ELEMENT.hasClass("inputField")) {
-            if (hasCurrentSelectedElementSqlDataString(CURRENT_SELECTED_ELEMENT, "_AGGREGAT")) { //...
-                CURRENT_SELECTED_ELEMENT.after(addInputField(dataSqlElement, "extendedSpace"));
-            } else if (hasCurrentSelectedElementSqlDataString(CURRENT_SELECTED_ELEMENT, "WHERE_3, OR_3, AND_3")) { //...
-                CURRENT_SELECTED_ELEMENT.after(addInputField(dataSqlElement, "extendedSpace"));
-            } else {
-                CURRENT_SELECTED_ELEMENT.after(addInputField(dataSqlElement, "extendedComma"));
-            }
-            setSelection(NEXT_ELEMENT_NR, false);
-        }
-    });
-
     // Button: ORDER BY ___ 
-    $('.btnOrder').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnOrder', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         var elementORDER = "";
         elementORDER += "<span class='codeElement_" + NR + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='ORDER'>";
@@ -224,7 +209,7 @@ $(document).ready(function () {
     });
 
     //Button: ASC
-    $('.btnAsc').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnAsc', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         var elementOrderAsc = "";
         elementOrderAsc += "<span class='codeElement_" + NR + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='ASC'>";
@@ -239,7 +224,7 @@ $(document).ready(function () {
     });
 
     //Button: DESC
-    $('.btnDesc').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnDesc', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         var elementOrderDesc = "";
         elementOrderDesc += "<span class='codeElement_" + NR + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='DESC'>";
@@ -254,7 +239,7 @@ $(document).ready(function () {
     });
 
     // Button: LIMIT ___ = [offset,] row_count
-    $('.btnLimit').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnLimit', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         var elementLIMIT = "";
         elementLIMIT += "<span class='codeElement_" + NR + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='LIMIT'>";
@@ -272,7 +257,7 @@ $(document).ready(function () {
     });
 
     // Button: GROUP BY ___ 
-    $('.btnGroup').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnGroup', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         var elementGROUP = "";
         elementGROUP += "<span class='codeElement_" + NR + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='GROUP'>";
@@ -290,7 +275,7 @@ $(document).ready(function () {
     });
 
     // Button: HAVING ___ ___ ___ = like WHERE but can handle Aggregate functions
-    $('.btnHaving').click(function () {
+    $(".buttonArea.codeComponents").on('click', '.btnHaving', function () {
         var classesFromCodeComponent = getClassesFromElementAsString(this);
         var elementHAVING = "";
         elementHAVING += "<span class='codeElement_" + NR + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='HAVING'>";
@@ -349,18 +334,32 @@ $(document).ready(function () {
                 setSelection(NEXT_ELEMENT_NR, false);
             }
         }
-
         // aktualisiert alle .selField <select>
-        updateSelectCodeComponents();
+        updateSelectCodeComponents(false);
         //reset select option
         $(this)[0].selectedIndex = 0;
+    });
+
+    //Button: Add Element "inputField"
+    $(".btnAdd").click(function () {
+        var dataSqlElement = CURRENT_SELECTED_ELEMENT.data("sql-element");
+        if (CURRENT_SELECTED_ELEMENT.hasClass("inputField")) {
+            if (hasCurrentSelectedElementSqlDataString(CURRENT_SELECTED_ELEMENT, "_AGGREGAT")) { //...
+                CURRENT_SELECTED_ELEMENT.after(addInputField(dataSqlElement, "extendedSpace"));
+            } else if (hasCurrentSelectedElementSqlDataString(CURRENT_SELECTED_ELEMENT, "WHERE_3, OR_3, AND_3")) { //...
+                CURRENT_SELECTED_ELEMENT.after(addInputField(dataSqlElement, "extendedSpace"));
+            } else {
+                CURRENT_SELECTED_ELEMENT.after(addInputField(dataSqlElement, "extendedComma"));
+            }
+            setSelection(NEXT_ELEMENT_NR, false);
+        }
     });
 
     // Button: Delete Element
     $('.btnDelete').click(function () {
         deleteElement(CURRENT_SELECTED_ELEMENT);
         // aktualisiert alle .selField <select>
-        updateSelectCodeComponents();
+        updateSelectCodeComponents(false);
     });
 
     // on Click Element
@@ -385,7 +384,7 @@ $(document).ready(function () {
     });
 
     // Input: add text to Selected Element span
-    $(".codeInput").on('keyup', function (e) {
+    $(".buttonArea.codeComponents").on('keyup', '.codeInput', function (e) {
         if (CURRENT_SELECTED_ELEMENT != undefined) {
             var tempValue = $(this).val();
             if (tempValue != "") {
@@ -420,7 +419,7 @@ $(document).ready(function () {
         $(".codeArea.resultModal pre code").html(tempCode);
         //
         execSqlCommand(null);
-        fillSelectionTables();
+        //fillSelectionTables();
     });
     // Button: close modal (x - schließen)
     $(".btn-close.resultModal").click(function () {
@@ -492,11 +491,9 @@ $(document).ready(function () {
     }
 
     //function: erstellt neue select elemente basierend auf den gewählten Tabellen in der code area
-    function updateSelectCodeComponents() {
+    function updateSelectCodeComponents(createSelectFields) {
         //check all used tables in code area
         updateUsedTables();
-        //entfernt alle "alten" select Elemente 
-        $(".buttonArea.codeComponents .selField").remove();
         //entfernt alle .inputField die ein Feld einer gelöscht Tabelle haben
         $(".codeArea.editor .selField").each(function () {
             var isTableActive = false;
@@ -516,16 +513,18 @@ $(document).ready(function () {
             }
         });
 
-        //erstellt neue <select> Elemente für die Felder der einzelnen aktiven Tabellen
-        USED_TABLES.forEach(element => {
-            var selectCodeComponent = "<select class='selField synColumns " + element + " codeSelect'>";
-            selectCodeComponent += "<option value='0' disabled selected hidden>Spalten " + element + "</option>";
-            selectCodeComponent += "<option value='*'>*</option>";
-            selectCodeComponent += "</select>";
-            var selectedCodeComponentObject = $.parseHTML(selectCodeComponent);
-            $(".buttonArea.codeComponents").append(selectedCodeComponentObject);
-            fillSelectionFields(element, selectedCodeComponentObject);
-        });
+        if (createSelectFields) {
+            //erstellt neue <select> Elemente für die Felder der einzelnen aktiven Tabellen
+            USED_TABLES.forEach(element => {
+                var selectCodeComponent = "<select class='selField synColumns " + element + " codeSelect'>";
+                selectCodeComponent += "<option value='0' disabled selected hidden>Spalten " + element + "</option>";
+                selectCodeComponent += "<option value='*'>*</option>";
+                selectCodeComponent += "</select>";
+                var selectedCodeComponentObject = $.parseHTML(selectCodeComponent);
+                $(".buttonArea.codeComponents").append(selectedCodeComponentObject);
+                fillSelectionFields(element, selectedCodeComponentObject);
+            });
+        }
     }
 
     //function: befüllt die .selField Element mit Feldern der genutzten Datenbanken
@@ -711,18 +710,16 @@ $(document).ready(function () {
 
     //function: loops through JSON Data and shows Elements based on selected SQL Element
     function updateActiveCodeView() {
-        $(".buttonArea.codeComponents").show();
-        if (!isCheckboxChecked("#checkDisplayAllCodeComponents")) {
-            $(".codeButton").hide();
-            $(".codeSelect").hide();
-            $(".codeInput").hide();
 
+        if (!isCheckboxChecked("#checkDisplayAllCodeComponents")) {
+            $(".buttonArea.codeComponents").html("");
 
             ACTIVE_CODE_VIEW_DATA.forEach(element => {
                 if (element.selectedSQLElement == CURRENT_SELECTED_SQL_ELEMENT) {
                     element.visibleCodeComponents.forEach(element => {
 
-                        $(element.codeComponentClass).show();
+                        $(element.codeComponentClass).show(); // for add, delete buttons
+                        createCodeComponent(element.codeComponentClass);
 
                         //wenn ein input Feld angezeigt wird:
                         if (element.codeComponentType == "input") {
@@ -742,9 +739,10 @@ $(document).ready(function () {
                 }
             });
         } else {
-            $(".codeButton").show();
-            $(".codeSelect").show();
-            $(".codeInput").show();
+            var allCodeComponents = [".btnSelect", ".btnWhere", ".btnOrder", ".btnLimit", ".btnGroup", ".btnJoin", ".selField", ".selTable", ".selAggregate", ".btnAND", ".btnOR", ".btnLeftBracket", ".btnRightBracket", ".selOperators", ".inputValue", ".btnAsc", ".btnDesc", ".btnHaving"];
+            allCodeComponents.forEach(element => {
+                createCodeComponent(element);
+            });
         }
     }
 
@@ -875,17 +873,12 @@ $(document).ready(function () {
         tempCode.find(".codeline").prepend("<span>&nbsp;</span>");
         $("#jquery-code").html(tempCode.text().trim());
     });
-
-
     $(".btnCode-execSql").click(function () {
 
         var tempSqlCommand = $("#jquery-code").val();
         execSqlCommand(tempSqlCommand);
         $("#exampleModal").modal('toggle');
     });
-
-
-
     $(".btnCode-remove").click(function () {
         $("div").removeClass("debug");
         $("[class^='codeElement_']").removeClass("debug");
@@ -901,6 +894,72 @@ $(document).ready(function () {
 
 
 
+    //function: fügt der buttonArea aktuell notwendige codeComponents hinzu
+    // .selTable wird nicht neu erstellt?
+    function createCodeComponent(codeComponent) {
+        switch (codeComponent) {
+            case ".btnSelect":
+                $(".buttonArea.codeComponents").append('<button class="btnSelect synSQL sqlSelect codeButton">SELECT ___ FROM ___</button>');
+                break;
+            case ".btnWhere":
+                $(".buttonArea.codeComponents").append('<button class="btnWhere synSQL sqlWhere codeButton">WHERE ___ ___ ___</button>');
+                break;
+            case ".btnOrder":
+                $(".buttonArea.codeComponents").append('<button class="btnOrder synSQL sqlOrder codeButton">ORDER BY ___</button>');
+                break;
+            case ".btnLimit":
+                $(".buttonArea.codeComponents").append('<button class="btnLimit synSQL sqlOrder codeButton">LIMIT ___</button>');
+                break;
+            case ".btnGroup":
+                $(".buttonArea.codeComponents").append('<button class="btnGroup synSQL sqlGroup codeButton">GROUP BY ___</button>');
+                break;
+            case ".btnJoin":
+                $(".buttonArea.codeComponents").append('<button class="btnJoin synSQL sqlJoin codeButton">JOIN ___ ON ___ ___ ___</button>');
+                break;
+            case ".selField":
+                //selField selects werden mit aktuellen Daten der ausgewählten Tabellen befüllt
+                updateSelectCodeComponents(true);
+                break;
+            case ".selTable":
+                $(".buttonArea.codeComponents").append('<select class="selTable synTables codeSelect"><option value="0" disabled selected hidden>Tabelle wählen</option></select>');
+                fillSelectionTables();
+                break;
+            case ".selAggregate":
+                $(".buttonArea.codeComponents").append('<select class="selAggregate synSQL sqlSelect codeSelect"><option value="" disabled selected hidden>Aggregatsfunktion wählen</option><option value="AVG">AVG ( ___ )</option><option value="COUNT">COUNT ( ___ )</option><option value="MIN">MIN ( ___ )</option><option value="MAX">MAX ( ___ )</option><option value="SUM">SUM ( ___ )</option></select>');
+                break;
+            case ".btnAND":
+                $(".buttonArea.codeComponents").append('<button class="btnAND synSQL sqlWhere codeButton">AND</button>');
+                break;
+            case ".btnOR":
+                $(".buttonArea.codeComponents").append('<button class="btnOR synSQL sqlWhere codeButton">OR</button>');
+                break;
+            case ".btnLeftBracket":
+                $(".buttonArea.codeComponents").append('<button class="btnLeftBracket synBrackets sqlWhere codeButton">(</button>');
+                break;
+            case ".btnRightBracket":
+                $(".buttonArea.codeComponents").append('<button class="btnRightBracket synBrackets sqlWhere codeButton">)</button>');
+                break;
+            case ".selOperators":
+                $(".buttonArea.codeComponents").append('<select class="selOperators synOperators sqlWhere codeSelect"><option value="" disabled selected hidden>Operator wählen</option><option value="=">=</option><option value="&gt;">&gt;</option><option value="&lt;">&lt;</option><option value="&gt;=">&gt;=</option><option value="=">&lt;=</option><option value="&lt;&gt;">&lt;&gt;</option><option value="LIKE">LIKE</option><option value="IN">IN</option></select>');
+                break;
+            case ".inputValue":
+                $(".buttonArea.codeComponents").append('<input type="text" placeholder="Wert" class="inputValue synValue codeInput"> </input>');
+                break;
+            case ".btnAsc":
+                $(".buttonArea.codeComponents").append('<button class="btnAsc synSQL sqlOrder codeButton">ASC</button>');
+                break;
+            case ".btnDesc":
+                $(".buttonArea.codeComponents").append('<button class="btnDesc synSQL sqlOrder codeButton">DESC</button>');
+                break;
+            case ".btnHaving":
+                $(".buttonArea.codeComponents").append('<button class="btnHaving synSQL sqlGroup codeButton">HAVING ___ ___ ___</button>');
+                break;
+            default:
+                log("no component found")
+        }
+    }
+
 
 
 });
+
