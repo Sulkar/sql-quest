@@ -6,6 +6,18 @@
             {
                 "codeComponentClass": ".btnSelect",
                 "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnSQLDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnUpdate",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnInsert",
+                "codeComponentType": "button"
             }
         ]
     },
@@ -574,6 +586,154 @@
             {
                 "codeComponentClass": ".selField",
                 "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "DELETE_FROM",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnWhere",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "DELETE_FROM_1",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selTable",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "UPDATE",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnWhere",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnAdd",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "UPDATE_1",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selTable",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "UPDATE_2",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selField",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "UPDATE_3",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".inputValue",
+                "codeComponentType": "input"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "INSERT",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".btnWhere",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnAdd",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "INSERT_1",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selTable",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "INSERT_2",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".selField",
+                "codeComponentType": "select"
+            },
+            {
+                "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            }
+        ]
+    },
+    {
+        "selectedSQLElement": "INSERT_3",
+        "level": 1,
+        "visibleCodeComponents": [
+            {
+                "codeComponentClass": ".inputValue",
+                "codeComponentType": "input"
             },
             {
                 "codeComponentClass": ".btnDelete",

@@ -35,7 +35,10 @@ $(document).ready(function () {
         ACTIVE_CODE_VIEW_DATA = initObject[1];
 
         updateActiveCodeView();
-        //fillSelectionTables();
+
+        //debug:
+        $("#jquery-code").html(loadFromLocalStorage("tempSqlCommand"));
+
 
     }, function (error) { console.log(error) });
 
@@ -298,6 +301,76 @@ $(document).ready(function () {
         setSelection(NEXT_ELEMENT_NR, false);
     });
 
+    // Button: DELETE FROM ___ 
+    $(".buttonArea.codeComponents").on('click', '.btnSQLDelete', function () {
+        var classesFromCodeComponent = getClassesFromElementAsString(this);
+        var elementDELETE_FROM = "<span class='codeline'>";
+        elementDELETE_FROM += "<span class='codeElement_" + NR + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='DELETE_FROM'>";
+        NR++;
+        elementDELETE_FROM += "DELETE FROM";
+        elementDELETE_FROM += addLeerzeichen();
+        elementDELETE_FROM += "<span class='codeElement_" + NR + " inputField unfilled root sqlIdentifier' data-sql-element='DELETE_FROM_1' data-next-element='" + (NR + 2) + "'>___</span>";
+        NEXT_ELEMENT_NR = NR;
+        NR++;
+        elementDELETE_FROM += "</span></span>";
+
+        $('.codeArea.editor pre code').append(elementDELETE_FROM);
+        setSelection(NEXT_ELEMENT_NR, false);
+    });
+
+    // Button: UPDATE ___ SET ___ = ___ 
+    $(".buttonArea.codeComponents").on('click', '.btnUpdate', function () {
+        var classesFromCodeComponent = getClassesFromElementAsString(this);
+        var elementUPDATE = "<span class='codeline'>";
+        elementUPDATE += "<span class='codeElement_" + NR + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='UPDATE'>UPDATE";
+        NR++;
+        elementUPDATE += addLeerzeichen();
+        elementUPDATE += "<span class='codeElement_" + NR + " inputField unfilled root sqlIdentifier' data-sql-element='UPDATE_1' data-next-element='" + (NR + 2) + "'>___</span>";
+        NEXT_ELEMENT_NR = NR;
+        NR++;
+        elementUPDATE += addLeerzeichen();
+        elementUPDATE += "<span class='codeElement_" + NR + "' data-goto-element='" + (NR - 4) + "'>SET</span>";
+        NR++;
+        elementUPDATE += addLeerzeichen();
+        elementUPDATE += "<span class='codeElement_" + NR + " inputField unfilled root sqlIdentifier' data-sql-element='UPDATE_2' data-next-element='" + (NR + 2) + "'>___</span>";
+        NR++;
+        elementUPDATE += addLeerzeichen();
+        elementUPDATE += "<span class='codeElement_" + NR + "' data-goto-element='" + (NR - 8) + "'> = </span>";
+        NR++;
+        elementUPDATE += addLeerzeichen();
+        elementUPDATE += "<span class='codeElement_" + NR + " inputField unfilled root sqlIdentifier' data-sql-element='UPDATE_3' data-next-element='" + (NR - 4) + "'>___</span>";
+        NR++;
+        elementUPDATE += "</span></span>";
+
+        $('.codeArea.editor pre code').append(elementUPDATE);
+        setSelection(NEXT_ELEMENT_NR, false);
+    });
+
+    // Button: INSERT INTO ___ (___) VALUES (___) 
+    $(".buttonArea.codeComponents").on('click', '.btnInsert', function () {
+        var classesFromCodeComponent = getClassesFromElementAsString(this);
+        var elementINSERT = "<span class='codeline'>";
+        elementINSERT += "<span class='codeElement_" + NR + " " + classesFromCodeComponent + " parent sqlIdentifier inputFields' data-sql-element='INSERT'>INSERT INTO";
+        NR++;
+        elementINSERT += addLeerzeichen();
+        elementINSERT += "<span class='codeElement_" + NR + " inputField unfilled root insert1 sqlIdentifier' data-sql-element='INSERT_1' data-next-element='" + (NR + 2) + "'>___</span>";
+        NEXT_ELEMENT_NR = NR;
+        NR++;
+        elementINSERT += addLeerzeichen();
+        elementINSERT += "(<span class='codeElement_" + NR + " inputField unfilled extended insert2 sqlIdentifier' data-sql-element='INSERT_2' data-next-element='" + (NR + 2) + "'>___</span>)";
+        NR++;
+        elementINSERT += addLeerzeichen();
+        elementINSERT += "<span class='codeElement_" + NR + "' data-goto-element='" + (NR - 6) + "'>VALUES</span>";
+        NR++;
+        elementINSERT += addLeerzeichen();
+        elementINSERT += "(<span class='codeElement_" + NR + " inputField unfilled root insert3 sqlIdentifier' data-sql-element='INSERT_3' data-next-element='" + (NR - 4) + "'>___</span>)";
+        NR++;
+        elementINSERT += "</span></span>";
+
+        $('.codeArea.editor pre code').append(elementINSERT);
+        setSelection(NEXT_ELEMENT_NR, false);
+    });
+
     // Select: add dbField, dbTable, Aggregatsfunktion
     $('.buttonArea.codeComponents').on('change', '.codeSelect', function () {
         if (CURRENT_SELECTED_ELEMENT != undefined) {
@@ -352,8 +425,50 @@ $(document).ready(function () {
                 CURRENT_SELECTED_ELEMENT.after(addInputField(dataSqlElement, "extendedComma"));
             }
             setSelection(NEXT_ELEMENT_NR, false);
+        } 
+        // INSERT: fügt ", ___" ...  ", ___" hinzu
+        else if (hasCurrentSelectedElementSqlDataString(CURRENT_SELECTED_ELEMENT, "INSERT")) {
+            var firstInputFieldInsert = findElementBySqlData(CURRENT_SELECTED_ELEMENT.children(), "INSERT_2", "last");
+            $(firstInputFieldInsert).after(addInputField(dataSqlElement + "_2", "extendedComma"));
+            var secondInputFieldInsert = findElementBySqlData(CURRENT_SELECTED_ELEMENT.children(), "INSERT_3", "last");
+            $(secondInputFieldInsert).after(addInputField(dataSqlElement + "_3", "extendedComma"));
+        }
+        // UPDATE: fügt ", ___ = ___" hinzu
+        else if (hasCurrentSelectedElementSqlDataString(CURRENT_SELECTED_ELEMENT, "UPDATE")) {
+            var lastUpdateField = findElementBySqlData(CURRENT_SELECTED_ELEMENT.children(), "UPDATE_3", "last");
+            var updateFields = addLeerzeichenMitKomma();
+            updateFields += "<span class='codeElement_" + NR + " inputField unfilled extended sqlIdentifier' data-sql-element='UPDATE_2' data-next-element='" + (NR + 2) + "'>___</span>";
+            NR++;
+            updateFields += addLeerzeichen();
+            updateFields += "<span class='codeElement_" + NR + "' data-goto-element='" + (NR - 8) + "'> = </span>";
+            NR++;
+            updateFields += addLeerzeichen();
+            updateFields += "<span class='codeElement_" + NR + " inputField unfilled extended sqlIdentifier' data-sql-element='UPDATE_3' data-next-element='" + (NR - 4) + "'>___</span>";
+            NR++;
+            $(lastUpdateField).after(updateFields);
         }
     });
+
+    //funtion: Sucht ein Element mit sql-element data attribut
+    function findElementBySqlData(elements, attributeValue, position) {
+        var tempElement;
+        if (position == "first") {
+            $(elements).each(function () {
+                tempElement = this;
+                if ($(tempElement).data("sql-element") == attributeValue) {
+                    return false; //found element -> stop loop
+                }
+            });
+        } else if (position == "last") {
+            $(elements.get().reverse()).each(function () {
+                tempElement = this;
+                if ($(tempElement).data("sql-element") == attributeValue) {
+                    return false; //found element -> stop loop
+                }
+            });
+        }
+        return tempElement;
+    }
 
     // Button: Delete Element
     $('.btnDelete').click(function () {
@@ -432,6 +547,79 @@ $(document).ready(function () {
 
     ///////////////
     // FUNCTIONS //
+
+    //function: fügt der buttonArea aktuell notwendige codeComponents hinzu
+    function createCodeComponent(codeComponent) {
+        switch (codeComponent) {
+            case ".btnSelect":
+                $(".buttonArea.codeComponents").append('<button class="btnSelect synSQL sqlSelect codeButton">SELECT ___ FROM ___</button>');
+                break;
+            case ".btnWhere":
+                $(".buttonArea.codeComponents").append('<button class="btnWhere synSQL sqlWhere codeButton">WHERE ___ ___ ___</button>');
+                break;
+            case ".btnOrder":
+                $(".buttonArea.codeComponents").append('<button class="btnOrder synSQL sqlOrder codeButton">ORDER BY ___</button>');
+                break;
+            case ".btnLimit":
+                $(".buttonArea.codeComponents").append('<button class="btnLimit synSQL sqlOrder codeButton">LIMIT ___</button>');
+                break;
+            case ".btnGroup":
+                $(".buttonArea.codeComponents").append('<button class="btnGroup synSQL sqlGroup codeButton">GROUP BY ___</button>');
+                break;
+            case ".btnJoin":
+                $(".buttonArea.codeComponents").append('<button class="btnJoin synSQL sqlJoin codeButton">JOIN ___ ON ___ ___ ___</button>');
+                break;
+            case ".selField":
+                //selField selects werden mit aktuellen Daten der ausgewählten Tabellen befüllt
+                updateSelectCodeComponents(true);
+                break;
+            case ".selTable":
+                $(".buttonArea.codeComponents").append('<select class="selTable synTables codeSelect"><option value="0" disabled selected hidden>Tabelle wählen</option></select>');
+                fillSelectionTables();
+                break;
+            case ".selAggregate":
+                $(".buttonArea.codeComponents").append('<select class="selAggregate synSQL sqlSelect codeSelect"><option value="" disabled selected hidden>Aggregatsfunktion wählen</option><option value="AVG">AVG ( ___ )</option><option value="COUNT">COUNT ( ___ )</option><option value="MIN">MIN ( ___ )</option><option value="MAX">MAX ( ___ )</option><option value="SUM">SUM ( ___ )</option></select>');
+                break;
+            case ".btnAND":
+                $(".buttonArea.codeComponents").append('<button class="btnAND synSQL sqlWhere codeButton">AND</button>');
+                break;
+            case ".btnOR":
+                $(".buttonArea.codeComponents").append('<button class="btnOR synSQL sqlWhere codeButton">OR</button>');
+                break;
+            case ".btnLeftBracket":
+                $(".buttonArea.codeComponents").append('<button class="btnLeftBracket synBrackets sqlWhere codeButton">(</button>');
+                break;
+            case ".btnRightBracket":
+                $(".buttonArea.codeComponents").append('<button class="btnRightBracket synBrackets sqlWhere codeButton">)</button>');
+                break;
+            case ".selOperators":
+                $(".buttonArea.codeComponents").append('<select class="selOperators synOperators sqlWhere codeSelect"><option value="" disabled selected hidden>Operator wählen</option><option value="=">=</option><option value="&gt;">&gt;</option><option value="&lt;">&lt;</option><option value="&gt;=">&gt;=</option><option value="=">&lt;=</option><option value="&lt;&gt;">&lt;&gt;</option><option value="BETWEEN">BETWEEN ___ AND ___</option><option value="LIKE">LIKE</option><option value="IN">IN (___)</option></select>');
+                break;
+            case ".inputValue":
+                $(".buttonArea.codeComponents").append('<input type="text" placeholder="Wert" class="inputValue synValue codeInput"> </input>');
+                break;
+            case ".btnAsc":
+                $(".buttonArea.codeComponents").append('<button class="btnAsc synSQL sqlOrder codeButton">ASC</button>');
+                break;
+            case ".btnDesc":
+                $(".buttonArea.codeComponents").append('<button class="btnDesc synSQL sqlOrder codeButton">DESC</button>');
+                break;
+            case ".btnHaving":
+                $(".buttonArea.codeComponents").append('<button class="btnHaving synSQL sqlGroup codeButton">HAVING ___ ___ ___</button>');
+                break;
+            case ".btnSQLDelete":
+                $(".buttonArea.codeComponents").append('<button class="btnSQLDelete synSQL sqlDelete">DELETE FROM ___</button>');
+                break;
+            case ".btnUpdate":
+                $(".buttonArea.codeComponents").append('<button class="btnUpdate synSQL sqlUpdate">UPDATE ___ SET ___ = ___</button>');
+                break;
+            case ".btnInsert":
+                $(".buttonArea.codeComponents").append('<button class="btnInsert synSQL sqlInsert">INSERT INTO ___ (___) VALUES (___)</button>');
+                break;
+            default:
+            //log("no component found")
+        }
+    }
 
     //function: delete element from code area
     function deleteElement(elementToDelete) {
@@ -712,6 +900,10 @@ $(document).ready(function () {
     function updateActiveCodeView() {
 
         if (!isCheckboxChecked("#checkDisplayAllCodeComponents")) {
+            //reset add und delete Button
+            $(".buttonArea.mainMenu .btnAdd").hide();
+            $(".buttonArea.mainMenu .btnDelete").hide();
+
             $(".buttonArea.codeComponents").html("");
 
             ACTIVE_CODE_VIEW_DATA.forEach(element => {
@@ -867,6 +1059,7 @@ $(document).ready(function () {
     $(".btnCode-copycodefrom").click(function () {
         var tempCode = $(".codeArea.editor pre code").html().trim();
         $("#jquery-code").html(tempCode);
+        saveToLocalStorage("tempSqlCommand", tempCode);
     });
     $(".btnCode-getSqlString").click(function () {
         var tempCode = $(".codeArea.editor pre code").clone();
@@ -874,7 +1067,6 @@ $(document).ready(function () {
         $("#jquery-code").html(tempCode.text().trim());
     });
     $(".btnCode-execSql").click(function () {
-
         var tempSqlCommand = $("#jquery-code").val();
         execSqlCommand(tempSqlCommand);
         $("#exampleModal").modal('toggle');
@@ -891,73 +1083,15 @@ $(document).ready(function () {
         if ($(tempCheckbox).prop("checked")) return true;
         else return false;
     }
-
-
-
-    //function: fügt der buttonArea aktuell notwendige codeComponents hinzu
-    // .selTable wird nicht neu erstellt?
-    function createCodeComponent(codeComponent) {
-        switch (codeComponent) {
-            case ".btnSelect":
-                $(".buttonArea.codeComponents").append('<button class="btnSelect synSQL sqlSelect codeButton">SELECT ___ FROM ___</button>');
-                break;
-            case ".btnWhere":
-                $(".buttonArea.codeComponents").append('<button class="btnWhere synSQL sqlWhere codeButton">WHERE ___ ___ ___</button>');
-                break;
-            case ".btnOrder":
-                $(".buttonArea.codeComponents").append('<button class="btnOrder synSQL sqlOrder codeButton">ORDER BY ___</button>');
-                break;
-            case ".btnLimit":
-                $(".buttonArea.codeComponents").append('<button class="btnLimit synSQL sqlOrder codeButton">LIMIT ___</button>');
-                break;
-            case ".btnGroup":
-                $(".buttonArea.codeComponents").append('<button class="btnGroup synSQL sqlGroup codeButton">GROUP BY ___</button>');
-                break;
-            case ".btnJoin":
-                $(".buttonArea.codeComponents").append('<button class="btnJoin synSQL sqlJoin codeButton">JOIN ___ ON ___ ___ ___</button>');
-                break;
-            case ".selField":
-                //selField selects werden mit aktuellen Daten der ausgewählten Tabellen befüllt
-                updateSelectCodeComponents(true);
-                break;
-            case ".selTable":
-                $(".buttonArea.codeComponents").append('<select class="selTable synTables codeSelect"><option value="0" disabled selected hidden>Tabelle wählen</option></select>');
-                fillSelectionTables();
-                break;
-            case ".selAggregate":
-                $(".buttonArea.codeComponents").append('<select class="selAggregate synSQL sqlSelect codeSelect"><option value="" disabled selected hidden>Aggregatsfunktion wählen</option><option value="AVG">AVG ( ___ )</option><option value="COUNT">COUNT ( ___ )</option><option value="MIN">MIN ( ___ )</option><option value="MAX">MAX ( ___ )</option><option value="SUM">SUM ( ___ )</option></select>');
-                break;
-            case ".btnAND":
-                $(".buttonArea.codeComponents").append('<button class="btnAND synSQL sqlWhere codeButton">AND</button>');
-                break;
-            case ".btnOR":
-                $(".buttonArea.codeComponents").append('<button class="btnOR synSQL sqlWhere codeButton">OR</button>');
-                break;
-            case ".btnLeftBracket":
-                $(".buttonArea.codeComponents").append('<button class="btnLeftBracket synBrackets sqlWhere codeButton">(</button>');
-                break;
-            case ".btnRightBracket":
-                $(".buttonArea.codeComponents").append('<button class="btnRightBracket synBrackets sqlWhere codeButton">)</button>');
-                break;
-            case ".selOperators":
-                $(".buttonArea.codeComponents").append('<select class="selOperators synOperators sqlWhere codeSelect"><option value="" disabled selected hidden>Operator wählen</option><option value="=">=</option><option value="&gt;">&gt;</option><option value="&lt;">&lt;</option><option value="&gt;=">&gt;=</option><option value="=">&lt;=</option><option value="&lt;&gt;">&lt;&gt;</option><option value="LIKE">LIKE</option><option value="IN">IN</option></select>');
-                break;
-            case ".inputValue":
-                $(".buttonArea.codeComponents").append('<input type="text" placeholder="Wert" class="inputValue synValue codeInput"> </input>');
-                break;
-            case ".btnAsc":
-                $(".buttonArea.codeComponents").append('<button class="btnAsc synSQL sqlOrder codeButton">ASC</button>');
-                break;
-            case ".btnDesc":
-                $(".buttonArea.codeComponents").append('<button class="btnDesc synSQL sqlOrder codeButton">DESC</button>');
-                break;
-            case ".btnHaving":
-                $(".buttonArea.codeComponents").append('<button class="btnHaving synSQL sqlGroup codeButton">HAVING ___ ___ ___</button>');
-                break;
-            default:
-                log("no component found")
-        }
+    //function save + load to local storage
+    function saveToLocalStorage(key, value) {
+        localStorage.setItem(key, value);
     }
+    function loadFromLocalStorage(key) {
+        return localStorage.getItem(key);
+    }
+
+
 
 
 
