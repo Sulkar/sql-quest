@@ -1,4 +1,3 @@
-
 html {
     background: #222;
     margin: auto;
@@ -166,7 +165,9 @@ div.col.centerMenu {
 .buttonArea .sqlGroup,
 .buttonArea .sqlJoin,
 .buttonArea .sqlOrder,
-.buttonArea .sqlWhere {
+.buttonArea .sqlDelete,
+.buttonArea .sqlUpdate,
+.buttonArea .sqlInsert {
     display: inline-block;
     border-bottom: 0.15em solid steelblue;
 }
@@ -175,7 +176,10 @@ div.col.centerMenu {
 .buttonArea button.sqlGroup,
 .buttonArea button.sqlJoin,
 .buttonArea button.sqlOrder,
-.buttonArea button.sqlWhere {
+.buttonArea button.sqlWhere,
+.buttonArea button.sqlDelete,
+.buttonArea button.sqlUpdate,
+.buttonArea button.sqlInsert {
     border-bottom: 0.15em solid steelblue;
 }
 
@@ -315,10 +319,13 @@ pre span.codeline:before {
     background-color: LightBlue;
 }
 
+
 /* debug area */
-#debug-area{
+
+#debug-area {
     display: none;
 }
+
 .debug {
     color: red;
     border: 2px solid red;
