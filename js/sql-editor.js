@@ -34,7 +34,6 @@ $(document).ready(function () {
         CURRENT_SQL_DATABASE = initObject[0];
         ACTIVE_CODE_VIEW_DATA = initObject[1];
 
-        CURRENT_SQL_DATABASE_TABLES = getSqlTables();
         updateActiveCodeView();
         fillSelectionTables();
 
@@ -418,9 +417,10 @@ $(document).ready(function () {
         removeSelection(false);
         //
         var tempCode = $(".codeArea.editor pre code").html().trim();
-        $(".codeArea.sqlModal").html(tempCode);
+        $(".codeArea.sqlModal pre code").html(tempCode);
         //
-        execSqlCommand();
+        execSqlCommand(null);
+        fillSelectionTables();
     });
 
     ///////////////
@@ -461,32 +461,16 @@ $(document).ready(function () {
 
     //function: befüllt .selTable mit allen Tabellen der Datenbank
     function fillSelectionTables() {
-        clearSelectionOptions(".selTable");
+        clearSelectionOptions(".buttonArea .selTable");
         var databaseTables = getSqlTables();
         for (var i = 0; i < databaseTables.length; i++) {
-            $(".selTable").append(new Option(databaseTables[i], databaseTables[i]));
+            $(".buttonArea .selTable").append(new Option(databaseTables[i], databaseTables[i]));
         }
     }
 
     //function: entfernt alle select Optionen außer die erste
     function clearSelectionOptions(selectElement) {
         $(selectElement + ' option[value!="0"]').remove();
-    }
-
-    //function: lädt eine DB im JSON Format und befüllt die .selTable selection
-    function loadJsonDatabase(databaseNameJson) {
-        // lädt JSON TableData
-        var requestURL = 'data/' + databaseNameJson;
-        var request = new XMLHttpRequest();
-        request.open('GET', requestURL);
-        request.responseType = 'json';
-        request.send();
-
-        request.onload = function () {
-            var tempJson = request.response;
-            CURRENT_JSON_DATABASE = tempJson['tables'];
-            fillSelectionTables();
-        }
     }
 
     //function: get all used db tables in code area
@@ -747,7 +731,6 @@ $(document).ready(function () {
                 }
             });
         } else {
-            log("dd","inn")
             $(".codeButton").show();
             $(".codeSelect").show();
             $(".codeInput").show();
@@ -810,16 +793,17 @@ $(document).ready(function () {
     function getSqlTableFields(tempTableName) {
         return CURRENT_SQL_DATABASE.exec("PRAGMA table_info(" + tempTableName + ")")[0].values;
     }
-    function execSqlCommand() {
+    function execSqlCommand(tempSqlCommand) {
         //bereitet den sql Befehl vor
         var re = new RegExp(String.fromCharCode(160), "g"); // entfernt &nbsp;
-        var sqlCommand = $(".codeArea.editor pre code").clone();
-        sqlCommand.find(".codeline").prepend("<span>&nbsp;</span>");
-        sqlCommand = sqlCommand.text().replaceAll(re, " ").trim();
-
+        if (tempSqlCommand == null) {
+            tempSqlCommand = $(".codeArea.editor pre code").clone();
+            tempSqlCommand.find(".codeline").prepend("<span>&nbsp;</span>");
+            tempSqlCommand = tempSqlCommand.text().replaceAll(re, " ").trim();
+        }
         //versucht den sql Befehl auszuführen und gibt im Debugbereich das Ergebnis oder die Fehlermeldung aus
         try {
-            var result = CURRENT_SQL_DATABASE.exec(sqlCommand);
+            var result = CURRENT_SQL_DATABASE.exec(tempSqlCommand);
 
             //erstellt eine Tabelle mit den Ergebnissen
             $(".resultArea.sqlModal").html("");
@@ -830,6 +814,7 @@ $(document).ready(function () {
         catch (err) {
             $(".resultArea.sqlModal").html(err.message);
         }
+
     }
 
 
@@ -879,9 +864,17 @@ $(document).ready(function () {
         tempCode.find(".codeline").prepend("<span>&nbsp;</span>");
         $("#jquery-code").html(tempCode.text().trim());
     });
+
+
     $(".btnCode-execSql").click(function () {
-        execSqlCommand();
-    });    
+
+        var tempSqlCommand = $("#jquery-code").val();
+        execSqlCommand(tempSqlCommand);
+        $("#exampleModal").modal('toggle');
+    });
+
+
+
     $(".btnCode-remove").click(function () {
         $("div").removeClass("debug");
         $("[class^='codeElement_']").removeClass("debug");
