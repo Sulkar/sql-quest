@@ -27,12 +27,12 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">SQL-Output</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="resultModalLabel">SQL-Output</h5>
+                    <button type="button" class="btn-close resultModal" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
@@ -40,11 +40,11 @@
                         <div class="row">
                             <div class="col">
                                 <h2>SQL</h2>
-                                <div class="codeArea sqlModal">
+                                <div class="codeArea resultModal">
                                     <pre><code></code></pre>
                                 </div>
                                 <h2>Ergebnis</h2>
-                                <div class="resultArea sqlModal">
+                                <div class="resultArea resultModal">
                                         ddd
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                    <button type="button" class="btn btn-secondary close resultModal" data-bs-dismiss="modal">Schließen</button>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
     <!-- first row buttons main menu -->
     <div class="row buttonArea mainMenu">
         <div class="col leftMenu">
-            <button class="btnRun" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button class="btnRun" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#resultModal">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" fill="currentColor"
                     class="bi bi-play-btn" viewBox="0 0 16 16">
                     <path d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z" />

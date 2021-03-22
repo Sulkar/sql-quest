@@ -417,11 +417,19 @@ $(document).ready(function () {
         removeSelection(false);
         //
         var tempCode = $(".codeArea.editor pre code").html().trim();
-        $(".codeArea.sqlModal pre code").html(tempCode);
+        $(".codeArea.resultModal pre code").html(tempCode);
         //
         execSqlCommand(null);
         fillSelectionTables();
     });
+    // Button: close modal (x - schließen)
+    $(".btn-close.resultModal").click(function () {
+        $(".codeArea.resultModal pre code").html("");
+    });
+    $(".btn.btn-secondary.close.resultModal").click(function () {
+        $(".codeArea.resultModal pre code").html("");
+    });
+
 
     ///////////////
     // FUNCTIONS //
@@ -715,18 +723,21 @@ $(document).ready(function () {
                     element.visibleCodeComponents.forEach(element => {
 
                         $(element.codeComponentClass).show();
+
+                        //wenn ein input Feld angezeigt wird:
                         if (element.codeComponentType == "input") {
                             $(element.codeComponentClass).focus();
-                        }
-                        if (CURRENT_SELECTED_ELEMENT != undefined) {
-                            if (CURRENT_SELECTED_ELEMENT.hasClass("input")) {
-                                if (CURRENT_SELECTED_ELEMENT.text() == "___") {
-                                    $(element.codeComponentClass).val("");
-                                } else {
-                                    $(element.codeComponentClass).val(CURRENT_SELECTED_ELEMENT.text()).select();
+                            if (CURRENT_SELECTED_ELEMENT != undefined) {
+                                if (CURRENT_SELECTED_ELEMENT.hasClass("input")) {
+                                    if (CURRENT_SELECTED_ELEMENT.text() == "___") {
+                                        $(element.codeComponentClass).val("");
+                                    } else {
+                                        $(element.codeComponentClass).val(CURRENT_SELECTED_ELEMENT.text().replaceAll("'", "")).select();
+                                    }
                                 }
                             }
                         }
+
                     });
                 }
             });
@@ -806,13 +817,13 @@ $(document).ready(function () {
             var result = CURRENT_SQL_DATABASE.exec(tempSqlCommand);
 
             //erstellt eine Tabelle mit den Ergebnissen
-            $(".resultArea.sqlModal").html("");
+            $(".resultArea.resultModal").html("");
             for (var i = 0; i < result.length; i++) {
-                $(".resultArea.sqlModal").append(tableCreate(result[i].columns, result[i].values));
+                $(".resultArea.resultModal").append(tableCreate(result[i].columns, result[i].values));
             }
         }
         catch (err) {
-            $(".resultArea.sqlModal").html(err.message);
+            $(".resultArea.resultModal").html(err.message);
         }
 
     }
@@ -835,8 +846,8 @@ $(document).ready(function () {
 
     //function log
     function log(info, tempValue) {
-        if (info != "") console.log(info + ":");
-        console.log(tempValue);
+        console.log(info);
+        if (tempValue != undefined) console.log("-> " + tempValue);
     }
     //Debug jquery-code textarea
     $(".btnCode-parent").click(function () {
