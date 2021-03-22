@@ -8,8 +8,7 @@
     <title>Online SQL Abenteuer</title>
 
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="css/index.css">
 
 </head>
@@ -68,8 +67,7 @@ Bitte eine Datenbank auswählen!
 
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-fullscreen">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -135,7 +133,7 @@ Bitte eine Datenbank auswählen!
 
             <div class="row buttonArea mainMenu">
                 <div class="col leftMenu">
-                    <button class="btnRun" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button class="btnRun" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#resultModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" fill="currentColor"
                             class="bi bi-play-btn" viewBox="0 0 16 16">
                             <path
@@ -327,10 +325,26 @@ Bitte eine Datenbank auswählen!
                                 <option value="&gt;=">&gt;=</option>
                                 <option value="=">&lt;=</option>
                                 <option value="&&lt;&gt;">&lt;&gt;</option>
-                                <option value="BETWEEN">BETWEEN</option>
+                                <option value="BETWEEN">BETWEEN ___ AND ___</option>
                                 <option value="LIKE">LIKE</option>
-                                <option value="IN">IN</option>
+                                <option value="IN">IN (___)</option>
                             </select>
+
+                        </p>
+
+                        <p class="sqlDeleteBefehl">
+
+                            <button class="btnSQLDelete synSQL sqlDelete">DELETE FROM ___</button>
+
+                        </p>
+                        <p class="sqlUpdateBefehl">
+
+                            <button class="btnUpdate synSQL sqlUpdate">UPDATE ___ SET ___ = ___</button>
+
+                        </p>
+                        <p class="sqlInsertBefehl">
+
+                            <button class="btnInsert synSQL sqlInsert">INSERT INTO ___ (___) VALUES (___)</button>
 
                         </p>
                     </div>
@@ -346,9 +360,8 @@ Bitte eine Datenbank auswählen!
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
 
 
     <script type="text/javascript" src="js/sqlbuilder.js">
