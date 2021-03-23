@@ -692,10 +692,6 @@
             {
                 "codeComponentClass": ".btnDelete",
                 "codeComponentType": "button"
-            },
-            {
-                "codeComponentClass": ".btnAdd",
-                "codeComponentType": "button"
             }
         ]
     },
@@ -709,6 +705,10 @@
             },
             {
                 "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnAdd",
                 "codeComponentType": "button"
             }
         ]
@@ -724,6 +724,10 @@
             {
                 "codeComponentClass": ".btnDelete",
                 "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnAdd",
+                "codeComponentType": "button"
             }
         ]
     },
@@ -737,6 +741,10 @@
             },
             {
                 "codeComponentClass": ".btnDelete",
+                "codeComponentType": "button"
+            },
+            {
+                "codeComponentClass": ".btnAdd",
                 "codeComponentType": "button"
             }
         ]
