@@ -16,12 +16,12 @@ $(document).ready(function () {
     async function init(datenbankName) {
         //fetch Database
         const sqlPromise = initSqlJs({
-            locateFile: file => `/dist/${file}`
+            locateFile: file => `dist/${file}`
         });
-        const dataPromise = fetch("/data/" + datenbankName).then(res => res.arrayBuffer());
+        const dataPromise = fetch("data/" + datenbankName).then(res => res.arrayBuffer());
 
         //fetch active code view json
-        const activeCodeViewPromise = fetch("/data/activeCodeViewData.json");
+        const activeCodeViewPromise = fetch("data/activeCodeViewData.json");
 
         const [SQL, bufferedDatabase, activeCodeView] = await Promise.all([sqlPromise, dataPromise, activeCodeViewPromise]);
         const jsonData = await activeCodeView.json();
@@ -439,14 +439,14 @@ $(document).ready(function () {
             else if (hasCurrentSelectedElementSqlDataString(CURRENT_SELECTED_ELEMENT, "INSERT_2")) {
 
                 var updateField1 = addLeerzeichenMitKomma();
-                updateField1 += "<span class='codeElement_" + NR + " inputField unfilled extended sqlIdentifier' data-sql-element='UPDATE_2' data-next-element='" + (NR + 2) + "' data-element-group='" + (NR - 1) + "," + (NR + 1) + "," + (NR + 2) + "'>___</span>";
+                updateField1 += "<span class='codeElement_" + NR + " inputField unfilled extended sqlIdentifier' data-sql-element='INSERT_2' data-next-element='" + (NR + 2) + "' data-element-group='" + (NR - 1) + "," + (NR + 1) + "," + (NR + 2) + "'>___</span>";
                 NR++;
                 CURRENT_SELECTED_ELEMENT.after(updateField1);
 
                 var lastInsert3Field = findElementBySqlData(CURRENT_SELECTED_ELEMENT.closest(".parent").children(), "INSERT_3", "last");
 
                 var updateField2 = addLeerzeichenMitKomma();
-                updateField2 += "<span class='codeElement_" + NR + " inputField unfilled extended sqlIdentifier' data-sql-element='UPDATE_2' data-next-element='" + (NR + 2) + "' data-element-group='" + (NR - 1) + "," + (NR - 2) + "," + (NR - 3) + "'>___</span>";
+                updateField2 += "<span class='codeElement_" + NR + " inputField unfilled extended sqlIdentifier' data-sql-element='INSERT_3' data-next-element='" + (NR + 2) + "' data-element-group='" + (NR - 1) + "," + (NR - 2) + "," + (NR - 3) + "'>___</span>";
                 NR++;
                 $(lastInsert3Field).after(updateField2);
             }
