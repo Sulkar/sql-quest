@@ -134,6 +134,7 @@ div.col.centerMenu {
     background-image: url("data:image/svg+xml;utf8,<svg fill='slategrey' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
     border-bottom: 0.15em solid slategrey;
     font-size: 1.3rem;
+    color: slategrey;
 }
 
 .dbHandlingMenu input[type="file"] {
@@ -158,7 +159,8 @@ div.col.centerMenu {
 
 .dbHandlingMenu .fileUpload:hover,
 .dbHandlingMenu button.btnDbDownload:hover,
-.dbHandlingMenu select:hover {
+.dbHandlingMenu select:hover,
+.dbHandlingMenu button.btnDbNew:hover {
     background-color: aliceblue;
 }
 
