@@ -107,7 +107,8 @@ div.col.centerMenu {
     width: 5em;
 }
 
-.buttonArea select {
+.buttonArea select,
+.dbHandlingMenu select {
     appearance: none;
     -webkit-appearance: button;
     -moz-appearance: button;
@@ -129,11 +130,44 @@ div.col.centerMenu {
     width: min-content;
 }
 
+.dbHandlingMenu select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='slategrey' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    border-bottom: 0.15em solid slategrey;
+    font-size: 1.3rem;
+}
+
+.dbHandlingMenu input[type="file"] {
+    display: none;
+}
+
+.dbHandlingMenu .fileUpload,
+.dbHandlingMenu button.btnDbDownload,
+.dbHandlingMenu button.btnDbNew {
+    display: inline-block;
+    padding: 0.35em 1.0em 0.15em;
+    border: 0;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.18em;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-bottom: 0.15em solid slategrey;
+    background-color: #fff;
+    color: slategrey;
+    font-size: 1.3rem;
+}
+
+.dbHandlingMenu .fileUpload:hover,
+.dbHandlingMenu button.btnDbDownload:hover,
+.dbHandlingMenu select:hover {
+    background-color: aliceblue;
+}
+
 
 /* Gilt nur für Chrome, nötig um den Pfeil im Dropdown hinzubekommen */
 
 @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
-    .buttonArea select {
+    .buttonArea select,
+    .dbHandlingMenu select {
         appearance: none;
     }
 }
@@ -150,12 +184,12 @@ div.col.centerMenu {
 
 .buttonArea select:hover,
 .buttonArea button:hover {
-    background-color: lightsteelblue;
+    background-color: aliceblue;
 }
 
 .buttonArea input:focus {
     outline: none;
-    background-color: lightsteelblue;
+    background-color: aliceblue;
 }
 
 
