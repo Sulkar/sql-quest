@@ -2,45 +2,132 @@ $(document).ready(function () {
 
     //global variables
     var NR = 0;
-    var CURRENT_SELECTED_ELEMENT = undefined;
     var NEXT_ELEMENT_NR = 0;
+    var CURRENT_SELECTED_ELEMENT = undefined;
     var CURRENT_SELECTED_SQL_ELEMENT = "START";
     var ACTIVE_CODE_VIEW_DATA; // JSON Data holder
-    var USED_TABLES = []; // listet alle genutzten Tabellen einer DB auf, um SELECTs entsprechend zu erstellen
-    var CURRENT_SQL_DATABASE; //aktuell geladene DB im JSON Format
+    var USED_TABLES = []; // listet alle genutzten Tabellen einer DB auf, um SELECTs entsprechend zu befüllen
+    var CURRENT_SQL_DATABASE; //aktuell geladene DB
+    var DATABASE_ARRAY = [];
+    DATABASE_ARRAY.push(createDatabaseObject("mitarbeiterDB.db", null, "server"));
+    DATABASE_ARRAY.push(createDatabaseObject("unsereSchule.db", null, "server"));
 
     //////////
     // INIT //
 
     //function: Datenbank und JSON für active code view werden geladen
-    async function init(datenbankName) {
+    async function init(dataPromise) {
         //fetch Database
         const sqlPromise = initSqlJs({
             locateFile: file => `dist/${file}`
         });
-        const dataPromise = fetch("data/" + datenbankName).then(res => res.arrayBuffer());
-
         //fetch active code view json
         const activeCodeViewPromise = fetch("data/activeCodeViewData.json");
-
-        const [SQL, bufferedDatabase, activeCodeView] = await Promise.all([sqlPromise, dataPromise, activeCodeViewPromise]);
+        const [sql, bufferedDatabase, activeCodeView] = await Promise.all([sqlPromise, dataPromise, activeCodeViewPromise]);
+        SQL = sql;
         const jsonData = await activeCodeView.json();
 
-        return [new SQL.Database(new Uint8Array(bufferedDatabase)), jsonData];
+        return [new sql.Database(new Uint8Array(bufferedDatabase)), jsonData];
     }
 
-    // START - when data is loaded
-    init("mitarbeiterDB.db").then(function (initObject) {
+    // START - erste Datenbank wird geladen und die View wird angepasst
+    init(fetch("data/" + DATABASE_ARRAY[0].name).then(res => res.arrayBuffer())).then(function (initObject) {
         CURRENT_SQL_DATABASE = initObject[0];
         ACTIVE_CODE_VIEW_DATA = initObject[1];
 
+        DATABASE_ARRAY[0].database = CURRENT_SQL_DATABASE;
+
+        updateDbChooser();
         updateActiveCodeView();
 
         //debug:
         $("#jquery-code").html(loadFromLocalStorage("tempSqlCommand"));
 
-
     }, function (error) { console.log(error) });
+
+    // Select: Datenbank wird ausgewählt
+    $('#selDbChooser').on('change', function () {
+        $(".codeArea pre code").html("");
+
+        CURRENT_SELECTED_SQL_ELEMENT = "START";
+
+        var indexOfDatabaseobject = getIndexOfDatabaseobject(this.value);
+        log(indexOfDatabaseobject);
+        // 1) Datenbank exisitiert und wurde bereits eingelesen
+        if (indexOfDatabaseobject != null && DATABASE_ARRAY[indexOfDatabaseobject].database != null) {
+            CURRENT_SQL_DATABASE = DATABASE_ARRAY[indexOfDatabaseobject].database;
+            updateActiveCodeView();
+        }
+        // 2) Datenbank ist auf dem Server und muss noch eingelesen werden
+        else if (indexOfDatabaseobject != null && DATABASE_ARRAY[indexOfDatabaseobject].type == "server") {
+            log("load database");
+            init(fetch("data/" + DATABASE_ARRAY[indexOfDatabaseobject].name).then(res => res.arrayBuffer())).then(function (initObject) {
+                CURRENT_SQL_DATABASE = initObject[0];
+                ACTIVE_CODE_VIEW_DATA = initObject[1];
+
+                DATABASE_ARRAY[indexOfDatabaseobject].database = CURRENT_SQL_DATABASE;
+
+                updateActiveCodeView();
+            }, function (error) { console.log(error) });
+        }
+    });
+
+    // function: liefert den Index eines Datenbankobjekts aus dem DATABASE_ARRAY anhand des Namens zurück
+    function getIndexOfDatabaseobject(databaseName) {
+        var indexOfDatabaseobject = null;
+        DATABASE_ARRAY.forEach((element, index) => {
+            if (element.name == databaseName) {
+                indexOfDatabaseobject = index;
+            }
+        });
+        return indexOfDatabaseobject;
+    }
+
+    // function: erstellt ein database Objekt und gibt dieses zurück, wird dann im DATABASE_ARRAY gespeichert
+    function createDatabaseObject(name, database, type) {
+        var databaseObject = {};
+        databaseObject.name = name;
+        databaseObject.database = database;
+        databaseObject.type = type; //server, local, new
+        return databaseObject;
+    }
+
+    // Datenbankdatei wurde zum Upload ausgewählt
+    $("#fileDbUpload").on('change', function () {
+
+        var uploadedFile = this.files[0];
+        log(uploadedFile)
+        var fileReader = new FileReader();
+        fileReader.onload = function () {
+            init(fileReader.result).then(function (initObject) {
+                CURRENT_SQL_DATABASE = initObject[0];
+                ACTIVE_CODE_VIEW_DATA = initObject[1];
+
+                DATABASE_ARRAY.push(createDatabaseObject(uploadedFile.name, CURRENT_SQL_DATABASE, "local"));
+
+                updateDbChooser(uploadedFile.name);
+                updateActiveCodeView();
+
+                //debug:
+                $("#jquery-code").html(loadFromLocalStorage("tempSqlCommand"));
+
+
+            }, function (error) { console.log(error) });
+        }
+        fileReader.readAsArrayBuffer(uploadedFile);
+
+    });
+
+
+
+    //function: aktualisiert das #selDbChooser select Feld
+    function updateDbChooser(selected) {
+        $("#selDbChooser").html("");
+        DATABASE_ARRAY.forEach(element => {
+            $("#selDbChooser").append(new Option(element.name, element.name));
+        })
+        if (selected != null) $("#selDbChooser").val(selected);
+    }
 
     ////////////
     // EVENTS //
