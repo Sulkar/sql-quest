@@ -9,6 +9,7 @@ $(document).ready(function () {
     var USED_TABLES = []; // listet alle genutzten Tabellen einer DB auf, um SELECTs entsprechend zu befüllen
     var CURRENT_SQL_DATABASE; //aktuell geladene DB
     var DATABASE_ARRAY = [];
+    var CURRENT_DATABASE_INDEX = 0;
     DATABASE_ARRAY.push(createDatabaseObject("mitarbeiterDB.db", null, "server"));
     DATABASE_ARRAY.push(createDatabaseObject("unsereSchule.db", null, "server"));
 
@@ -31,11 +32,11 @@ $(document).ready(function () {
     }
 
     // START - erste Datenbank wird geladen und die View wird angepasst
-    init(fetch("data/" + DATABASE_ARRAY[0].name).then(res => res.arrayBuffer())).then(function (initObject) {
-        CURRENT_SQL_DATABASE = initObject[0];
+    init(fetch("data/" + DATABASE_ARRAY[CURRENT_DATABASE_INDEX].name).then(res => res.arrayBuffer())).then(function (initObject) {
+        CURRENT_SQL_DATABASE = initObject[CURRENT_DATABASE_INDEX];
         ACTIVE_CODE_VIEW_DATA = initObject[1];
 
-        DATABASE_ARRAY[0].database = CURRENT_SQL_DATABASE;
+        DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database = CURRENT_SQL_DATABASE;
 
         updateDbChooser();
         updateActiveCodeView();
@@ -51,21 +52,21 @@ $(document).ready(function () {
 
         CURRENT_SELECTED_SQL_ELEMENT = "START";
 
-        var indexOfDatabaseobject = getIndexOfDatabaseobject(this.value);
-        log(indexOfDatabaseobject);
+        CURRENT_DATABASE_INDEX = getIndexOfDatabaseobject(this.value);
+
         // 1) Datenbank exisitiert und wurde bereits eingelesen
-        if (indexOfDatabaseobject != null && DATABASE_ARRAY[indexOfDatabaseobject].database != null) {
-            CURRENT_SQL_DATABASE = DATABASE_ARRAY[indexOfDatabaseobject].database;
+        if (CURRENT_DATABASE_INDEX != null && DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database != null) {
+            CURRENT_SQL_DATABASE = DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database;
             updateActiveCodeView();
         }
         // 2) Datenbank ist auf dem Server und muss noch eingelesen werden
-        else if (indexOfDatabaseobject != null && DATABASE_ARRAY[indexOfDatabaseobject].type == "server") {
+        else if (CURRENT_DATABASE_INDEX != null && DATABASE_ARRAY[CURRENT_DATABASE_INDEX].type == "server") {
             log("load database");
-            init(fetch("data/" + DATABASE_ARRAY[indexOfDatabaseobject].name).then(res => res.arrayBuffer())).then(function (initObject) {
+            init(fetch("data/" + DATABASE_ARRAY[CURRENT_DATABASE_INDEX].name).then(res => res.arrayBuffer())).then(function (initObject) {
                 CURRENT_SQL_DATABASE = initObject[0];
                 ACTIVE_CODE_VIEW_DATA = initObject[1];
 
-                DATABASE_ARRAY[indexOfDatabaseobject].database = CURRENT_SQL_DATABASE;
+                DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database = CURRENT_SQL_DATABASE;
 
                 updateActiveCodeView();
             }, function (error) { console.log(error) });
@@ -96,16 +97,20 @@ $(document).ready(function () {
     $("#fileDbUpload").on('change', function () {
 
         var uploadedFile = this.files[0];
-        log(uploadedFile)
+
         var fileReader = new FileReader();
         fileReader.onload = function () {
             init(fileReader.result).then(function (initObject) {
                 CURRENT_SQL_DATABASE = initObject[0];
                 ACTIVE_CODE_VIEW_DATA = initObject[1];
 
-                DATABASE_ARRAY.push(createDatabaseObject(uploadedFile.name, CURRENT_SQL_DATABASE, "local"));
 
-                updateDbChooser(uploadedFile.name);
+                var uploadedFileName = buildDatabaseName(uploadedFile.name, null);
+                DATABASE_ARRAY.push(createDatabaseObject(uploadedFileName, CURRENT_SQL_DATABASE, "local"));
+                log(uploadedFileName);
+                CURRENT_DATABASE_INDEX = DATABASE_ARRAY.length - 1;
+
+                updateDbChooser(DATABASE_ARRAY[CURRENT_DATABASE_INDEX].name);
                 updateActiveCodeView();
 
                 //debug:
@@ -118,7 +123,57 @@ $(document).ready(function () {
 
     });
 
+    
+    function buildDatabaseName(name, appendix) {
 
+        var found = false;
+
+        if (appendix != null) {
+            var nameArray = name.split(".");
+            var fileEnding = nameArray[nameArray.length - 1];
+
+            if (appendix == 1) {
+                name = name.replace("." + fileEnding, "_" + appendix + "." + fileEnding);
+            } else {
+                name = name.replace("_" + (appendix - 1) + "." + fileEnding, "_" + appendix + "." + fileEnding);
+            }
+        }
+
+        DATABASE_ARRAY.forEach(element => {
+            if (element.name == name) {
+                if (appendix == null) {
+                    appendix = 1;
+                } else {
+                    appendix++;
+                }
+                found = true;
+            }
+        });
+
+        if (found) {
+            return buildDatabaseName(name, appendix);
+        } else {
+            return name;
+
+        }
+    }
+
+    $("#btnDbDownload").click(function () {
+        var binaryArray = CURRENT_SQL_DATABASE.export();
+
+        var blob = new Blob([binaryArray]);
+        var a = document.createElement("a");
+        document.body.appendChild(a);
+        a.href = window.URL.createObjectURL(blob);
+        a.download = DATABASE_ARRAY[CURRENT_DATABASE_INDEX].name;
+        a.onclick = function () {
+            setTimeout(function () {
+                window.URL.revokeObjectURL(a.href);
+            }, 1500);
+        };
+        a.click();
+
+    });
 
     //function: aktualisiert das #selDbChooser select Feld
     function updateDbChooser(selected) {
