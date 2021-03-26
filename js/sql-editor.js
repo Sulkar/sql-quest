@@ -46,144 +46,6 @@ $(document).ready(function () {
 
     }, function (error) { console.log(error) });
 
-    // Select: Datenbank wird ausgewählt
-    $('#selDbChooser').on('change', function () {
-        $(".codeArea pre code").html("");
-
-        CURRENT_SELECTED_SQL_ELEMENT = "START";
-
-        CURRENT_DATABASE_INDEX = getIndexOfDatabaseobject(this.value);
-
-        // 1) Datenbank exisitiert und wurde bereits eingelesen
-        if (CURRENT_DATABASE_INDEX != null && DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database != null) {
-            CURRENT_SQL_DATABASE = DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database;
-            updateActiveCodeView();
-        }
-        // 2) Datenbank ist auf dem Server und muss noch eingelesen werden
-        else if (CURRENT_DATABASE_INDEX != null && DATABASE_ARRAY[CURRENT_DATABASE_INDEX].type == "server") {
-            log("load database");
-            init(fetch("data/" + DATABASE_ARRAY[CURRENT_DATABASE_INDEX].name).then(res => res.arrayBuffer())).then(function (initObject) {
-                CURRENT_SQL_DATABASE = initObject[0];
-                ACTIVE_CODE_VIEW_DATA = initObject[1];
-
-                DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database = CURRENT_SQL_DATABASE;
-
-                updateActiveCodeView();
-            }, function (error) { console.log(error) });
-        }
-    });
-
-    // function: liefert den Index eines Datenbankobjekts aus dem DATABASE_ARRAY anhand des Namens zurück
-    function getIndexOfDatabaseobject(databaseName) {
-        var indexOfDatabaseobject = null;
-        DATABASE_ARRAY.forEach((element, index) => {
-            if (element.name == databaseName) {
-                indexOfDatabaseobject = index;
-            }
-        });
-        return indexOfDatabaseobject;
-    }
-
-    // function: erstellt ein database Objekt und gibt dieses zurück, wird dann im DATABASE_ARRAY gespeichert
-    function createDatabaseObject(name, database, type) {
-        var databaseObject = {};
-        databaseObject.name = name;
-        databaseObject.database = database;
-        databaseObject.type = type; //server, local, new
-        return databaseObject;
-    }
-
-    // Datenbankdatei wurde zum Upload ausgewählt
-    $("#fileDbUpload").on('change', function () {
-
-        var uploadedFile = this.files[0];
-
-        var fileReader = new FileReader();
-        fileReader.onload = function () {
-            init(fileReader.result).then(function (initObject) {
-                CURRENT_SQL_DATABASE = initObject[0];
-                ACTIVE_CODE_VIEW_DATA = initObject[1];
-
-
-                var uploadedFileName = buildDatabaseName(uploadedFile.name, null);
-                DATABASE_ARRAY.push(createDatabaseObject(uploadedFileName, CURRENT_SQL_DATABASE, "local"));
-                log(uploadedFileName);
-                CURRENT_DATABASE_INDEX = DATABASE_ARRAY.length - 1;
-
-                updateDbChooser(DATABASE_ARRAY[CURRENT_DATABASE_INDEX].name);
-                updateActiveCodeView();
-
-                //debug:
-                $("#jquery-code").html(loadFromLocalStorage("tempSqlCommand"));
-
-
-            }, function (error) { console.log(error) });
-        }
-        fileReader.readAsArrayBuffer(uploadedFile);
-
-    });
-
-    
-    function buildDatabaseName(name, appendix) {
-
-        var found = false;
-
-        if (appendix != null) {
-            var nameArray = name.split(".");
-            var fileEnding = nameArray[nameArray.length - 1];
-
-            if (appendix == 1) {
-                name = name.replace("." + fileEnding, "_" + appendix + "." + fileEnding);
-            } else {
-                name = name.replace("_" + (appendix - 1) + "." + fileEnding, "_" + appendix + "." + fileEnding);
-            }
-        }
-
-        DATABASE_ARRAY.forEach(element => {
-            if (element.name == name) {
-                if (appendix == null) {
-                    appendix = 1;
-                } else {
-                    appendix++;
-                }
-                found = true;
-            }
-        });
-
-        if (found) {
-            return buildDatabaseName(name, appendix);
-        } else {
-            return name;
-
-        }
-    }
-
-    $("#btnDbDownload").click(function () {
-        var binaryArray = CURRENT_SQL_DATABASE.export();
-
-        var blob = new Blob([binaryArray]);
-        var a = document.createElement("a");
-        document.body.appendChild(a);
-        a.href = window.URL.createObjectURL(blob);
-        a.download = DATABASE_ARRAY[CURRENT_DATABASE_INDEX].name;
-        a.onclick = function () {
-            setTimeout(function () {
-                window.URL.revokeObjectURL(a.href);
-            }, 1500);
-        };
-        a.click();
-
-    });
-
-    //function: aktualisiert das #selDbChooser select Feld
-    function updateDbChooser(selected) {
-        $("#selDbChooser").html("");
-        DATABASE_ARRAY.forEach(element => {
-            $("#selDbChooser").append(new Option(element.name, element.name));
-        })
-        if (selected != null) $("#selDbChooser").val(selected);
-    }
-
     ////////////
     // EVENTS //
 
@@ -613,11 +475,6 @@ $(document).ready(function () {
             NR++;
             $(lastUpdateField).after(updateFields);
         }
-
-
-
-
-
     });
 
     // Button: Delete Element
@@ -676,6 +533,101 @@ $(document).ready(function () {
         }
     });
 
+    // Select: Datenbank wird ausgewählt
+    $('#selDbChooser').on('change', function () {
+        $(".codeArea pre code").html("");
+
+        CURRENT_SELECTED_SQL_ELEMENT = "START";
+        CURRENT_DATABASE_INDEX = getIndexOfDatabaseobject(this.value);
+
+        // 1) Datenbank exisitiert und wurde bereits eingelesen
+        if (CURRENT_DATABASE_INDEX != null && DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database != null) {
+            CURRENT_SQL_DATABASE = DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database;
+            updateActiveCodeView();
+        }
+        // 2) Datenbank ist auf dem Server und muss noch eingelesen werden
+        else if (CURRENT_DATABASE_INDEX != null && DATABASE_ARRAY[CURRENT_DATABASE_INDEX].type == "server") {
+            init(fetch("data/" + DATABASE_ARRAY[CURRENT_DATABASE_INDEX].name).then(res => res.arrayBuffer())).then(function (initObject) {
+                CURRENT_SQL_DATABASE = initObject[0];
+                ACTIVE_CODE_VIEW_DATA = initObject[1];
+
+                DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database = CURRENT_SQL_DATABASE;
+
+                updateActiveCodeView();
+            }, function (error) { console.log(error) });
+        }
+    });
+
+    // Datenbankdatei wurde zum Upload ausgewählt
+    $("#fileDbUpload").on('change', function () {
+
+        var uploadedFile = this.files[0];
+
+        var fileReader = new FileReader();
+        fileReader.onload = function () {
+            init(fileReader.result).then(function (initObject) {
+                CURRENT_SQL_DATABASE = initObject[0];
+                ACTIVE_CODE_VIEW_DATA = initObject[1];
+
+                var uploadedFileName = buildDatabaseName(uploadedFile.name, null);
+                DATABASE_ARRAY.push(createDatabaseObject(uploadedFileName, CURRENT_SQL_DATABASE, "local"));
+                CURRENT_DATABASE_INDEX = DATABASE_ARRAY.length - 1;
+
+                updateDbChooser(DATABASE_ARRAY[CURRENT_DATABASE_INDEX].name);
+                updateActiveCodeView();
+
+                //debug:
+                $("#jquery-code").html(loadFromLocalStorage("tempSqlCommand"));
+
+            }, function (error) { console.log(error) });
+        }
+        fileReader.readAsArrayBuffer(uploadedFile);
+
+    });
+
+    //Button: lädt die aktuell ausgewählte Datenbank herunter
+    $("#btnDbDownload").click(function () {
+        var binaryArray = CURRENT_SQL_DATABASE.export();
+
+        var blob = new Blob([binaryArray]);
+        var a = document.createElement("a");
+        document.body.appendChild(a);
+        a.href = window.URL.createObjectURL(blob);
+        a.download = DATABASE_ARRAY[CURRENT_DATABASE_INDEX].name;
+        a.onclick = function () {
+            setTimeout(function () {
+                window.URL.revokeObjectURL(a.href);
+            }, 1500);
+        };
+        a.click();
+
+    });
+
+    // Button: Info - lässt ein Modal mit dem aktuellen Datenbankschema erscheinen
+    $(".btnDbInfo").click(function () {
+        $(".schemaArea.dbInfoModal").html("");
+
+        var tempTables = getSqlTables();
+        tempTables.forEach(table => {
+            var result = CURRENT_SQL_DATABASE.exec("PRAGMA table_info(" + table + ")");
+
+            //erstellt eine Tabelle mit dem Datenbankschema
+            for (var i = 0; i < result.length; i++) {
+                $(".schemaArea.dbInfoModal").append(createTable(result[i].columns, result[i].values, "1,2"));
+
+            }
+        });
+
+    });
+
+    // Button: close modal (x - schließen)
+    $(".btn-close.dbInfoModal").click(function () {
+        //$(".codeArea.resultModal pre code").html("");
+    });
+    $(".btn.btn-secondary.close.dbInfoModal").click(function () {
+        //$(".codeArea.resultModal pre code").html("");
+    });
+
     // Button: run sql command - opens Modal and displays sql result
     $(".btnRun").click(function () {
         removeSelection(false);
@@ -684,7 +636,6 @@ $(document).ready(function () {
         $(".codeArea.resultModal pre code").html(tempCode);
         //
         execSqlCommand(null);
-        //fillSelectionTables();
     });
     // Button: close modal (x - schließen)
     $(".btn-close.resultModal").click(function () {
@@ -697,6 +648,105 @@ $(document).ready(function () {
 
     ///////////////
     // FUNCTIONS //
+
+    //function: Erstellt eine Tabelle mit den Resultaten einer SQL Abfrage
+    function createTable(columns, values, indexesToDisplay) {
+        var indexesToDisplayArray = [];
+        if (indexesToDisplay != null) {
+            var indexesToDisplay = indexesToDisplay.split(",");
+            indexesToDisplayArray = indexesToDisplay.map(Number);
+        }
+
+        var newTable = "<table class='table'>";
+        newTable += "<thead>";
+        columns.forEach((column, index) => {
+            if (indexesToDisplay == null) {
+                newTable += "<th>" + column + "</th>";
+            } else if (indexesToDisplayArray.includes(index)) {
+                newTable += "<th>" + column + "</th>";
+            }
+        });
+        newTable += "</thead>";
+        newTable += "<tbody>";
+        values.forEach((value) => {
+            newTable += "<tr>";
+            value.forEach((element, index2) => {
+                if (indexesToDisplay == null) {
+                    newTable += "<td>" + element + "</td>";
+                } else if (indexesToDisplayArray.includes(index2)) {
+                    newTable += "<td>" + element + "</td>";
+                }
+            });
+            newTable += "</tr>";
+        });
+        newTable += "</tbody>";
+        newTable += "</table>"
+
+        return newTable;
+    }
+
+    //function: aktualisiert das #selDbChooser select Feld
+    function updateDbChooser(selected) {
+        $("#selDbChooser").html("");
+        DATABASE_ARRAY.forEach(element => {
+            $("#selDbChooser").append(new Option(element.name, element.name));
+        })
+        if (selected != null) $("#selDbChooser").val(selected);
+    }
+
+    // function: liefert den Index eines Datenbankobjekts aus dem DATABASE_ARRAY anhand des Namens zurück
+    function getIndexOfDatabaseobject(databaseName) {
+        var indexOfDatabaseobject = null;
+        DATABASE_ARRAY.forEach((element, index) => {
+            if (element.name == databaseName) {
+                indexOfDatabaseobject = index;
+            }
+        });
+        return indexOfDatabaseobject;
+    }
+
+    // function: erstellt ein database Objekt und gibt dieses zurück, wird dann im DATABASE_ARRAY gespeichert
+    function createDatabaseObject(name, database, type) {
+        var databaseObject = {};
+        databaseObject.name = name;
+        databaseObject.database = database;
+        databaseObject.type = type; //server, local, new
+        return databaseObject;
+    }
+
+    // function: testet ob es beim Upload eine Datenbank mit dem gleichen Namen gibt, wenn ja, dann wird ein Appendix hinzugefügt
+    function buildDatabaseName(name, appendix) {
+        var found = false;
+
+        if (appendix != null) {
+            var nameArray = name.split(".");
+            var fileEnding = nameArray[nameArray.length - 1];
+
+            if (appendix == 1) {
+                name = name.replace("." + fileEnding, "_" + appendix + "." + fileEnding);
+            } else {
+                name = name.replace("_" + (appendix - 1) + "." + fileEnding, "_" + appendix + "." + fileEnding);
+            }
+        }
+
+        DATABASE_ARRAY.forEach(element => {
+            if (element.name == name) {
+                if (appendix == null) {
+                    appendix = 1;
+                } else {
+                    appendix++;
+                }
+                found = true;
+            }
+        });
+
+        if (found) {
+            return buildDatabaseName(name, appendix);
+        } else {
+            return name;
+
+        }
+    }
 
     //function: fügt der buttonArea aktuell notwendige codeComponents hinzu
     function createCodeComponent(codeComponent) {
@@ -1177,24 +1227,6 @@ $(document).ready(function () {
         }
     }
 
-    //function: Erstelle eine Tabelle mit den Resultaten der SQL Abfrage
-    var tableCreate = function () {
-        function valconcat(vals, tagName) {
-            if (vals.length === 0) return '';
-            var open = '<' + tagName + '>', close = '</' + tagName + '>';
-            return open + vals.join(close + open) + close;
-        }
-        return function (columns, values) {
-            var newTable = "<table class='table'>"
-            var html = '<thead>' + valconcat(columns, 'th') + '</thead>';
-            var rows = values.map(function (v) { return valconcat(v, 'td'); });
-            html += '<tbody>' + valconcat(rows, 'tr') + '</tbody>';
-            newTable += html;
-            newTable += "</table>";
-            return newTable;
-        }
-    }();
-
     //SQLite functions:
     function getSqlTables() {
         return CURRENT_SQL_DATABASE.exec("SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%'")[0].values;
@@ -1218,7 +1250,7 @@ $(document).ready(function () {
             //erstellt eine Tabelle mit den Ergebnissen
             $(".resultArea.resultModal").html("");
             for (var i = 0; i < result.length; i++) {
-                $(".resultArea.resultModal").append(tableCreate(result[i].columns, result[i].values));
+                $(".resultArea.resultModal").append(createTable(result[i].columns, result[i].values, null));
             }
         }
         catch (err) {
