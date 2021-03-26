@@ -12,6 +12,8 @@ $(document).ready(function () {
     var CURRENT_DATABASE_INDEX = 0;
     DATABASE_ARRAY.push(createDatabaseObject("mitarbeiterDB.db", null, "server"));
     DATABASE_ARRAY.push(createDatabaseObject("unsereSchule.db", null, "server"));
+    var CSS_COLOR_ARRAY = ["coral", "tomato", "orange", "gold", "palegreen", "yellowgreen", "mediumaquamarine", "paleturquoise", "skyblue", "cadetblue", "pink", "hotpink", "orchid", "mediumpurple", "lightvoral"];
+
 
     //////////
     // INIT //
@@ -605,19 +607,33 @@ $(document).ready(function () {
 
     // Button: Info - lässt ein Modal mit dem aktuellen Datenbankschema erscheinen
     $(".btnDbInfo").click(function () {
-        $(".schemaArea.dbInfoModal").html("");
 
         var tempTables = getSqlTables();
+        var tableCounter = 1;
+        var htmlTableInfo = "";
+
         tempTables.forEach(table => {
+
+            var tableColor = CSS_COLOR_ARRAY[tableCounter % CSS_COLOR_ARRAY.length];
+
+            if (tableCounter % 3 == 0) {
+                htmlTableInfo += "</div><div class='row'>";
+            } else if (tableCounter == 1) {
+                htmlTableInfo += "<div class='row'>";
+            }
+
             var result = CURRENT_SQL_DATABASE.exec("PRAGMA table_info(" + table + ")");
 
+            htmlTableInfo += "<div class='col-sm'>";
             //erstellt eine Tabelle mit dem Datenbankschema
             for (var i = 0; i < result.length; i++) {
-                $(".schemaArea.dbInfoModal").append(createTable(result[i].columns, result[i].values, "1,2"));
-
+                htmlTableInfo += createTableInfo(result[i].columns, result[i].values, "1,2", tableColor, table);
             }
-        });
+            htmlTableInfo += "</div>";
 
+            tableCounter++;
+        });
+        $(".schemaArea.dbInfoModal").html(htmlTableInfo + "</div>");
     });
 
     // Button: close modal (x - schließen)
@@ -649,23 +665,24 @@ $(document).ready(function () {
     ///////////////
     // FUNCTIONS //
 
-    //function: Erstellt eine Tabelle mit den Resultaten einer SQL Abfrage
-    function createTable(columns, values, indexesToDisplay) {
+    //function: Erstellt eine Tabelle mit den Informationen der Tabellen einer SQL Datenbank
+    function createTableInfo(columns, values, indexesToDisplay, tableColor, tableName) {
+
         var indexesToDisplayArray = [];
         if (indexesToDisplay != null) {
             var indexesToDisplay = indexesToDisplay.split(",");
             indexesToDisplayArray = indexesToDisplay.map(Number);
         }
 
-        var newTable = "<table class='table'>";
+        var newTable = "<table class='table' style='max-width: 20em;'>";
         newTable += "<thead>";
-        columns.forEach((column, index) => {
-            if (indexesToDisplay == null) {
-                newTable += "<th>" + column + "</th>";
-            } else if (indexesToDisplayArray.includes(index)) {
-                newTable += "<th>" + column + "</th>";
-            }
-        });
+
+        if (indexesToDisplay == null) {
+            newTable += "<tr><th colspan='" + columns.length + "' style='background-color: " + tableColor + "'>" + tableName + "</th></tr>";
+        } else {
+            newTable += "<tr><th colspan='" + indexesToDisplayArray.length + "' style='background-color: " + tableColor + "'>" + tableName + "</th></tr>";
+        }
+
         newTable += "</thead>";
         newTable += "<tbody>";
         values.forEach((value) => {
@@ -676,6 +693,30 @@ $(document).ready(function () {
                 } else if (indexesToDisplayArray.includes(index2)) {
                     newTable += "<td>" + element + "</td>";
                 }
+            });
+            newTable += "</tr>";
+        });
+        newTable += "</tbody>";
+        newTable += "</table>"
+
+        return newTable;
+    }
+
+    //function: Erstellt eine Tabelle mit den Resultaten einer SQL Abfrage
+    function createTableSql(columns, values) {
+
+        var newTable = "<table class='table' style=''>";
+        newTable += "<thead>";
+        columns.forEach((column, index) => {
+            newTable += "<th>" + column + "</th>";
+        });
+        newTable += "</thead>";
+
+        newTable += "<tbody>";
+        values.forEach((value) => {
+            newTable += "<tr>";
+            value.forEach((element, index2) => {
+                newTable += "<td>" + element + "</td>";
             });
             newTable += "</tr>";
         });
@@ -1250,7 +1291,7 @@ $(document).ready(function () {
             //erstellt eine Tabelle mit den Ergebnissen
             $(".resultArea.resultModal").html("");
             for (var i = 0; i < result.length; i++) {
-                $(".resultArea.resultModal").append(createTable(result[i].columns, result[i].values, null));
+                $(".resultArea.resultModal").append(createTableSql(result[i].columns, result[i].values));
             }
         }
         catch (err) {
