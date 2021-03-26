@@ -141,6 +141,7 @@ div.col.centerMenu {
     display: none;
 }
 
+.dbHandlingMenu button.btnDbInfo,
 .dbHandlingMenu .fileUpload,
 .dbHandlingMenu button.btnDbDownload,
 .dbHandlingMenu button.btnDbNew {
@@ -157,6 +158,7 @@ div.col.centerMenu {
     font-size: 1.3rem;
 }
 
+.dbHandlingMenu button.btnDbInfo:hover,
 .dbHandlingMenu .fileUpload:hover,
 .dbHandlingMenu button.btnDbDownload:hover,
 .dbHandlingMenu select:hover,
