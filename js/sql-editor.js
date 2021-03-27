@@ -14,6 +14,7 @@ $(document).ready(function () {
     DATABASE_ARRAY.push(createDatabaseObject("unsereSchule.db", null, "server"));
     var CSS_COLOR_ARRAY = ["coral", "tomato", "orange", "gold", "palegreen", "yellowgreen", "mediumaquamarine", "paleturquoise", "skyblue", "cadetblue", "pink", "hotpink", "orchid", "mediumpurple", "lightvoral"];
 
+    var NEW_LAYOUT_1 = true;
 
     //////////
     // INIT //
@@ -634,6 +635,7 @@ $(document).ready(function () {
             tableCounter++;
         });
         $(".schemaArea.dbInfoModal").html(htmlTableInfo + "</div>");
+        if(NEW_LAYOUT_1) $(".outputArea").html("<h4>Datenbank Schema</h4>" + htmlTableInfo + "</div>");
     });
 
     // Button: close modal (x - schließen)
@@ -646,7 +648,7 @@ $(document).ready(function () {
 
     // Button: run sql command - opens Modal and displays sql result
     $(".btnRun").click(function () {
-        removeSelection(false);
+        if(!NEW_LAYOUT_1) removeSelection(false);
         //
         var tempCode = $(".codeArea.editor pre code").html().trim();
         $(".codeArea.resultModal pre code").html(tempCode);
@@ -1290,8 +1292,10 @@ $(document).ready(function () {
 
             //erstellt eine Tabelle mit den Ergebnissen
             $(".resultArea.resultModal").html("");
+            if(NEW_LAYOUT_1) $(".outputArea").html("<h4>SQL Output</h4>");
             for (var i = 0; i < result.length; i++) {
                 $(".resultArea.resultModal").append(createTableSql(result[i].columns, result[i].values));
+                if(NEW_LAYOUT_1) $(".outputArea").append(createTableSql(result[i].columns, result[i].values));
             }
         }
         catch (err) {
@@ -1305,7 +1309,7 @@ $(document).ready(function () {
     //DEBUG//
 
     //display current version
-    $(codeVersion).append("1.0");
+    $(codeVersion).append("0.5");
 
     //display debug area with controls
     $("#displayDebug").click(function () {
