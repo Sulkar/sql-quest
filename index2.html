@@ -65,19 +65,113 @@
                 <div class="modal-body">
 
                     <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <h2>Übersicht</h2>
+                        <div class="container">
+                            <div class="schemaArea dbInfoModal">
+                                <div class="row tableSelectMenu">
+                                    <h6>Tabellen</h6>
+                                    <div class="col ">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                              mitarbeiter
+                                            </label></br>
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                              gehalt
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col ">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                  mitarbeiter
+                                                </label></br>
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                  gehalt
+                                                </label>
+                                        </div>
+                                    </div>
+                                    <div class="col ">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                      mitarbeiter
+                                                    </label></br>
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                      gehalt
+                                                    </label>
+                                        </div>
+                                    </div>
 
+                                    <hr>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <table class="table" style="max-width: 20em;">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2" style="background-color: tomato">mitarbeiter</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>id</td>
+                                                <td>integer</td>
+                                            </tr>
+                                            <tr>
+                                                <td>vorname</td>
+                                                <td>text</td>
+                                            </tr>
+                                            <tr>
+                                                <td>nachname</td>
+                                                <td>text</td>
+                                            </tr>
+                                            <tr>
+                                                <td>alter</td>
+                                                <td>integer</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm">
+                                    <table class="table" style="max-width: 20em;">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2" style="background-color: orange">gehalt</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>id</td>
+                                                <td>integer</td>
+                                            </tr>
+                                            <tr>
+                                                <td>mitarbeiter_id</td>
+                                                <td>integer</td>
+                                            </tr>
+                                            <tr>
+                                                <td>gehalt</td>
+                                                <td>decimal</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
             </div>
         </div>
+    </div>
     </div>
 
 
