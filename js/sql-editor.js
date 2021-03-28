@@ -44,6 +44,10 @@ $(document).ready(function () {
         updateDbChooser();
         updateActiveCodeView();
 
+        // zeigt das Datenbankschema an
+        var tempTables = getSqlTables();
+        if (NEW_LAYOUT_1) $(".outputArea").html("<h4>Datenbank Schema</h4>" + createTableInfo(tempTables, "1,2") + "</div>");
+
         //debug:
         $("#jquery-code").html(loadFromLocalStorage("tempSqlCommand"));
 
@@ -547,6 +551,10 @@ $(document).ready(function () {
         if (CURRENT_DATABASE_INDEX != null && DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database != null) {
             CURRENT_SQL_DATABASE = DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database;
             updateActiveCodeView();
+
+            // zeigt das Datenbankschema an
+            var tempTables = getSqlTables();
+            if (NEW_LAYOUT_1) $(".outputArea").html("<h4>Datenbank Schema</h4>" + createTableInfo(tempTables, "1,2") + "</div>");
         }
         // 2) Datenbank ist auf dem Server und muss noch eingelesen werden
         else if (CURRENT_DATABASE_INDEX != null && DATABASE_ARRAY[CURRENT_DATABASE_INDEX].type == "server") {
@@ -557,6 +565,11 @@ $(document).ready(function () {
                 DATABASE_ARRAY[CURRENT_DATABASE_INDEX].database = CURRENT_SQL_DATABASE;
 
                 updateActiveCodeView();
+
+                // zeigt das Datenbankschema an
+                var tempTables = getSqlTables();
+                if (NEW_LAYOUT_1) $(".outputArea").html("<h4>Datenbank Schema</h4>" + createTableInfo(tempTables, "1,2") + "</div>");
+
             }, function (error) { console.log(error) });
         }
     });
@@ -578,6 +591,10 @@ $(document).ready(function () {
 
                 updateDbChooser(DATABASE_ARRAY[CURRENT_DATABASE_INDEX].name);
                 updateActiveCodeView();
+
+                // zeigt das Datenbankschema an
+                var tempTables = getSqlTables();
+                if (NEW_LAYOUT_1) $(".outputArea").html("<h4>Datenbank Schema</h4>" + createTableInfo(tempTables, "1,2") + "</div>");
 
                 //debug:
                 $("#jquery-code").html(loadFromLocalStorage("tempSqlCommand"));
@@ -608,34 +625,10 @@ $(document).ready(function () {
 
     // Button: Info - lässt ein Modal mit dem aktuellen Datenbankschema erscheinen
     $(".btnDbInfo").click(function () {
-
         var tempTables = getSqlTables();
-        var tableCounter = 1;
-        var htmlTableInfo = "";
 
-        tempTables.forEach(table => {
-
-            var tableColor = CSS_COLOR_ARRAY[tableCounter % CSS_COLOR_ARRAY.length];
-
-            if (tableCounter % 3 == 0) {
-                htmlTableInfo += "</div><div class='row'>";
-            } else if (tableCounter == 1) {
-                htmlTableInfo += "<div class='row'>";
-            }
-
-            var result = CURRENT_SQL_DATABASE.exec("PRAGMA table_info(" + table + ")");
-
-            htmlTableInfo += "<div class='col-sm'>";
-            //erstellt eine Tabelle mit dem Datenbankschema
-            for (var i = 0; i < result.length; i++) {
-                htmlTableInfo += createTableInfo(result[i].columns, result[i].values, "1,2", tableColor, table);
-            }
-            htmlTableInfo += "</div>";
-
-            tableCounter++;
-        });
-        $(".schemaArea.dbInfoModal").html(htmlTableInfo + "</div>");
-        if(NEW_LAYOUT_1) $(".outputArea").html("<h4>Datenbank Schema</h4>" + htmlTableInfo + "</div>");
+        if (!NEW_LAYOUT_1) $(".schemaArea.dbInfoModal").html(createTableInfo(tempTables, "1,2") + "</div>");
+        if (NEW_LAYOUT_1) $(".outputArea").html("<h4>Datenbank Schema</h4>" + createTableInfo(tempTables, "1,2") + "</div>");
     });
 
     // Button: close modal (x - schließen)
@@ -648,10 +641,10 @@ $(document).ready(function () {
 
     // Button: run sql command - opens Modal and displays sql result
     $(".btnRun").click(function () {
-        if(!NEW_LAYOUT_1) removeSelection(false);
+        if (!NEW_LAYOUT_1) removeSelection(false);
         //
         var tempCode = $(".codeArea.editor pre code").html().trim();
-        $(".codeArea.resultModal pre code").html(tempCode);
+        if (!NEW_LAYOUT_1) $(".codeArea.resultModal pre code").html(tempCode);
         //
         execSqlCommand(null);
     });
@@ -668,40 +661,63 @@ $(document).ready(function () {
     // FUNCTIONS //
 
     //function: Erstellt eine Tabelle mit den Informationen der Tabellen einer SQL Datenbank
-    function createTableInfo(columns, values, indexesToDisplay, tableColor, tableName) {
+    function createTableInfo(tables, indexesToDisplay) {
 
-        var indexesToDisplayArray = [];
-        if (indexesToDisplay != null) {
-            var indexesToDisplay = indexesToDisplay.split(",");
-            indexesToDisplayArray = indexesToDisplay.map(Number);
-        }
+        var tableCounter = 1;
+        var htmlTableInfo = "";
 
-        var newTable = "<table class='table' style='max-width: 20em;'>";
-        newTable += "<thead>";
+        tables.forEach(table => {
 
-        if (indexesToDisplay == null) {
-            newTable += "<tr><th colspan='" + columns.length + "' style='background-color: " + tableColor + "'>" + tableName + "</th></tr>";
-        } else {
-            newTable += "<tr><th colspan='" + indexesToDisplayArray.length + "' style='background-color: " + tableColor + "'>" + tableName + "</th></tr>";
-        }
+            var tableColor = CSS_COLOR_ARRAY[tableCounter % CSS_COLOR_ARRAY.length];
 
-        newTable += "</thead>";
-        newTable += "<tbody>";
-        values.forEach((value) => {
-            newTable += "<tr>";
-            value.forEach((element, index2) => {
-                if (indexesToDisplay == null) {
-                    newTable += "<td>" + element + "</td>";
-                } else if (indexesToDisplayArray.includes(index2)) {
-                    newTable += "<td>" + element + "</td>";
+            if (tableCounter % 3 == 0) {
+                htmlTableInfo += "</div><div class='row'>";
+            } else if (tableCounter == 1) {
+                htmlTableInfo += "<div class='row'>";
+            }
+
+            var currentTableData = CURRENT_SQL_DATABASE.exec("PRAGMA table_info(" + table + ")");
+
+            htmlTableInfo += "<div class='col-sm'>";
+
+            //erstellt eine Tabelle mit dem Datenbankschema
+            for (var i = 0; i < currentTableData.length; i++) {
+
+                if (indexesToDisplay != null) {
+                    indexesToDisplayArray = indexesToDisplay.split(",");
+                    indexesToDisplayArray = indexesToDisplayArray.map(Number);
                 }
-            });
-            newTable += "</tr>";
-        });
-        newTable += "</tbody>";
-        newTable += "</table>"
 
-        return newTable;
+                htmlTableInfo += "<table class='table' style='max-width: 20em;'>";
+                htmlTableInfo += "<thead>";
+
+                if (indexesToDisplay == null) {
+                    htmlTableInfo += "<tr><th colspan='" + currentTableData[i].columns.length + "' style='background-color: " + tableColor + "'>" + table + "</th></tr>";
+                } else {
+                    htmlTableInfo += "<tr><th colspan='" + indexesToDisplayArray.length + "' style='background-color: " + tableColor + "'>" + table + "</th></tr>";
+                }
+
+                htmlTableInfo += "</thead>";
+                htmlTableInfo += "<tbody>";
+                currentTableData[i].values.forEach((value) => {
+                    htmlTableInfo += "<tr>";
+                    value.forEach((element, index2) => {
+                        if (indexesToDisplay == null) {
+                            htmlTableInfo += "<td>" + element + "</td>";
+                        } else if (indexesToDisplayArray.includes(index2)) {
+                            htmlTableInfo += "<td>" + element + "</td>";
+                        }
+                    });
+                    htmlTableInfo += "</tr>";
+                });
+                htmlTableInfo += "</tbody>";
+                htmlTableInfo += "</table>"
+            }
+            htmlTableInfo += "</div>";
+
+            tableCounter++;
+        });
+        return htmlTableInfo;
     }
 
     //function: Erstellt eine Tabelle mit den Resultaten einer SQL Abfrage
@@ -1292,10 +1308,10 @@ $(document).ready(function () {
 
             //erstellt eine Tabelle mit den Ergebnissen
             $(".resultArea.resultModal").html("");
-            if(NEW_LAYOUT_1) $(".outputArea").html("<h4>SQL Output</h4>");
+            if (NEW_LAYOUT_1) $(".outputArea").html("<h4>SQL Output</h4>");
             for (var i = 0; i < result.length; i++) {
                 $(".resultArea.resultModal").append(createTableSql(result[i].columns, result[i].values));
-                if(NEW_LAYOUT_1) $(".outputArea").append(createTableSql(result[i].columns, result[i].values));
+                if (NEW_LAYOUT_1) $(".outputArea").append(createTableSql(result[i].columns, result[i].values));
             }
         }
         catch (err) {
