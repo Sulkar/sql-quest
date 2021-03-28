@@ -47,7 +47,7 @@ $(document).ready(function () {
         // zeigt das Datenbankschema an
         var tempTables = getSqlTables();
         if (NEW_LAYOUT_1) $(".outputArea").html("<h4>Datenbank Schema</h4>" + createTableInfo(tempTables, "1,2") + "</div>");
-
+        
         //debug:
         $("#jquery-code").html(loadFromLocalStorage("tempSqlCommand"));
 
@@ -722,26 +722,34 @@ $(document).ready(function () {
         return htmlTableInfo;
     }
 
+
+    
+
     //function: Erstellt eine Tabelle mit den Resultaten einer SQL Abfrage
     function createTableSql(columns, values) {
 
-        var newTable = "<table class='table' style=''>";
+        var newTable = "<div class='table-responsive'><table class='table tableSql' style=''>";
         newTable += "<thead>";
-        columns.forEach((column, index) => {
-            newTable += "<th>" + column + "</th>";
+        columns.forEach((column) => {
+            newTable += "<th scope='col'>" + column + "</th>";
         });
         newTable += "</thead>";
 
         newTable += "<tbody>";
         values.forEach((value) => {
             newTable += "<tr>";
-            value.forEach((element, index2) => {
-                newTable += "<td>" + element + "</td>";
+            value.forEach((element) => {
+                if(element.length > 200) {
+                    newTable += "<td style='min-width: 200px;'>" + element + "</td>";
+                }else{
+                    newTable += "<td style=''>" + element + "</td>";
+                }
+                
             });
             newTable += "</tr>";
         });
         newTable += "</tbody>";
-        newTable += "</table>"
+        newTable += "</table></div>"
 
         return newTable;
     }
@@ -1310,10 +1318,10 @@ $(document).ready(function () {
 
             //erstellt eine Tabelle mit den Ergebnissen
             $(".resultArea.resultModal").html("");
-            if (NEW_LAYOUT_1) $(".outputArea").html("<h4>SQL Output</h4>");
+            if (NEW_LAYOUT_1) $(".outputArea").html("<h4>SQL Output</h4><p>Hallo...</p>");
             for (var i = 0; i < result.length; i++) {
                 if (!NEW_LAYOUT_1) $(".resultArea.resultModal").append(createTableSql(result[i].columns, result[i].values));
-                if (NEW_LAYOUT_1) $(".outputArea").append(createTableSql(result[i].columns, result[i].values));
+                if (NEW_LAYOUT_1) $(".outputArea").append(""+createTableSql(result[i].columns, result[i].values)+"");
             }
         }
         catch (err) {

@@ -1,9 +1,15 @@
 #headerSql {
     display: inline-block;
 }
-
+.tableSql{
+    /*min-width: 200px;*/
+    /*text-overflow: ellipsis;*/
+}
 .outputArea {
     /*border: 1px solid lightgrey;*/
+    height: 80vh;
+    overflow-y: scroll;
+    /*white-space: nowrap;*/
 }
 
 
