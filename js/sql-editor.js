@@ -590,6 +590,8 @@ $(document).ready(function () {
                 CURRENT_DATABASE_INDEX = DATABASE_ARRAY.length - 1;
 
                 updateDbChooser(DATABASE_ARRAY[CURRENT_DATABASE_INDEX].name);
+                $(".codeArea pre code").html("");
+                CURRENT_SELECTED_SQL_ELEMENT = "START";
                 updateActiveCodeView();
 
                 // zeigt das Datenbankschema an
@@ -1310,12 +1312,13 @@ $(document).ready(function () {
             $(".resultArea.resultModal").html("");
             if (NEW_LAYOUT_1) $(".outputArea").html("<h4>SQL Output</h4>");
             for (var i = 0; i < result.length; i++) {
-                $(".resultArea.resultModal").append(createTableSql(result[i].columns, result[i].values));
+                if (!NEW_LAYOUT_1) $(".resultArea.resultModal").append(createTableSql(result[i].columns, result[i].values));
                 if (NEW_LAYOUT_1) $(".outputArea").append(createTableSql(result[i].columns, result[i].values));
             }
         }
         catch (err) {
-            $(".resultArea.resultModal").html(err.message);
+            if (!NEW_LAYOUT_1) $(".resultArea.resultModal").html(err.message);
+            if (NEW_LAYOUT_1) $(".outputArea").html("<h4>SQL Fehler:</h4>" + "<span style='color: tomato;'>" + err.message + "</span>");
         }
 
     }
