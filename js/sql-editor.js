@@ -47,7 +47,7 @@ $(document).ready(function () {
         // zeigt das Datenbankschema an
         var tempTables = getSqlTables();
         if (NEW_LAYOUT_1) $(".outputArea").html("<h4>Datenbank Schema</h4>" + createTableInfo(tempTables, "1,2") + "</div>");
-        
+
         //debug:
         $("#jquery-code").html(loadFromLocalStorage("tempSqlCommand"));
 
@@ -55,6 +55,14 @@ $(document).ready(function () {
 
     ////////////
     // EVENTS //
+
+    $(".buttonArea.codeComponents").on('scroll', function () {
+        var maxWidth = $(".buttonArea.codeComponents").get(0).scrollWidth;
+        var scrollIndex = Math.floor(($(".buttonArea.codeComponents").scrollLeft() + ($(".buttonArea.codeComponents").get(0).clientWidth /2)) / ((maxWidth / 3))) ;
+        $(".codeComponentsScrolldots a").removeClass("activeDot");
+        $(".codeComponentsScrolldots a").eq(scrollIndex).addClass("activeDot");
+
+    });
 
     // Button: SELECT ___ FROM ___
     $(".buttonArea.codeComponents").on('click', '.btnSelect', function () {
@@ -723,7 +731,7 @@ $(document).ready(function () {
     }
 
 
-    
+
 
     //function: Erstellt eine Tabelle mit den Resultaten einer SQL Abfrage
     function createTableSql(columns, values) {
@@ -739,12 +747,12 @@ $(document).ready(function () {
         values.forEach((value) => {
             newTable += "<tr>";
             value.forEach((element) => {
-                if(element.length > 200) {
+                if (element.length > 200) {
                     newTable += "<td style='min-width: 200px;'>" + element + "</td>";
-                }else{
+                } else {
                     newTable += "<td style=''>" + element + "</td>";
                 }
-                
+
             });
             newTable += "</tr>";
         });
@@ -1236,6 +1244,7 @@ $(document).ready(function () {
 
             ACTIVE_CODE_VIEW_DATA.forEach(element => {
                 if (element.selectedSQLElement == CURRENT_SELECTED_SQL_ELEMENT) {
+                    var maxComponents = element.visibleCodeComponents.length;
                     element.visibleCodeComponents.forEach(element => {
 
                         $(element.codeComponentClass).show(); // for add, delete buttons
@@ -1321,7 +1330,7 @@ $(document).ready(function () {
             if (NEW_LAYOUT_1) $(".outputArea").html("<h4>SQL Output</h4><p>Hallo...</p>");
             for (var i = 0; i < result.length; i++) {
                 if (!NEW_LAYOUT_1) $(".resultArea.resultModal").append(createTableSql(result[i].columns, result[i].values));
-                if (NEW_LAYOUT_1) $(".outputArea").append(""+createTableSql(result[i].columns, result[i].values)+"");
+                if (NEW_LAYOUT_1) $(".outputArea").append("" + createTableSql(result[i].columns, result[i].values) + "");
             }
         }
         catch (err) {

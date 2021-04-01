@@ -1,5 +1,15 @@
 /* NEW */
 
+.codeComponentsScrolldots{
+    text-align: center;
+}
+.codeComponentsScrolldots a:not([href]){
+    color: lightgray;
+    text-decoration: none;
+}
+.codeComponentsScrolldots a:not([href]).activeDot{
+    color:slategrey;
+}
 
 #headerSql {
     display: inline-block;
@@ -315,7 +325,8 @@ div.col.centerMenu {
     border-bottom: 0.15em solid forestgreen;
 }
 
-.buttonArea button.btnRun {
+.buttonArea button.btnRun,
+.buttonArea button.btnRunMobile {
     color: forestgreen;
     border-bottom: 0.15em solid forestgreen;
 }
@@ -374,6 +385,14 @@ pre span.codeline span:first {
         color: #888;
     }
 }
+@media (max-width: 768px) {  /* bootstrap md breakpoint */ 
+    .buttonArea{
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+
 
 #debug {
     border: 1px solid Gray;
