@@ -649,14 +649,15 @@ $(document).ready(function () {
         //$(".codeArea.resultModal pre code").html("");
     });
 
-    // Button: run sql command - opens Modal and displays sql result
+    // Button: run sql command - desktop
     $(".btnRun").click(function () {
-        if (!NEW_LAYOUT_1) removeSelection(false);
-        //
+        execSqlCommand(null, "desktop");
+    });
+    // Button: run sql command - mobile 
+    $(".btnRunMobile").click(function () {        
         var tempCode = $(".codeArea.editor pre code").html().trim();
-        if (!NEW_LAYOUT_1) $(".codeArea.resultModal pre code").html(tempCode);
-        //
-        execSqlCommand(null);
+        $(".codeArea.resultModal pre code").html(tempCode);        
+        execSqlCommand(null, "mobile");
     });
     // Button: close modal (x - schließen)
     $(".btn-close.resultModal").click(function () {
@@ -1244,7 +1245,7 @@ $(document).ready(function () {
 
             ACTIVE_CODE_VIEW_DATA.forEach(element => {
                 if (element.selectedSQLElement == CURRENT_SELECTED_SQL_ELEMENT) {
-                    var maxComponents = element.visibleCodeComponents.length;
+                    //var maxComponents = element.visibleCodeComponents.length;
                     element.visibleCodeComponents.forEach(element => {
 
                         $(element.codeComponentClass).show(); // for add, delete buttons
@@ -1313,7 +1314,8 @@ $(document).ready(function () {
     function getSqlTableFields(tempTableName) {
         return CURRENT_SQL_DATABASE.exec("PRAGMA table_info(" + tempTableName + ")")[0].values;
     }
-    function execSqlCommand(tempSqlCommand) {
+    //function: run sql command, type = desktop or mobile
+    function execSqlCommand(tempSqlCommand, type) {
         //bereitet den sql Befehl vor
         var re = new RegExp(String.fromCharCode(160), "g"); // entfernt &nbsp;
         if (tempSqlCommand == null) {
@@ -1329,13 +1331,13 @@ $(document).ready(function () {
             $(".resultArea.resultModal").html("");
             if (NEW_LAYOUT_1) $(".outputArea").html("<h4>SQL Output</h4><p>Hallo...</p>");
             for (var i = 0; i < result.length; i++) {
-                if (!NEW_LAYOUT_1) $(".resultArea.resultModal").append(createTableSql(result[i].columns, result[i].values));
-                if (NEW_LAYOUT_1) $(".outputArea").append("" + createTableSql(result[i].columns, result[i].values) + "");
+                if (type == "mobile") $(".resultArea.resultModal").append(createTableSql(result[i].columns, result[i].values));
+                else if (type == "desktop") $(".outputArea").append("" + createTableSql(result[i].columns, result[i].values) + "");
             }
         }
         catch (err) {
-            if (!NEW_LAYOUT_1) $(".resultArea.resultModal").html(err.message);
-            if (NEW_LAYOUT_1) $(".outputArea").html("<h4>SQL Fehler:</h4>" + "<span style='color: tomato;'>" + err.message + "</span>");
+            if (type == "mobile") $(".resultArea.resultModal").html(err.message);
+            else if (type == "desktop") $(".outputArea").html("<h4>SQL Fehler:</h4>" + "<span style='color: tomato;'>" + err.message + "</span>");
         }
 
     }
@@ -1390,7 +1392,7 @@ $(document).ready(function () {
     });
     $(".btnCode-execSql").click(function () {
         var tempSqlCommand = $("#jquery-code").val();
-        execSqlCommand(tempSqlCommand);
+        execSqlCommand(tempSqlCommand, "desktop");
         $("#exampleModal").modal('toggle');
     });
     $(".btnCode-remove").click(function () {
