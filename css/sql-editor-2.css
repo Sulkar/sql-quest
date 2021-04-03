@@ -6,6 +6,7 @@
 .codeComponentsScrolldots a:not([href]){
     color: lightgray;
     text-decoration: none;
+    padding: 0.2em;
 }
 .codeComponentsScrolldots a:not([href]).activeDot{
     color:slategrey;
@@ -177,7 +178,7 @@ div.col.centerMenu {
 
 
 .dbHandlingMenu button.btnDbInfo,
-.dbHandlingMenu .fileUpload,
+.dbHandlingMenu label.fileUpload,
 .dbHandlingMenu button.btnDbDownload,
 .dbHandlingMenu button.btnDbNew,
 .dbHandlingMenu button.btnHamburgerNav {
@@ -195,12 +196,43 @@ div.col.centerMenu {
 }
 
 
+.dbHandlingMenu .hamburgerNav button.btnDbInfo,
+.dbHandlingMenu .hamburgerNav label.fileUpload,
+.dbHandlingMenu .hamburgerNav button.btnDbDownload,
+.dbHandlingMenu .hamburgerNav button.btnDbNew,
+.dbHandlingMenu .hamburgerNav button.btnHamburgerNav {
+    display: inline-block;
+    padding: 0.35em 1.0em 0.15em;
+    border: 0;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.18em;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #fff;
+    color: slategrey;
+    font-size: 1em;
+}
+
+.dbHandlingMenu .hamburgerNav label.fileUpload{
+    padding: 0;
+    margin: 0;
+}
+.dbHandlingMenu .hamburgerNav .nav-link{
+    color: slategrey;
+}
+
+
+
 .dbHandlingMenu button.btnDbInfo:hover,
-.dbHandlingMenu .fileUpload:hover,
+.dbHandlingMenu label.fileUpload:hover,
 .dbHandlingMenu button.btnDbDownload:hover,
 .dbHandlingMenu select:hover,
 .dbHandlingMenu button.btnDbNew:hover {
     background-color: aliceblue;
+}
+
+.dbHandlingMenu .hamburgerNav label.fileUpload:hover{
+    background-color: #fff;
 }
 
 
